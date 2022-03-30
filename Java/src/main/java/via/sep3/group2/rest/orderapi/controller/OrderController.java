@@ -66,4 +66,15 @@ public class OrderController {
         System.out.println("[Backend - Server] Editing order: " + o.getId());
         return orderRepository.update(o);
     }
+
+    @RequestMapping (value = "/deleteOrder/{id}",
+            method = RequestMethod.DELETE,
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                        MediaType.APPLICATION_JSON_VALUE})
+
+    @ResponseBody
+    public void deleteOrder(@PathVariable Long id){
+        System.out.println("[Backend - Server] Deleting order: " + id);
+        orderRepository.deleteOrder(id);
+    }
 }

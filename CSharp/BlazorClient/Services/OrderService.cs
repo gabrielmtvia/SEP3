@@ -27,4 +27,9 @@ public class OrderService : IOrderService
         byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         await httpClient.PostAsync("/createOrder", byteContent);
     }
+
+    public async void DeleteOrder(long orderId)
+    {
+        await httpClient.DeleteAsync($"/deleteOrder/{orderId}");
+    }
 }

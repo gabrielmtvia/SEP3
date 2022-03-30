@@ -1,6 +1,7 @@
 ﻿// OrderList.razor
 @page "/"
 @inject IOrderService OrderService
+@inject NavigationManager navMgr
 @using BlazorClient.Services
 @using BlazorClient.Model
 @inherits OrderListBase
@@ -22,11 +23,7 @@ else
                 </div>
 
                 <div class="card-footer text-center">
-                    <a href="#" class="btn btn-primary m-1">View</a>
-
-                    <a href="#" class="btn btn-primary m-1">Edit</a>
-
-                    <a href="#" class="btn btn-danger m-1">Delete</a>
+                    <button type="button" class="btn btn-danger m-1" @onclick="@(()=>DeleteOrder(@order.id))">Delete</button>
                 </div>
             </div>
         }
@@ -67,5 +64,13 @@ else
     {
         Order order = new Order(id, description, amount, delivered);
         OrderService.CreateOrder(order);
+        navMgr.NavigateTo("/", forceLoad:true);
     }
+
+    private void DeleteOrder(long orderId)
+    {
+        OrderService.DeleteOrder(orderId);
+        navMgr.NavigateTo("/", forceLoad:true);
+    }
+
 }

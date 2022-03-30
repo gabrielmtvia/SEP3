@@ -52,4 +52,10 @@ public class OrderRepository {
         orderMap.put(o.getId(), o);
         return o;
     }
+
+    // DELETING
+
+    public void deleteOrder(long id){
+        orderMap.remove(id);
+    }
 }
