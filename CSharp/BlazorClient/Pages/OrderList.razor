@@ -1,0 +1,71 @@
+﻿// OrderList.razor
+@page "/"
+@inject IOrderService OrderService
+@using BlazorClient.Services
+@using BlazorClient.Model
+@inherits OrderListBase
+
+
+<h3>OrderList</h3>
+@if (Orders == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="card-deck">
+        @foreach (var order in Orders)
+        {
+            <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+                <div class="card-header">
+                    <h3>@order.id @order.description @order.amount @order.delivered</h3>
+                </div>
+
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-primary m-1">View</a>
+
+                    <a href="#" class="btn btn-primary m-1">Edit</a>
+
+                    <a href="#" class="btn btn-danger m-1">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                    @bind="id" />
+            <label class="form-label" for="form3Example3">Enter long ID</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                    @bind="description" />
+            <label class="form-label" for="form3Example3">Enter String Description</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                    @bind="amount" />
+            <label class="form-label" for="form3Example3">Enter Double Amount</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                    @bind="delivered" />
+            <label class="form-label" for="form3Example3">Enter boolean delivered status</label>
+        </div>
+         <button type="button" class="btn btn-primary btn-lg" @onclick="CreateOrder">Create new</button>
+    </div>
+}
+
+
+@code {
+    private long id;
+    private string? description;
+    private double amount;
+    private bool delivered;
+
+    private void CreateOrder()
+    {
+        Order order = new Order(id, description, amount, delivered);
+        OrderService.CreateOrder(order);
+    }
+}
