@@ -1,7 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using BlazorClient.Model;
+using ModelClasses;
 
 namespace BlazorClient.Services;
 
@@ -16,7 +15,7 @@ public class OrderService : IOrderService
 
     public async Task<IEnumerable<Order>> GetOrders()
     {
-        return await httpClient.GetFromJsonAsync<Order[]>("/orders");
+        return await httpClient.GetFromJsonAsync<Order[]>("/Order");
     }
 
     public async void CreateOrder(Order o)

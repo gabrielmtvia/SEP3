@@ -1,4 +1,4 @@
-﻿using BlazorClient.Model;
+﻿using ModelClasses;
 
 namespace BlazorClient.Services;
 
