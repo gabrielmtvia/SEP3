@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "via.sep3.grpc.book";
+
+message BookMessage{
+  string book = 1;
+}
+
+service BookService {
+  rpc getAllBooks(BookMessage) returns (BookMessage);
+  rpc addBook(BookMessage) returns (BookMessage);
+}
