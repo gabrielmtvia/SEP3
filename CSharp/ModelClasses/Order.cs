@@ -1,4 +1,4 @@
-﻿namespace BlazorClient.Model;
+﻿namespace ModelClasses;
 
 public class Order
 {
