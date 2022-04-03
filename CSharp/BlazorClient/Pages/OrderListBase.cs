@@ -1,6 +1,6 @@
-﻿using BlazorClient.Model;
-using BlazorClient.Services;
+﻿using BlazorClient.Services;
 using Microsoft.AspNetCore.Components;
+using ModelClasses;
 
 namespace BlazorClient.Pages;
 
