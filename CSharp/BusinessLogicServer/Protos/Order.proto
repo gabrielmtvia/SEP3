@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "via.sep3.grpc.order";
+
+message OrderMessage {
+  string order = 1;
+}
+
+service OrderService {
+  rpc getAllOrders(OrderMessage) returns (OrderMessage);
+}

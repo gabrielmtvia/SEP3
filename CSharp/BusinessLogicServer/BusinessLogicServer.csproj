@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <Protobuf Include="Protos\Order.proto" OutputDir="./Protobuf/Order" GrpcServices="Client" />
+        <Protobuf Include="Protos\Book.proto" OutputDir="./Protobuf/Book" GrpcServices="Client" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Protos" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ModelClasses\ModelClasses.csproj" />
+    </ItemGroup>
+
+</Project>

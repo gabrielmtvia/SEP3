@@ -13,10 +13,7 @@ public class OrderNetworking : IOrderNetworking
 
     public async Task<List<ModelClasses.Order>> GetAllOrdersAsync()
     {
-        var allOrdersAsync = await client.getAllOrdersAsync(new OrderMessage()
-        {
-            Order = "Nothing"
-        });
+        var allOrdersAsync = await client.getAllOrdersAsync(new OrderMessage());
 
         var deserialize = JsonSerializer.Deserialize<List<ModelClasses.Order>>(allOrdersAsync.Order, new JsonSerializerOptions()
         {
