@@ -24,7 +24,7 @@ public class OrderService : IOrderService
         var buffer = System.Text.Encoding.UTF8.GetBytes(json);
         var byteContent = new ByteArrayContent(buffer);
         byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        await httpClient.PostAsync("/createOrder", byteContent);
+        await httpClient.PostAsync("/Order", byteContent);
     }
 
     public async void DeleteOrder(long orderId)

@@ -31,46 +31,24 @@ else
     <div>
         <div class="form-outline mb-4">
             <input type="text" id="form3Example3" class="form-control form-control-lg"
-                    @bind="id" />
+                    @bind="OrderToCreate.id" />
             <label class="form-label" for="form3Example3">Enter long ID</label>
         </div>
         <div class="form-outline mb-4">
             <input type="text" id="form3Example3" class="form-control form-control-lg"
-                    @bind="description" />
+                    @bind="OrderToCreate.description" />
             <label class="form-label" for="form3Example3">Enter String Description</label>
         </div>
         <div class="form-outline mb-4">
-            <input type="text" id="form3Example3" class="form-control form-control-lg"
-                    @bind="amount" />
+            <input type="number" id="form3Example3" class="form-control form-control-lg"
+                    @bind="OrderToCreate.amount" />
             <label class="form-label" for="form3Example3">Enter Double Amount</label>
         </div>
         <div class="form-outline mb-4">
-            <input type="text" id="form3Example3" class="form-control form-control-lg"
-                    @bind="delivered" />
-            <label class="form-label" for="form3Example3">Enter boolean delivered status</label>
+            <input type="radio" name="delivered"  value="true" @onchange="OnChange"/>Has been delivered
+            <br/>
+            <input type="radio" name="delivered" value="false" @onchange="OnChange"/>Has <b>NOT</b> been delivered
         </div>
-         <button type="button" class="btn btn-primary btn-lg" @onclick="CreateOrder">Create new</button>
+         <button type="button" class="btn btn-primary btn-lg" @onclick="() => CreateOrder(OrderToCreate)">Create new</button>
     </div>
-}
-
-
-@code {
-    private long id;
-    private string? description;
-    private double amount;
-    private bool delivered;
-
-    private void CreateOrder()
-    {
-        Order order = new Order(id, description, amount, delivered);
-        OrderService.CreateOrder(order);
-        navMgr.NavigateTo("/", forceLoad:true);
-    }
-
-    private void DeleteOrder(long orderId)
-    {
-        OrderService.DeleteOrder(orderId);
-        navMgr.NavigateTo("/", forceLoad:true);
-    }
-
 }

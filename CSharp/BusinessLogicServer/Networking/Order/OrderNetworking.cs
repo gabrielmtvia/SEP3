@@ -13,7 +13,7 @@ public class OrderNetworking : IOrderNetworking
 
     public async Task<List<ModelClasses.Order>> GetAllOrdersAsync()
     {
-        var allOrdersAsync = await client.getAllOrdersAsync(new OrderMessage());
+        var allOrdersAsync = await client.getAllOrdersAsync(new VoidMessage());
 
         var deserialize = JsonSerializer.Deserialize<List<ModelClasses.Order>>(allOrdersAsync.Order, new JsonSerializerOptions()
         {
@@ -21,5 +21,14 @@ public class OrderNetworking : IOrderNetworking
         });
 
         return deserialize;
+    }
+
+    public async Task CreateOrderAsync(ModelClasses.Order order)
+    {
+        var serialize = JsonSerializer.Serialize(order);
+        await client.createOrderAsync(new OrderMessage()
+        {
+            Order = serialize
+        });
     }
 }

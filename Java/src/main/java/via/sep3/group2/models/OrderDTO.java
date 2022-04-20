@@ -1,7 +1,13 @@
 package via.sep3.group2.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "orders")
 public class OrderDTO
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
     public String description;
     public double amount;
@@ -15,9 +21,18 @@ public class OrderDTO
         this.delivered = delivered;
     }
 
+    public OrderDTO()
+    {
+    }
+
     public void setId(long id)
     {
         this.id = id;
+    }
+
+    public long getId()
+    {
+        return id;
     }
 
     public String getDescription()

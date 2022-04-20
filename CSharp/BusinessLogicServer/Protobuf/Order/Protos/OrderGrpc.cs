@@ -45,15 +45,25 @@ public static partial class OrderService
   }
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::VoidMessage> __Marshaller_VoidMessage = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::VoidMessage.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::OrderMessage> __Marshaller_OrderMessage = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::OrderMessage.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::OrderMessage, global::OrderMessage> __Method_getAllOrders = new grpc::Method<global::OrderMessage, global::OrderMessage>(
+  static readonly grpc::Method<global::VoidMessage, global::OrderMessage> __Method_getAllOrders = new grpc::Method<global::VoidMessage, global::OrderMessage>(
       grpc::MethodType.Unary,
       __ServiceName,
       "getAllOrders",
-      __Marshaller_OrderMessage,
+      __Marshaller_VoidMessage,
       __Marshaller_OrderMessage);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::OrderMessage, global::VoidMessage> __Method_createOrder = new grpc::Method<global::OrderMessage, global::VoidMessage>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "createOrder",
+      __Marshaller_OrderMessage,
+      __Marshaller_VoidMessage);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -89,24 +99,44 @@ public static partial class OrderService
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::OrderMessage getAllOrders(global::OrderMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::OrderMessage getAllOrders(global::VoidMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return getAllOrders(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::OrderMessage getAllOrders(global::OrderMessage request, grpc::CallOptions options)
+    public virtual global::OrderMessage getAllOrders(global::VoidMessage request, grpc::CallOptions options)
     {
       return CallInvoker.BlockingUnaryCall(__Method_getAllOrders, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::OrderMessage> getAllOrdersAsync(global::OrderMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::OrderMessage> getAllOrdersAsync(global::VoidMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return getAllOrdersAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::OrderMessage> getAllOrdersAsync(global::OrderMessage request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::OrderMessage> getAllOrdersAsync(global::VoidMessage request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_getAllOrders, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::VoidMessage createOrder(global::OrderMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return createOrder(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::VoidMessage createOrder(global::OrderMessage request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_createOrder, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::VoidMessage> createOrderAsync(global::OrderMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return createOrderAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::VoidMessage> createOrderAsync(global::OrderMessage request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_createOrder, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

@@ -6,6 +6,11 @@ message OrderMessage {
   string order = 1;
 }
 
+message VoidMessage {
+
+}
+
 service OrderService {
-  rpc getAllOrders(OrderMessage) returns (OrderMessage);
+  rpc getAllOrders(VoidMessage) returns (OrderMessage);
+  rpc createOrder(OrderMessage) returns (VoidMessage);
 }

@@ -15,4 +15,9 @@ public class OrderModel : IOrderModel
     {
        return await networking.GetAllOrdersAsync();
     }
+
+    public async Task CreateOrderAsync(ModelClasses.Order order)
+    {
+        await networking.CreateOrderAsync(order);
+    }
 }

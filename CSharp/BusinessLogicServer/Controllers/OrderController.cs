@@ -1,5 +1,6 @@
 ﻿using BusinessLogicServer.Model.Order;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 
@@ -18,5 +19,12 @@ public class OrderController : ControllerBase
     public async Task<List<ModelClasses.Order>> GetAllOrdersAsync()
     {
         return await model.GetAllOrdersAsync();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> CreateOrderAsync(Order order)
+    {
+        await model.CreateOrderAsync(order);
+        return Ok();
     }
 }

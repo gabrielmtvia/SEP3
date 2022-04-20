@@ -11,7 +11,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7031/");
+    client.BaseAddress = new Uri("https://localhost:7031");
 });
 
 var app = builder.Build();
