@@ -1,6 +1,11 @@
-﻿/CSharp/BlazorClient/obj/
-/CSharp/BlazorClient/bin/
-/CSharp/ModelClasses/obj/
-/CSharp/ModelClasses/bin/
-/CSharp/BusinessLogicServer/obj/
-/CSharp/BusinessLogicServer/bin/
+Java/.idea/
+Java/target/
+CSharp/.idea/
+CSharp/BusinessLogicServer/Protobuf/
+CSharp/BlazorClient/obj/
+CSharp/BlazorClient/bin/
+CSharp/ModelClasses/obj/
+CSharp/ModelClasses/bin/
+CSharp/BusinessLogicServer/obj/
+CSharp/BusinessLogicServer/bin/
+
