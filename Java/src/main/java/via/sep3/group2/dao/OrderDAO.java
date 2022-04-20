@@ -26,8 +26,6 @@ public class OrderDAO
 
     public void createOrder(OrderDTO order)
     {
-
-        order.setAmount(order.getAmount()*55);
         repository.save(order);
     }
 }
