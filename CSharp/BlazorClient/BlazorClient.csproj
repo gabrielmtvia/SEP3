@@ -10,4 +10,8 @@
       <ProjectReference Include="..\ModelClasses\ModelClasses.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="authentication" />
+    </ItemGroup>
+
 </Project>
