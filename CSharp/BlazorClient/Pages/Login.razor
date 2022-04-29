@@ -3,18 +3,21 @@
 @inherits LoginBase
 
 <h3>login</h3>
-
-<form>
-  <!-- Email input -->
+<div class="design">
+<EditForm Model="user" OnValidSubmit="@LoginAsync" >
+  <DataAnnotationsValidator/> 
+  <ValidationSummary/>
+  
+  
   <div class="form-outline mb-4">
-    <input type="email" id="form2Example1" class="form-control"@bind="userName"/>
+    <InputTextArea type="email" id="form2Example1" class="form-control"@bind-Value="user.name"/>
     <label class="form-label" for="form2Example1">User Name</label>
   </div>
-  
- 
+
+
   <!-- Password input -->
   <div class="form-outline mb-4">
-    <input type="password" id="form2Example2" class="form-control" @bind="password"/>
+    <InputTextArea type="password" id="form2Example2" class="form-control" @bind-Value="user.password"/>
     <label class="form-label" for="form2Example2">Password</label>
   </div>
 
@@ -23,7 +26,7 @@
     <div class="col d-flex justify-content-center">
       <!-- Checkbox -->
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="form2Example34" checked />
+        <input class="form-check-input" type="checkbox" value="" id="form2Example34" checked/>
         <label class="form-check-label" for="form2Example34"> Remember me </label>
       </div>
     </div>
@@ -35,7 +38,10 @@
   </div>
 
   <!-- Submit button -->
+    
   <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-</form>
+  
 
+</EditForm>
+</div>
 
