@@ -23,7 +23,7 @@ public class LoginBase : ComponentBase
         try
         {
             
-            Console.WriteLine(user.name);
+            Console.WriteLine(user.userName);
             Console.WriteLine(user.password);
          //   await authService.LoginAsync(userName, password);
         // NavigationManager.NavigateTo("/OrderList");
