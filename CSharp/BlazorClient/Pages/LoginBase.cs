@@ -7,12 +7,11 @@ namespace BlazorClient.Pages;
 public class LoginBase : ComponentBase
 {
 
-    // public string? userName { get; set; }
-    // public string? password { get; set; }
+ 
     private string errorLabel = String.Empty;
-    //
-    // [Inject]
-    // public NavigationManager NavigationManager { get; set; }
+
+     [Inject]
+     public NavigationManager NavigationManager { get; set; }
 
     public User user = new User();
     // private string? errorLabel;
@@ -26,7 +25,7 @@ public class LoginBase : ComponentBase
             Console.WriteLine(user.userName);
             Console.WriteLine(user.password);
          //   await authService.LoginAsync(userName, password);
-        // NavigationManager.NavigateTo("/OrderList");
+          NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
         {
