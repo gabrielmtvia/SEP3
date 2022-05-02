@@ -15,6 +15,7 @@ builder.Services.AddSingleton<IOrderNetworking, OrderNetworking>();
 builder.Services.AddSingleton<IOrderModel, OrderModel>();
 
 
+
 builder.Services.AddGrpc();
 builder.Services.AddSingleton(
     new OrderService.OrderServiceClient(GrpcChannel.ForAddress("http://localhost:9090")));

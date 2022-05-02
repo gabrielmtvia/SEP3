@@ -11,7 +11,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="authentication" />
+      <Compile Update="Pages\LoginBase.cs">
+        <DependentUpon>Login.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\OrderListBase.cs">
+        <DependentUpon>OrderList.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\RegisterBase.cs">
+        <DependentUpon>Register.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
