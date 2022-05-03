@@ -1,6 +1,5 @@
 ﻿using BusinessLogicServer.Model.Order;
 using Microsoft.AspNetCore.Mvc;
-using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 
@@ -16,7 +15,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<ModelClasses.Order>> GetAllOrdersAsync()
+    public async Task<List<Order>> GetAllOrdersAsync()
     {
         return await model.GetAllOrdersAsync();
     }

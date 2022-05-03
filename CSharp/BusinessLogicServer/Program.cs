@@ -1,3 +1,4 @@
+global using ModelClasses;
 using BusinessLogicServer.Model.Order;
 using BusinessLogicServer.Networking.Order;
 using Grpc.Net.Client;
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IOrderNetworking, OrderNetworking>();
 builder.Services.AddSingleton<IOrderModel, OrderModel>();
+builder.Services.AddSingleton<IBookModel, BookModel>();
 
 
 
