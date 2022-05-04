@@ -20,6 +20,9 @@
       <Compile Update="Pages\RegisterBase.cs">
         <DependentUpon>Register.razor</DependentUpon>
       </Compile>
+      <Compile Update="Shared\BookListBase.cs">
+        <DependentUpon>BookList.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

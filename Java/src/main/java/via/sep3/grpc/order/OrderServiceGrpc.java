@@ -30,6 +30,7 @@ public final class OrderServiceGrpc {
   private static volatile io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.VoidMessage,
       via.sep3.grpc.order.Order.OrderMessage> getGetAllOrdersMethod;
 
+
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getAllOrders",
       requestType = via.sep3.grpc.order.Order.VoidMessage.class,
