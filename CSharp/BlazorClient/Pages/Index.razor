@@ -1,4 +1,17 @@
 ﻿@page "/"
+@page "/{categoryUrl}"
+@inject IBookService BookService;
 
 <PageTitle>Book Shop</PageTitle>
 <BookList />
+
+@code {
+    [Parameter]
+    public string CategoryUrl { get; set; } = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await BookService.GetBooksAsync(CategoryUrl);
+    }
+
+}

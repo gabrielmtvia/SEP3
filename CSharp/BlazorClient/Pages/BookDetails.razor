@@ -1,0 +1,46 @@
+﻿@page "/BookDetails/{Isbn:long}"
+@inject IBookService _bookService
+
+@if (Book == null)
+{
+    <span>@Message</span>
+}
+else
+{
+    <div class="media">
+        <div class="media-img-wrapper">
+            <img class="media-img" src="@Book.ImageUrl" alt="@Book.Title"/>
+        </div>
+        <div class="media-body">
+            <h2 class="mb-0">@Book.Title</h2>
+            <p>@Book.Description</p>
+            <h4 class="price">
+                $@Book.Price
+            </h4>
+        </div>
+
+    </div>
+}
+
+@code {
+    public Book? Book;
+    public string Message = string.Empty;
+
+    [Parameter]
+    public long Isbn { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Message = "Loading products";
+        var result = await _bookService.GetBookAsync(Isbn);
+        if (!result.Success)
+        {
+            Message = result.Message;
+        }
+        else
+        {
+            Book = result.Data;
+        }
+    }
+
+}

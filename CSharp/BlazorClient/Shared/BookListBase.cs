@@ -1,22 +1,21 @@
 ﻿using BlazorClient.Services.BookService;
 using Microsoft.AspNetCore.Components;
-using ModelClasses;
+
 
 namespace BlazorClient.Shared;
 
-public class BookListBase : ComponentBase
+public class BookListBase : ComponentBase, IDisposable
 {
-    [Inject]
-    public IBookService BookService { get; set; }
-    public List<Book> Books { get; set; }
+    [Inject] public IBookService BookService { get; set; }
 
-    public BookListBase()
+    protected override void OnInitialized()
     {
-        Books = new List<Book>();
+        BookService.BooksChanged += StateHasChanged;
     }
 
-    protected override async Task OnInitializedAsync()
+    public void Dispose()
     {
-        Books = await BookService.GetBooks();
+        BookService.BooksChanged -= StateHasChanged;
     }
+    
 }
