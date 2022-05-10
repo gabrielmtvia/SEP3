@@ -2,6 +2,8 @@ global using ModelClasses;
 using BusinessLogicServer.Model.Order;
 using BusinessLogicServer.Networking.Order;
 using Grpc.Net.Client;
+using via.sep3.grpc.book;
+using via.sep3.grpc.order;
 
 var builder = WebApplication.CreateBuilder(args);
 
