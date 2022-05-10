@@ -2,8 +2,11 @@
 
 public interface IBookService
 {
-    public Task<ServiceResponse<List<Book>>> GetAllBooksAsync();
-    public Task<ServiceResponse<Book>> GetBookAsync(long isbn);
+    Task<ServiceResponse<List<Book>>> GetAllBooksAsync();
+    Task<ServiceResponse<Book>> GetBookAsync(long isbn);
     
-    public Task<ServiceResponse<List<Book>>> GetBooksByCategoryAsync(string categoryUrl);
+    Task<ServiceResponse<List<Book>>> GetBooksByCategoryAsync(string categoryUrl);
+    Task<ServiceResponse<List<Book>>> SearchBooksAsync(string searchText);
+
+    Task<ServiceResponse<List<string>>> GetBookSearchSuggestionsAsync(string searchText);
 }

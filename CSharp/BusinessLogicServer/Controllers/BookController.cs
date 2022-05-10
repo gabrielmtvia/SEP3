@@ -37,5 +37,21 @@ public class BookController : ControllerBase
         var result = await _service.GetBooksByCategoryAsync(categoryUrl);
         return Ok(result);
     }
+    
+    [HttpGet]
+    [Route("search/{searchText}")]
+    public async Task<ActionResult<ServiceResponse<List<Book>>>> SearchBooks(string searchText)
+    {
+        var result = await _service.SearchBooksAsync(searchText);
+        return Ok(result);
+    }
+    
+    [HttpGet]
+    [Route("searchsuggestions/{searchText}")]
+    public async Task<ActionResult<ServiceResponse<List<Book>>>> GetBookSearchSuggestions(string searchText)
+    {
+        var result = await _service.GetBookSearchSuggestionsAsync(searchText);
+        return Ok(result);
+    }
 
 }

@@ -1,9 +1,12 @@
-﻿namespace BlazorClient.Services.BookService;
+﻿using BlazorClient.Shared;
+
+namespace BlazorClient.Services.BookService;
 
 public class BookService : IBookService
 {
     private readonly HttpClient _httpClient;
 
+    public string Message { get; set; } = "Loading books...";
     public event Action BooksChanged;
     public List<Book> Books { get; set; } = new List<Book>();
 
@@ -27,5 +30,29 @@ public class BookService : IBookService
     {
         var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/Book/{isbn}");
         return result;
+    }
+
+    public async Task SearchBooks(string searchText)
+    {
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
+
+        if (result != null && result.Data != null)
+        {
+            Books = result.Data;
+        }
+
+        if (Books.Count == 0)
+        {
+            Message = "No books found";
+        }
+        
+        BooksChanged.Invoke();
+    }
+
+    public async Task<List<string>> GetBookSearchSuggestionsAsync(string searchText)
+    {
+        var result =
+            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/Book/searchSuggestions/{searchText}");
+        return result.Data;
     }
 }

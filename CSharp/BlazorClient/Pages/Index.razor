@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/search/{searchText}"
 @page "/{categoryUrl}"
 @inject IBookService BookService;
 
@@ -7,11 +8,21 @@
 
 @code {
     [Parameter]
-    public string CategoryUrl { get; set; } = null;
+    public string? CategoryUrl { get; set; } = null;
+    
+    [Parameter]
+    public string? SearchText { get; set; } = null;
 
     protected override async Task OnParametersSetAsync()
     {
-        await BookService.GetBooksAsync(CategoryUrl);
+        if (SearchText != null)
+        {
+            await BookService.SearchBooks(SearchText);
+        }
+        else
+        {
+            await BookService.GetBooksAsync(CategoryUrl);
+        }
     }
 
 }

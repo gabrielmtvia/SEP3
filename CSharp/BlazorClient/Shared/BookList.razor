@@ -3,7 +3,7 @@
 
 @if (BookService.Books == null || BookService.Books.Count == 0)
 {
-    <span>Loading Books...</span>
+    <span>@BookService.Message</span>
 }
 else
 {

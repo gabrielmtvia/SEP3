@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicServer.Service.BookService;
+﻿using System.Net.Http.Headers;
+
+namespace BusinessLogicServer.Service.BookService;
 
 public class BookService : IBookService
 {
@@ -97,5 +99,56 @@ public class BookService : IBookService
         }
 
         return response;
+    }
+
+    //TODO when books come from the third tier add await operator
+    public async Task<ServiceResponse<List<Book>>> SearchBooksAsync(string searchText)
+    {
+        var response = new ServiceResponse<List<Book>>
+        {
+            Data = await FindBooksBySearchText(searchText)
+        };
+
+        return response;
+    }
+
+    private async Task<List<Book>> FindBooksBySearchText(string searchText)
+    {
+        return _books.Where(b => b.Title.ToLower().Contains(searchText.ToLower())
+                                 ||
+                                 b.Description.ToLower().Contains(searchText.ToLower())).ToList();
+    }
+
+    public async Task<ServiceResponse<List<string>>> GetBookSearchSuggestionsAsync(string searchText)
+    {
+        var books = await FindBooksBySearchText(searchText);
+        var result = new List<string>();
+
+        foreach (var book in books)
+        {
+            if (book.Title.ToLower().Contains(searchText.ToLower()))
+            {
+                result.Add(book.Title);
+            }
+
+            if (book.Description != null)
+            {
+                var punctuation = book.Description.Where(char.IsPunctuation).Distinct().ToArray();
+                var words = book.Description.Split().Select(s => s.Trim(punctuation));
+
+                foreach (var word  in words)
+                {
+                    if (word.ToLower().Contains(searchText.ToLower()) && !result.Contains(word))
+                    {
+                        result.Add(word);
+                    }
+                }
+            }
+        }
+
+        return new ServiceResponse<List<string>>
+        {
+            Data = result
+        };
     }
 }
