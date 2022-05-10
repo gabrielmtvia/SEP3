@@ -28,4 +28,8 @@ public class OrderDAO
     {
         repository.save(order);
     }
+
+    public void getAnOrderById(long id) {
+        repository.findById(id);
+    }
 }

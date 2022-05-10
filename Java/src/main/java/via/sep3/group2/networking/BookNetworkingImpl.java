@@ -22,4 +22,5 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase
         responseObserver.onNext(Book.BookMessage.newBuilder().setBook("addBook - works").build());
         responseObserver.onCompleted();
     }
+
 }
