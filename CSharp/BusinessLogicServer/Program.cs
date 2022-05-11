@@ -4,8 +4,7 @@ using BusinessLogicServer.Networking.Order;
 using BusinessLogicServer.Service.BookService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
-using via.sep3.grpc.order;
-using BookService = via.sep3.grpc.book.BookService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
