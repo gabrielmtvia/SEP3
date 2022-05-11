@@ -1,50 +1,50 @@
-﻿namespace BusinessLogicServer.Service.CategoryService;
+﻿namespace BusinessLogicServer.Service.GenreService;
 
-public class CategoryService : ICategoryService
+public class GenreService : IGenreService
 {
-    public List<Category> Categories = new List<Category>
+    public List<Genre> Categories = new()
     {
-        new Category()
+        new()
         {
             Id = 1,
             Name = "Science Fiction",
-            Url="Science-Fiction"
-        }, 
-        new Category()
+            Url = "Science-Fiction"
+        },
+        new()
         {
             Id = 2,
             Name = "Historical Novels",
-            Url="Historical-Novels"
+            Url = "Historical-Novels"
         },
-        new Category()
+        new()
         {
             Id = 3,
             Name = "English Literature",
-            Url="English-Literature"
+            Url = "English-Literature"
         },
-        new Category()
+        new()
         {
             Id = 4,
             Name = "Hollywood Novels",
             Url = "Hollywood-Novels"
         },
-        new Category()
+        new()
         {
             Id = 5,
             Name = "Poetry Collections",
             Url = "Poetry"
         },
-        new Category()
+        new()
         {
             Id = 6,
             Name = "Novels based on comics",
             Url = "Novels-based-on-comics"
         }
     };
-    
-    public async Task<ServiceResponse<List<Category>>> GetCategoriesAsync()
+
+    public async Task<ServiceResponse<List<Genre>>> GetGenresAsync()
     {
-        return new ServiceResponse<List<Category>>
+        return new ServiceResponse<List<Genre>>
         {
             Data = Categories
         };

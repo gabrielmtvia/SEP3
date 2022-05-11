@@ -15,11 +15,11 @@ public class BookService : IBookService
         _httpClient = httpClient;
     }
 
-    public async Task GetBooksAsync(string? categoryUrl = null)
+    public async Task GetBooksAsync(string? genreUrl = null)
     {
-        var result = categoryUrl == null ? 
+        var result = genreUrl == null ? 
             await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>("/Book") :
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/category/{categoryUrl}");
+            await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/genre/{genreUrl}");
         if(result!=null && result.Data !=null) 
             Books = result.Data;
         

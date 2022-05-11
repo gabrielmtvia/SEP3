@@ -31,10 +31,10 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
-    [Route("category/{categoryUrl}")]
-    public async Task<ActionResult<ServiceResponse<List<Book>>>> GetBooksByCategory(string categoryUrl)
+    [Route("genre/{genreUrl}")]
+    public async Task<ActionResult<ServiceResponse<List<Book>>>> GetBooksByGenre(string genreUrl)
     {
-        var result = await _service.GetBooksByCategoryAsync(categoryUrl);
+        var result = await _service.GetBooksByGenreAsync(genreUrl);
         return Ok(result);
     }
     
