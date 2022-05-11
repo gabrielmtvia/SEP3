@@ -1,9 +1,11 @@
 global using ModelClasses;
 using BusinessLogicServer.Model.Order;
 using BusinessLogicServer.Networking.Order;
+using BusinessLogicServer.Service.BookService;
+using BusinessLogicServer.Service.CategoryService;
 using Grpc.Net.Client;
-using via.sep3.grpc.book;
 using via.sep3.grpc.order;
+using BookService = via.sep3.grpc.book.BookService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +16,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IOrderNetworking, OrderNetworking>();
-builder.Services.AddSingleton<IOrderModel, OrderModel>();
-builder.Services.AddSingleton<IBookModel, BookModel>();
+builder.Services.AddScoped<IOrderNetworking, OrderNetworking>();
+builder.Services.AddScoped<IOrderModel, OrderModel>();
+builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 
@@ -42,3 +45,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
