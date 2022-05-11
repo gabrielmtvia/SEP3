@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "via.sep3.grpc.order";
+option java_package = "via.sep3.grpc.order";
 
 message OrderMessage {
   string order = 1;
