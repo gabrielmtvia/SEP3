@@ -13,9 +13,8 @@ public class UserServiceIMP : IUserService
 
     private List<User> users = new()
     {
-        new User("Troels", "Troels1234"),
-        new User("Maria", "oneTwo3FOUR"),
-        new User("Anne", "password")  
-        
+        new User("Troels", "Troels1234", "admin"),
+        new User("Maria", "oneTwo3FOUR", "costumer"),
+        new User("Anne", "password", "employee")        
     };
 }
