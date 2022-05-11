@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "via.sep3.grpc.book";
+option csharp_namespace = "via.sep3.grpc.book";
 
 message BookMessage{
   string book = 1;

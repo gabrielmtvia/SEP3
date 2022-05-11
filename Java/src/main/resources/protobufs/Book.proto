@@ -7,6 +7,6 @@ message BookMessage{
 }
 
 service BookService {
-  rpc getAllBooks(BookMessage) returns (BookMessage);
+  rpc getAllBooks( BookMessage) returns ( BookMessage);
   rpc addBook(BookMessage) returns (BookMessage);
 }
