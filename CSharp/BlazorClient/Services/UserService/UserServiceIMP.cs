@@ -15,6 +15,7 @@ public class UserServiceIMP : IUserService
     {
         new User("Troels", "Troels1234"),
         new User("Maria", "oneTwo3FOUR"),
-        new User("Anne", "password")        
+        new User("Anne", "password")  
+        
     };
 }
