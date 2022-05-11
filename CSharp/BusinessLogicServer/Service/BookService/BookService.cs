@@ -6,6 +6,21 @@ public class BookService : IBookService
 {
     private static List<Book> _books = new List<Book>()
     {
+        new Book()
+        {
+            Isbn = 9780345303257,
+            Title = "Who Censored Roger Rabbit?",
+            Author = "Gary K. Wolf",
+            Description = "Who Censored Roger Rabbit? is a mystery novel written by Gary K. Wolf in 1981. It was later adapted by Disney and Amblin Entertainment into the critically acclaimed 1988 film Who Framed Roger Rabbit.",
+            ImageUrl = "https://upload.wikimedia.org/wikipedia/en/4/43/CensoredRabbit.jpg",
+            Price = 8.99m,
+            Category = new Category()
+            {
+                Id = 4,
+                Name = "Hollywood Novels",
+                Url = "Hollywood-Novels"
+            }
+        },
         new Book
         {
             Isbn = 9780330491198,
@@ -32,9 +47,9 @@ public class BookService : IBookService
             Price = 6.75m, 
             Category = new Category()
             {
-            Id = 2,
-            Name = "History",
-            Url="History"
+                Id = 2,
+                Name = "Historical Novels",
+                Url="Historical-Novels"
             },
         
         },

@@ -13,14 +13,32 @@ public class CategoryService : ICategoryService
         new Category()
         {
             Id = 2,
-            Name = "History",
-            Url="History"
+            Name = "Historical Novels",
+            Url="Historical-Novels"
         },
         new Category()
         {
             Id = 3,
             Name = "English Literature",
             Url="English-Literature"
+        },
+        new Category()
+        {
+            Id = 4,
+            Name = "Hollywood Novels",
+            Url = "Hollywood-Novels"
+        },
+        new Category()
+        {
+            Id = 5,
+            Name = "Poetry Collections",
+            Url = "Poetry"
+        },
+        new Category()
+        {
+            Id = 6,
+            Name = "Novels based on comics",
+            Url = "Novels-based-on-comics"
         }
     };
     
