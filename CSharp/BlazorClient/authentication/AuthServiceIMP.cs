@@ -102,7 +102,7 @@ public class AuthServiceIMP : IAuthService
             // new Claim("Role", user..r),
             // new Claim("SecurityLevel", user.SecurityLevel.ToString()),
             // new Claim("BirthYear", user.BirthYear.ToString()),
-            // new Claim("Domain", user.Domain)
+                 new Claim("Role", user.role)
         };
 
         return new ClaimsIdentity(claims, "apiauth_type");

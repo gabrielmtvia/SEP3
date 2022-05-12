@@ -5,6 +5,7 @@ global using BlazorClient.Services;
 global using BlazorClient.Services.BookService;
 global using BlazorClient.Services.OrderService;
 global using BlazorClient.Services.UserService;
+using System.Security.Claims;
 using BlazorClient.Services.CategoryService;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -31,6 +32,29 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 //     client.BaseAddress = new Uri("https://localhost:7031");
 // });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeAdmin",
+        pb =>
+            pb.RequireAuthenticatedUser().RequireClaim("Role", "Admin"));
+
+    options.AddPolicy("MustBeCustomer",
+        a => 
+            a.RequireAuthenticatedUser().RequireClaim("Role", "Customer"));
+    
+    options.AddPolicy("MustBeEmployee",
+        a => 
+            a.RequireAuthenticatedUser().RequireClaim("Role", "Employee"));
+    
+    // options.AddPolicy("SecurityLevel2",
+    //     a => 
+    //         a.RequireAuthenticatedUser().RequireAssertion(context =>
+    //         {
+    //             Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));
+    //             if (levelClaim == null) return false;
+    //             return int.Parse(levelClaim.Value) >= 2;
+    //         }));
+});
 
 var app = builder.Build();
 

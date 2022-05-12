@@ -25,7 +25,8 @@ public class LoginBase : ComponentBase
             Console.WriteLine(user.userName);
             Console.WriteLine(user.password);
             iAuthService.LoginAsync(user.userName, user.password);
-         
+            
+            
        
           NavigationManager.NavigateTo("/Orderlist");
         }

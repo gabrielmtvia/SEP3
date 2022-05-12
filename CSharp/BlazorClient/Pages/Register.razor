@@ -1,5 +1,6 @@
 @page "/Register"
 @inherits RegisterBase
+@* @attribute [Authorize(Policy="MustBeAdmin")] *@
 <h3>Register</h3>
 
 
@@ -22,15 +23,56 @@
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="" class="form-control" placeholder="Full name" type="text">
-    </div> <!-- form-group// -->
-    <div class="form-group input-group">
+        <input name="" class="form-control" placeholder="User Name" type="text">
+	</div> <!-- form-group// -->
+		
+		<div class="form-group input-group">
+			
+
+			<div class="input-group-prepend">
+				<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+			</div>
+			<input name="" class="form-control" placeholder="First Name" type="text">
+
+		</div> <!-- form-group// -->
+		
+		<div class="form-group input-group">
+ 
+			<div class="input-group-prepend">
+				<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+			</div>
+			<input name="" class="form-control" placeholder="Last Name" type="text">
+
+		</div> <!-- form-group// -->
+		
+		<div class="form-group input-group">
+			
+
+			<div class="input-group-prepend">
+				<span class="input-group-text">
+					
+					<i>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+							<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+						</svg>
+					</i>
+				</span>
+				
+			</div>
+			<input name="" class="form-control" placeholder="Address" type="text">
+
+		</div> <!-- form-group// -->
+        		
+		
+		<div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
         <input name="" class="form-control" placeholder="Email address" type="email">
     </div> <!-- form-group// -->
-    <div class="form-group input-group">
+		
+		
+	<div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
 		</div>
@@ -41,16 +83,17 @@
 		    <option value="3">+701</option>
 		</select>
     	<input name="" class="form-control" placeholder="Phone number" type="text">
-    </div> <!-- form-group// -->
+	</div> <!-- form-group// -->
+		
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
 		</div>
 		<select class="form-control">
-			<option selected=""> Select job type</option>
-			<option>Designer</option>
-			<option>Manager</option>
-			<option>Accaunting</option>
+			<option selected=""> Select type</option>
+			<option>Employee</option>
+			@* <option>Manager</option> *@
+			@* <option>Accaunting</option> *@
 		</select>
 	</div> <!-- form-group end.// -->
     <div class="form-group input-group">
