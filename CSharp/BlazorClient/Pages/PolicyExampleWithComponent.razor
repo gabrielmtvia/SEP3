@@ -1,16 +1,16 @@
 ﻿@page "/PolicyExample1"
- @attribute [Authorize(Policy="MustBeAdmin")]  
+ @* @attribute [Authorize(Policy="MustBeAdmin")]   *@
 <h3>PolicyExample</h3>
 
 <div>Domain:  </div>
 
-@* <AuthorizeView Policy="MustBeAdmin"> *@
-@*     <p>This piece of text is only visible, if your role is Admin</p> *@
-@*      *@
-@*     <div> put your view here </div> *@
-@*     <div>Security level:</div> *@
-@*         @context.User.Claims.First(c => c.Type.Equals("Role")).Value *@
-@* </AuthorizeView> *@
+<AuthorizeView Policy="MustBeAdmin">
+    <p>This piece of text is only visible, if your role is Admin</p>
+
+    <div> put your view here </div>
+    <div>Security level:</div>
+        @context.User.Claims.First(c => c.Type.Equals("Role")).Value
+</AuthorizeView>
 
 <br/>
 
