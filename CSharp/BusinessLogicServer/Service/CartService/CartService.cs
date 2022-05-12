@@ -1,9 +1,18 @@
-﻿namespace BusinessLogicServer.Service.CartService;
+﻿using BusinessLogicServer.Service.BookService;
+
+namespace BusinessLogicServer.Service.CartService;
 
 public class CartService : ICartService
 {
     public List<OrderLineDTO> ShoppingCart { get; set; } = new List<OrderLineDTO>();
     public List<OrderDTO> OrderList { get; set; } = new List<OrderDTO>();
+
+    private IBookService BookService;
+
+    public CartService(IBookService bookService)
+    {
+        BookService = bookService;
+    }
 
     public async Task<long> CreateOrder(OrderDTO orderDto)
     {
@@ -59,5 +68,44 @@ public class CartService : ICartService
                 Success = false
             };
         }
+    }
+
+    public async Task<ServiceResponse<List<ShoppingCartItem>>> GetShoppingCart(long serialOrder)
+    {
+        var shoppingCart = new List<ShoppingCartItem>();
+
+        foreach (var item in ShoppingCart)
+        {
+            if (item.SerialOrder == serialOrder)
+            {
+                var book = BookService.GetBookAsync(item.Isbn);
+                shoppingCart.Add(
+                    new ShoppingCartItem
+                    {
+                        Author = book.Result.Data.Author,
+                        ImageUrl = book.Result.Data.ImageUrl,
+                        Isbn = book.Result.Data.Isbn,
+                        Price = book.Result.Data.Price,
+                        Quantity = item.Quantity.Value,
+                        Title = book.Result.Data.Title
+                    });
+            }
+        }
+
+        if (shoppingCart.Count != 0)
+        {
+            return new ServiceResponse<List<ShoppingCartItem>>
+            {
+                Data = shoppingCart
+            };  
+        }
+        
+        return new ServiceResponse<List<ShoppingCartItem>>
+        {
+            Message = "Shopping cart empty",
+            Success = false,
+            Data = shoppingCart
+        };
+
     }
 }

@@ -6,4 +6,5 @@ public interface ICartService
     Task AddToCart(OrderLineDTO item);
     Task<long> CreateOrder(OrderDTO order);
     Task<ServiceResponse<List<OrderLineDTO>>> GetCartItems(long orderId);
+    Task<ServiceResponse<List<ShoppingCartItem>>> GetShoppingCart(long serialOrder);
 }

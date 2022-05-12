@@ -15,9 +15,18 @@ public class CartController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{orderId}")]
     public async Task<ActionResult<ServiceResponse<List<OrderLineDTO>>>> GetCartItemsAsync(long orderId)
     {
         var result = await _service.GetCartItems(orderId);
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("/getShoppingCart/{serialOrder}")]
+    public async Task<ActionResult<ServiceResponse<List<ShoppingCartItem>>>> GetShoppingCart(long serialOrder)
+    {
+        var result = await _service.GetShoppingCart(serialOrder);
         return Ok(result);
     }
 

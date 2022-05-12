@@ -1,0 +1,37 @@
+﻿@page "/Cart"
+@inject ICartService CartService
+<h3>Shopping Cart</h3>
+
+@if (ShoppingCartItems == null || ShoppingCartItems.Count == 0)
+{
+    <span>@message</span>
+}
+else
+{
+    <div>
+        @foreach (var product in ShoppingCartItems)
+        {
+            <div class="container">
+                <div class="image-wrapper">
+                    <img src="@product.ImageUrl" class="image" />
+                </div>
+                <div class="name">
+                    <h5><a href="/Book/@product.Isbn">@product.Title</a></h5>
+                </div>
+                <div class="cart-product-price">$@product.Price</div>
+                <div class="name">Quantity: @product.Quantity</div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    List<ShoppingCartItem> ShoppingCartItems = new List<ShoppingCartItem>();
+    string message = "Loading cart...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        ShoppingCartItems = CartService.GetShoppingCart(0).Result.Data;
+    }
+
+}
