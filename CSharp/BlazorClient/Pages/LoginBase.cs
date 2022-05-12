@@ -35,6 +35,11 @@ public class LoginBase : ComponentBase
           errorLabel = $"Error: {e.Message}";
         }
     }
+    
+    protected void  MovePageToRegister()
+    {
+        NavigationManager.NavigateTo("/Register");
+    }
 
 
 }
