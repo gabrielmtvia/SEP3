@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Model\UserLogin" />
       <Folder Include="Protos" />
     </ItemGroup>
 

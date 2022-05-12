@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 
+
 namespace BusinessLogicServer.Networking.Order;
 
 public class OrderNetworking : IOrderNetworking

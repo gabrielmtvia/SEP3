@@ -91,6 +91,38 @@ public final class OrderServiceGrpc {
      return getCreateOrderMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.IdMessage,
+      via.sep3.grpc.order.Order.OrderByIdMessage> getGetAnOrderByIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getAnOrderById",
+      requestType = via.sep3.grpc.order.Order.IdMessage.class,
+      responseType = via.sep3.grpc.order.Order.OrderByIdMessage.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.IdMessage,
+      via.sep3.grpc.order.Order.OrderByIdMessage> getGetAnOrderByIdMethod() {
+    io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.IdMessage, via.sep3.grpc.order.Order.OrderByIdMessage> getGetAnOrderByIdMethod;
+    if ((getGetAnOrderByIdMethod = OrderServiceGrpc.getGetAnOrderByIdMethod) == null) {
+      synchronized (OrderServiceGrpc.class) {
+        if ((getGetAnOrderByIdMethod = OrderServiceGrpc.getGetAnOrderByIdMethod) == null) {
+          OrderServiceGrpc.getGetAnOrderByIdMethod = getGetAnOrderByIdMethod = 
+              io.grpc.MethodDescriptor.<via.sep3.grpc.order.Order.IdMessage, via.sep3.grpc.order.Order.OrderByIdMessage>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "OrderService", "getAnOrderById"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.grpc.order.Order.IdMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.grpc.order.Order.OrderByIdMessage.getDefaultInstance()))
+                  .setSchemaDescriptor(new OrderServiceMethodDescriptorSupplier("getAnOrderById"))
+                  .build();
+          }
+        }
+     }
+     return getGetAnOrderByIdMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -132,6 +164,13 @@ public final class OrderServiceGrpc {
       asyncUnimplementedUnaryCall(getCreateOrderMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getAnOrderById(via.sep3.grpc.order.Order.IdMessage request,
+        io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.OrderByIdMessage> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetAnOrderByIdMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -148,6 +187,13 @@ public final class OrderServiceGrpc {
                 via.sep3.grpc.order.Order.OrderMessage,
                 via.sep3.grpc.order.Order.VoidMessage>(
                   this, METHODID_CREATE_ORDER)))
+          .addMethod(
+            getGetAnOrderByIdMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.grpc.order.Order.IdMessage,
+                via.sep3.grpc.order.Order.OrderByIdMessage>(
+                  this, METHODID_GET_AN_ORDER_BY_ID)))
           .build();
     }
   }
@@ -185,6 +231,14 @@ public final class OrderServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getCreateOrderMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getAnOrderById(via.sep3.grpc.order.Order.IdMessage request,
+        io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.OrderByIdMessage> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetAnOrderByIdMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -217,6 +271,13 @@ public final class OrderServiceGrpc {
     public via.sep3.grpc.order.Order.VoidMessage createOrder(via.sep3.grpc.order.Order.OrderMessage request) {
       return blockingUnaryCall(
           getChannel(), getCreateOrderMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.grpc.order.Order.OrderByIdMessage getAnOrderById(via.sep3.grpc.order.Order.IdMessage request) {
+      return blockingUnaryCall(
+          getChannel(), getGetAnOrderByIdMethod(), getCallOptions(), request);
     }
   }
 
@@ -253,10 +314,19 @@ public final class OrderServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getCreateOrderMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.grpc.order.Order.OrderByIdMessage> getAnOrderById(
+        via.sep3.grpc.order.Order.IdMessage request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetAnOrderByIdMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_ALL_ORDERS = 0;
   private static final int METHODID_CREATE_ORDER = 1;
+  private static final int METHODID_GET_AN_ORDER_BY_ID = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -282,6 +352,10 @@ public final class OrderServiceGrpc {
         case METHODID_CREATE_ORDER:
           serviceImpl.createOrder((via.sep3.grpc.order.Order.OrderMessage) request,
               (io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.VoidMessage>) responseObserver);
+          break;
+        case METHODID_GET_AN_ORDER_BY_ID:
+          serviceImpl.getAnOrderById((via.sep3.grpc.order.Order.IdMessage) request,
+              (io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.OrderByIdMessage>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -346,6 +420,7 @@ public final class OrderServiceGrpc {
               .setSchemaDescriptor(new OrderServiceFileDescriptorSupplier())
               .addMethod(getGetAllOrdersMethod())
               .addMethod(getCreateOrderMethod())
+              .addMethod(getGetAnOrderByIdMethod())
               .build();
         }
       }

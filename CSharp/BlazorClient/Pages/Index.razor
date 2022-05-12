@@ -1,9 +1,28 @@
-@page "/index"
+﻿@page "/"
+@page "/search/{searchText}"
+@page "/{categoryUrl}"
+@inject IBookService BookService;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Book Shop</PageTitle>
+<BookList />
 
-<h1>Hello, world!</h1>
+@code {
+    [Parameter]
+    public string? CategoryUrl { get; set; } = null;
+    
+    [Parameter]
+    public string? SearchText { get; set; } = null;
 
-Welcome to your new app.
+    protected override async Task OnParametersSetAsync()
+    {
+        if (SearchText != null)
+        {
+            await BookService.SearchBooks(SearchText);
+        }
+        else
+        {
+            await BookService.GetBooksAsync(CategoryUrl);
+        }
+    }
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
+}

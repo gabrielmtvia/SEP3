@@ -6,7 +6,8 @@ namespace BlazorClient.Pages;
 
 public class OrderListBase : ComponentBase
 {
-    [Inject] public IOrderService OrderService { get; set; }
+    [Inject]
+    public IOrderService OrderService { get; set; }
     public IEnumerable<Order> Orders { get; set; }
     public Order OrderToCreate { set; get; }
     protected override async Task OnInitializedAsync()

@@ -2,7 +2,7 @@
 using System.Text.Json;
 using ModelClasses;
 
-namespace BlazorClient.Services;
+namespace BlazorClient.Services.OrderService;
 
 public class OrderService : IOrderService
 {

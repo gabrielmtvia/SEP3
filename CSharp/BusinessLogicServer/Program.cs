@@ -1,6 +1,10 @@
+global using ModelClasses;
 using BusinessLogicServer.Model.Order;
 using BusinessLogicServer.Networking.Order;
+using BusinessLogicServer.Service.BookService;
+using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IOrderNetworking, OrderNetworking>();
-builder.Services.AddSingleton<IOrderModel, OrderModel>();
+builder.Services.AddScoped<IOrderNetworking, OrderNetworking>();
+builder.Services.AddScoped<IOrderModel, OrderModel>();
+builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+
 
 
 builder.Services.AddGrpc();
@@ -37,3 +44,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
