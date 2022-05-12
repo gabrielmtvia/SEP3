@@ -72,9 +72,9 @@ public class BookService : IBookService
     
     };
     
-    public async Task<ServiceResponse<List<ModelClasses.Book>>> GetAllBooksAsync()
+    public async Task<ServiceResponse<List<Book>>> GetAllBooksAsync()
     {
-        var response = new ServiceResponse<List<ModelClasses.Book>>
+        var response = new ServiceResponse<List<Book>>
         {
             Data = _books
         };

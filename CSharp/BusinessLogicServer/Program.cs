@@ -2,6 +2,7 @@ global using ModelClasses;
 using BusinessLogicServer.Model.Order;
 using BusinessLogicServer.Networking.Order;
 using BusinessLogicServer.Service.BookService;
+using BusinessLogicServer.Service.CartService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
 
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IOrderNetworking, OrderNetworking>();
 builder.Services.AddScoped<IOrderModel, OrderModel>();
 builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddSingleton<ICartService, CartService>();
 
 
 
