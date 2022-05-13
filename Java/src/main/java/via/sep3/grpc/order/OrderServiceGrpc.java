@@ -28,21 +28,21 @@ public final class OrderServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.VoidMessage,
-      via.sep3.grpc.order.Order.OrderMessage> getGetAllOrdersMethod;
+      via.sep3.grpc.order.Order.ListOrderMessage> getGetAllOrdersMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getAllOrders",
       requestType = via.sep3.grpc.order.Order.VoidMessage.class,
-      responseType = via.sep3.grpc.order.Order.OrderMessage.class,
+      responseType = via.sep3.grpc.order.Order.ListOrderMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.VoidMessage,
-      via.sep3.grpc.order.Order.OrderMessage> getGetAllOrdersMethod() {
-    io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.VoidMessage, via.sep3.grpc.order.Order.OrderMessage> getGetAllOrdersMethod;
+      via.sep3.grpc.order.Order.ListOrderMessage> getGetAllOrdersMethod() {
+    io.grpc.MethodDescriptor<via.sep3.grpc.order.Order.VoidMessage, via.sep3.grpc.order.Order.ListOrderMessage> getGetAllOrdersMethod;
     if ((getGetAllOrdersMethod = OrderServiceGrpc.getGetAllOrdersMethod) == null) {
       synchronized (OrderServiceGrpc.class) {
         if ((getGetAllOrdersMethod = OrderServiceGrpc.getGetAllOrdersMethod) == null) {
           OrderServiceGrpc.getGetAllOrdersMethod = getGetAllOrdersMethod = 
-              io.grpc.MethodDescriptor.<via.sep3.grpc.order.Order.VoidMessage, via.sep3.grpc.order.Order.OrderMessage>newBuilder()
+              io.grpc.MethodDescriptor.<via.sep3.grpc.order.Order.VoidMessage, via.sep3.grpc.order.Order.ListOrderMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "OrderService", "getAllOrders"))
@@ -50,7 +50,7 @@ public final class OrderServiceGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   via.sep3.grpc.order.Order.VoidMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.sep3.grpc.order.Order.OrderMessage.getDefaultInstance()))
+                  via.sep3.grpc.order.Order.ListOrderMessage.getDefaultInstance()))
                   .setSchemaDescriptor(new OrderServiceMethodDescriptorSupplier("getAllOrders"))
                   .build();
           }
@@ -121,7 +121,7 @@ public final class OrderServiceGrpc {
     /**
      */
     public void getAllOrders(via.sep3.grpc.order.Order.VoidMessage request,
-        io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.OrderMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.ListOrderMessage> responseObserver) {
       asyncUnimplementedUnaryCall(getGetAllOrdersMethod(), responseObserver);
     }
 
@@ -139,7 +139,7 @@ public final class OrderServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 via.sep3.grpc.order.Order.VoidMessage,
-                via.sep3.grpc.order.Order.OrderMessage>(
+                via.sep3.grpc.order.Order.ListOrderMessage>(
                   this, METHODID_GET_ALL_ORDERS)))
           .addMethod(
             getCreateOrderMethod(),
@@ -173,7 +173,7 @@ public final class OrderServiceGrpc {
     /**
      */
     public void getAllOrders(via.sep3.grpc.order.Order.VoidMessage request,
-        io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.OrderMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.ListOrderMessage> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getGetAllOrdersMethod(), getCallOptions()), request, responseObserver);
     }
@@ -207,7 +207,7 @@ public final class OrderServiceGrpc {
 
     /**
      */
-    public via.sep3.grpc.order.Order.OrderMessage getAllOrders(via.sep3.grpc.order.Order.VoidMessage request) {
+    public via.sep3.grpc.order.Order.ListOrderMessage getAllOrders(via.sep3.grpc.order.Order.VoidMessage request) {
       return blockingUnaryCall(
           getChannel(), getGetAllOrdersMethod(), getCallOptions(), request);
     }
@@ -240,7 +240,7 @@ public final class OrderServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<via.sep3.grpc.order.Order.OrderMessage> getAllOrders(
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.grpc.order.Order.ListOrderMessage> getAllOrders(
         via.sep3.grpc.order.Order.VoidMessage request) {
       return futureUnaryCall(
           getChannel().newCall(getGetAllOrdersMethod(), getCallOptions()), request);
@@ -277,7 +277,7 @@ public final class OrderServiceGrpc {
       switch (methodId) {
         case METHODID_GET_ALL_ORDERS:
           serviceImpl.getAllOrders((via.sep3.grpc.order.Order.VoidMessage) request,
-              (io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.OrderMessage>) responseObserver);
+              (io.grpc.stub.StreamObserver<via.sep3.grpc.order.Order.ListOrderMessage>) responseObserver);
           break;
         case METHODID_CREATE_ORDER:
           serviceImpl.createOrder((via.sep3.grpc.order.Order.OrderMessage) request,
