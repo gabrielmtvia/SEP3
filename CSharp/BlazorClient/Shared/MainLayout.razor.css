@@ -46,7 +46,23 @@ main {
 }
 .oi-account-login{
     text-decoration: none;
+    border: none;
+    background-color:lightgreen;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
+.oi-account-logout{
+    text-decoration: none;
+    background-color:lightgreen;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 @media (min-width: 641px) {
     .page {
         flex-direction: row;

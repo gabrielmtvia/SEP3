@@ -31,7 +31,8 @@
                     <main>
                         <div class="top-row px-4">
                             <Search />
-                            <NavLink href="/Logout">Logout</NavLink>
+                            <a class="oi oi-account-logout"  @onclick="Logout"></a>
+                         
                         </div>
         
                         <article class="content px-4">
@@ -42,3 +43,16 @@
     </Authorized>
 </AuthorizeView>
 
+@code {
+
+    [Inject] public IAuthService iAuthService { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    
+    protected async Task Logout()
+    {
+        await iAuthService.LogoutAsync();
+        NavigationManager.NavigateTo("/");
+    }
+
+
+}
