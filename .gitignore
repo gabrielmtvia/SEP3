@@ -1,5 +1,6 @@
 Java/.idea/
 Java/target/
+Java/src/main/java/via/sep3/group2/grpc/
 CSharp/.idea/
 CSharp/BusinessLogicServer/Protobuf/
 CSharp/BlazorClient/obj/
