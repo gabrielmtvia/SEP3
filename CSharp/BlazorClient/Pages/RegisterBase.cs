@@ -4,5 +4,5 @@ namespace BlazorClient;
 
 public class RegisterBase : ComponentBase
 {
-    
+  
 }

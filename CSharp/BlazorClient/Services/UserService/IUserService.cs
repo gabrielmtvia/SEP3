@@ -5,6 +5,6 @@ namespace BlazorClient.Services.UserService;
 
 public interface IUserService
 {
-    public Task<User> GetUserAsync(string username);
+    public Task<User?> GetUserAsync(string username);
 
 }
