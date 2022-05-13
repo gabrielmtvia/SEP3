@@ -6,7 +6,9 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import via.sep3.group2.dao.OrderDAO;
+import via.sep3.group2.dao.UserDAO;
 import via.sep3.group2.models.OrderDTO;
+import via.sep3.group2.models.UserDTO;
 import via.sep3.grpc.order.Order;
 import via.sep3.grpc.order.OrderServiceGrpc;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class OrderNetworkingImpl extends OrderServiceGrpc.OrderServiceImplBase
 {
     private OrderDAO dao;
+  //  private UserDAO userDAO;
     private  Gson gson = new Gson();
 
     @Autowired
@@ -28,6 +31,8 @@ public class OrderNetworkingImpl extends OrderServiceGrpc.OrderServiceImplBase
     @Override
     public void getAllOrders(Order.VoidMessage request, StreamObserver<Order.OrderMessage> responseObserver)
     {
+       // UserDTO userDTO= new UserDTO("a");
+      //  System.out.println(userDAO.getAllOrders(userDTO));
         List<OrderDTO> allOrders = dao.getAllOrders();
         String s = gson.toJson(allOrders);
 
