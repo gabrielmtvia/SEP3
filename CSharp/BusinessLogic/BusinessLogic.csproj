@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>BusinessLogicServer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,12 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Model\UserLogin" />
+      <Folder Include="Models\UserLogin" />
       <Folder Include="Protos" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ModelClasses\ModelClasses.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

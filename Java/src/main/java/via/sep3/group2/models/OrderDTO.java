@@ -1,5 +1,7 @@
 package via.sep3.group2.models;
 
+import via.sep3.grpc.order.Order;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,14 @@ public class OrderDTO
         this.description = description;
         this.amount = amount;
         this.delivered = delivered;
+    }
+
+    public OrderDTO(Order.OrderMessage message)
+    {
+        this.id = message.getId();
+        description = message.getDescription();
+        amount = message.getAmount();
+        delivered = message.getDelivered();
     }
 
     public OrderDTO()
@@ -65,4 +75,11 @@ public class OrderDTO
         this.delivered = delivered;
     }
 
+    // need it in the c# part as well , this is buliding your OrderMessage object(your order as a proto message)
+    // if it is in this side of the system it means that this message will be sent as a response
+    // when is in C# (in our case the client) it will be used when is sent a request
+    public Order.OrderMessage buildOrderMessage()
+    {
+        return Order.OrderMessage.newBuilder().setId(id).setDescription(description).setAmount(amount).setDelivered(delivered).build();
+    }
 }
