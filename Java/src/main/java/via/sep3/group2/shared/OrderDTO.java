@@ -1,4 +1,4 @@
-package via.sep3.group2.models;
+package via.sep3.group2.shared;
 
 import via.sep3.grpc.order.Order;
 

@@ -5,12 +5,11 @@ import com.google.gson.Gson;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import via.sep3.group2.dao.OrderDAO;
-import via.sep3.group2.models.OrderDTO;
+import via.sep3.group2.persistance.OrderDAO;
+import via.sep3.group2.shared.OrderDTO;
 import via.sep3.grpc.order.Order;
 import via.sep3.grpc.order.OrderServiceGrpc;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @GrpcService
