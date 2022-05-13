@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
+builder.Services.AddSingleton(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
 // builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
 // {
 //     client.BaseAddress = new Uri("https://localhost:7031");
@@ -24,10 +24,10 @@ builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://
 builder.Services.AddScoped<IAuthService, AuthServiceIMP>();
 builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
-builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddSingleton<IBookService, BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddSingleton<ICartService, CartService>();
 // builder.Services.AddHttpClient<IBookService, BookService>(client =>
 // {
 //     client.BaseAddress = new Uri("https://localhost:7031");

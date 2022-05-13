@@ -23,6 +23,9 @@
       <Compile Update="Shared\BookListBase.cs">
         <DependentUpon>BookList.razor</DependentUpon>
       </Compile>
+      <Compile Update="Pages\BookDetailsBase.cs">
+        <DependentUpon>BookDetails.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

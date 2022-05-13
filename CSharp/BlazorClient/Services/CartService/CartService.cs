@@ -3,19 +3,19 @@
 public class CartService : ICartService
 {
     public event Action OnChange;
-    
+
     private readonly HttpClient _httpClient;
 
     public CartService(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
-    
+
     public async Task AddToCart(OrderLineDTO item)
     {
         Console.WriteLine(item.ToString());
         await _httpClient.PostAsJsonAsync("/addToCart", item);
-        
+
     }
 
     public Task<ServiceResponse<List<OrderLineDTO>>> GetCartItems(long orderId)
@@ -31,10 +31,22 @@ public class CartService : ICartService
         Console.WriteLine(contents);
         return Convert.ToInt64(contents);
     }
-    
+
     public Task<ServiceResponse<List<ShoppingCartItem>>> GetShoppingCart(long serialOrder)
     {
-        var result = _httpClient.GetFromJsonAsync<ServiceResponse<List<ShoppingCartItem>>>($"/getShoppingCart/{serialOrder}");
+        var result =
+            _httpClient.GetFromJsonAsync<ServiceResponse<List<ShoppingCartItem>>>($"/getShoppingCart/{serialOrder}");
         return result;
     }
+
+    public async Task<ServiceResponse<long>> GetSerialOrder(UsernameDate usernameDate)
+    {
+        var result = await _httpClient.PostAsJsonAsync("/getSerialOrder", usernameDate);
+
+        var result2 = result.Content.ReadFromJsonAsync<ServiceResponse<long>>().Result;
+
+        return result2;
+    }
+
+
 }

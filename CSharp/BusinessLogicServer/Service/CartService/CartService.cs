@@ -12,17 +12,20 @@ public class CartService : ICartService
     public CartService(IBookService bookService)
     {
         BookService = bookService;
+        
     }
 
     public async Task<long> CreateOrder(OrderDTO orderDto)
     {
-        if (OrderList.Contains(orderDto))
+        Console.WriteLine(orderDto.Confirmed + " " + orderDto.Date + " "+ orderDto.Username);
+        if (OrderList.Find(o=>o.Username.Equals(orderDto.Username) && o.Date.Equals(orderDto.Date)) != null)
         {
+            Console.WriteLine("Index of order is " + Convert.ToInt64(OrderList.IndexOf(orderDto)));
             return Convert.ToInt64(OrderList.IndexOf(orderDto));
         }
         
         OrderList.Add(orderDto);
-        
+        Console.WriteLine("Index of order is " + Convert.ToInt64(OrderList.IndexOf(orderDto)));
         return Convert.ToInt64(OrderList.IndexOf(orderDto));
     }
 
@@ -107,5 +110,21 @@ public class CartService : ICartService
             Data = shoppingCart
         };
 
+    }
+
+    public async Task<ServiceResponse<long>> GetSerialOrder(string username, string date)
+    {
+        var result = OrderList.Find(o => o.Username.Equals(username) && o.Date.Equals(date));
+        if (result != null)
+            return new ServiceResponse<long>()
+            {
+                Data = result.SerialOrder
+            };
+
+        return new ServiceResponse<long>()
+        {
+            Message = "Order Not Found",
+            Success = false,
+        };
     }
 }

@@ -1,5 +1,8 @@
 ﻿@page "/Cart"
 @inject ICartService CartService
+@inject IAuthService AuthService;
+@inherits LoginBase
+
 <h3>Shopping Cart</h3>
 
 @if (ShoppingCartItems == null || ShoppingCartItems.Count == 0)
@@ -28,10 +31,42 @@ else
 @code {
     List<ShoppingCartItem> ShoppingCartItems = new List<ShoppingCartItem>();
     string message = "Loading cart...";
+    long serialOrder;
+    string username = "Anne";
+
 
     protected override async Task OnInitializedAsync()
     {
-        ShoppingCartItems = CartService.GetShoppingCart(0).Result.Data;
+        Console.WriteLine("Trying methods");
+
+        UsernameDate usernameDate = new UsernameDate
+        {
+            Username = username,
+            Date = DateTime.Today.ToString("dd-MM-yyyy")
+        };
+        
+        var result = await CartService.GetSerialOrder(usernameDate);
+        Console.WriteLine(result.Message + result.Success);
+        serialOrder = result.Data;
+
+        ShoppingCartItems = CartService.GetShoppingCart(serialOrder).Result.Data;
+
+    /*if (CartService.GetSerialOrder(usernameDate).Result.Success)
+        {
+            var result = await CartService.GetSerialOrder(usernameDate);
+            if (result.Success)
+            {
+                Console.WriteLine(result.Data);
+                Console.WriteLine(username);
+                serialOrder = result.Data;
+                ShoppingCartItems = CartService.GetShoppingCart(serialOrder).Result.Data;
+            }
+        }
+        else
+        {
+            message = "Error loading cart";
+        }*/
+
     }
 
 }

@@ -46,4 +46,12 @@ public class CartController : ControllerBase
         return await _service.CreateOrder(orderDto);
     }
 
+    [HttpPost]
+    [Route("/getSerialOrder")]
+    public async Task<ServiceResponse<long>> GetSerialOrder(UsernameDate usernameDate)
+    {
+        var result = await _service.GetSerialOrder(usernameDate.Username, usernameDate.Date);
+        return result;
+    }
+
 }
