@@ -1,4 +1,7 @@
-﻿namespace BusinessLogicServer.Networking.Order;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace BusinessLogicServer.Networking.Order;
 
 public interface IOrderNetworking
 {

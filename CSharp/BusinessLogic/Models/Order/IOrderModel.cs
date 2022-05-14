@@ -1,4 +1,7 @@
-﻿namespace BusinessLogicServer.Model.Order;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace BusinessLogicServer.Model.Order;
 
 public interface IOrderModel
 {
