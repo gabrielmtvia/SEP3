@@ -1,0 +1,2 @@
+Protobuf/Book\Protos/Book.cs \
+Protobuf/Book\Protos/BookGrpc.cs: Protos/Book.proto
