@@ -1,7 +1,5 @@
 ﻿@page "/Cart"
-@inject ICartService CartService
-@inject IAuthService AuthService;
-@inherits LoginBase
+@inherits CartBase
 
 <h3>Shopping Cart</h3>
 
@@ -11,62 +9,32 @@
 }
 else
 {
+    <span>@message</span>
     <div>
+        <div>
+            <button class="btn btn-primary" @onclick="CheckOut">
+                <i class="oi oi-basket">Checkout</i>
+                </button>
+        </div>
         @foreach (var product in ShoppingCartItems)
         {
             <div class="container">
                 <div class="image-wrapper">
-                    <img src="@product.ImageUrl" class="image" />
+                    <img src="@product.ImageUrl" class="image"/>
                 </div>
                 <div class="name">
-                    <h5><a href="/Book/@product.Isbn">@product.Title</a></h5>
+                    <h5><a href="/BookDetails/@product.Isbn">@product.Title</a></h5>
+                    <button class="btn btn-danger" @onclick="@(()=>RemoveProductFromCart(product.Isbn, product.Quantity))">Remove from cart</button>
                 </div>
                 <div class="cart-product-price">$@product.Price</div>
-                <div class="name">Quantity: @product.Quantity</div>
+                <div class="cart-product-quantity">Quantity: @product.Quantity</div>
             </div>
         }
+        <div class="cart-product-price">
+            Total (@ShoppingCartItems.Count): $@ShoppingCartItems.Sum(items => @items.Price)
+        </div>
     </div>
 }
 
-@code {
-    List<ShoppingCartItem> ShoppingCartItems = new List<ShoppingCartItem>();
-    string message = "Loading cart...";
-    long serialOrder;
-    string username = "Anne";
 
 
-    protected override async Task OnInitializedAsync()
-    {
-        Console.WriteLine("Trying methods");
-
-        UsernameDate usernameDate = new UsernameDate
-        {
-            Username = username,
-            Date = DateTime.Today.ToString("dd-MM-yyyy")
-        };
-        
-        var result = await CartService.GetSerialOrder(usernameDate);
-        Console.WriteLine(result.Message + result.Success);
-        serialOrder = result.Data;
-
-        ShoppingCartItems = CartService.GetShoppingCart(serialOrder).Result.Data;
-
-    /*if (CartService.GetSerialOrder(usernameDate).Result.Success)
-        {
-            var result = await CartService.GetSerialOrder(usernameDate);
-            if (result.Success)
-            {
-                Console.WriteLine(result.Data);
-                Console.WriteLine(username);
-                serialOrder = result.Data;
-                ShoppingCartItems = CartService.GetShoppingCart(serialOrder).Result.Data;
-            }
-        }
-        else
-        {
-            message = "Error loading cart";
-        }*/
-
-    }
-
-}

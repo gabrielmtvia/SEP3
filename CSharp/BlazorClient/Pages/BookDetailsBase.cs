@@ -9,7 +9,7 @@ public class BookDetailsBase : ComponentBase {
     public Book? Book;
     public string Message = string.Empty;
     public long OrderId { get; set; }
-    public string Username = "Anne";
+    public string Username = string.Empty;
     [Inject] private ICartService _cartService { get; set; }
     [Inject] private IBookService _bookService { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -27,10 +27,11 @@ public class BookDetailsBase : ComponentBase {
             {
                 Date = DateTime.Today.ToString("dd-MM-yyyy"),
                 Username = result,
-                Confirmed = "unconfirmed"
+                Status = OrderStatus.NotConfirmed
             };
-            OrderId = await _cartService.CreateOrder(newOrder);
-            Console.WriteLine(DateTime.Today.ToString("dd-MM-yyyy") + "order id" + OrderId + result);
+            var response = await _cartService.CreateOrder(newOrder);
+            OrderId = response.Data;
+            Console.WriteLine(DateTime.Today.ToString("dd-MM-yyyy") + "order id" + OrderId + result + response.Message);
         }
     }
 
@@ -50,13 +51,15 @@ public class BookDetailsBase : ComponentBase {
 
     public async Task AddToCart()
     {
-        var response = await _cartService.GetSerialOrder(new UsernameDate() {Date = DateTime.Today.ToString("dd-MM-yyyy"), Username = Username});
+        var response = await _cartService.GetSerialOrder(new UsernameDateStatus() {Date = DateTime.Today.ToString("dd-MM-yyyy"), Username = Username, Status = OrderStatus.NotConfirmed});
         if (response.Success)
         {
             OrderId = response.Data;
+            Console.WriteLine("Current order " + response.Data);
         }
         else
         {
+            Console.WriteLine(response.Message + "Add to cart method");
             await CreateShoppingCart();
         }
         
@@ -74,11 +77,14 @@ public class BookDetailsBase : ComponentBase {
     public async Task PrintOutShoppingCart()
     {
         var result = _cartService.GetCartItems(OrderId).Result;
+        Console.WriteLine("OrderID is " + OrderId);
 
         List<OrderLineDTO> data = new List<OrderLineDTO>();
 
         if (result.Data != null)
             data = result.Data;
+        
+        Console.WriteLine(result.Message);
 
         foreach (var order in data)
         {

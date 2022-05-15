@@ -32,26 +32,44 @@ public class CartController : ControllerBase
 
     [HttpPost]
     [Route("/addToCart")]
-    public async Task AddToCartAsync(OrderLineDTO item)
+    public async Task<ActionResult> AddToCartAsync(OrderLineDTO item)
     {
         Console.WriteLine(item.ToString());
         await _service.AddToCart(item);
         Console.WriteLine(item.ToString());
+        return Ok();
+    }
+    
+    [HttpPost]
+    [Route("/removeProductFromCart")]
+    public async Task<ActionResult> RemoveProductFromCartAsync(OrderLineDTO item)
+    {
+        await _service.RemoveProductFromCartAsync(item);
+        return Ok();
     }
 
     [HttpPost]
     [Route("/createOrder")]
-    public async Task<long> CreateShoppingCart(OrderDTO orderDto)
+    public async Task<ActionResult<ServiceResponse<long>>> CreateShoppingCart(OrderDTO orderDto)
     {
-        return await _service.CreateOrder(orderDto);
+        return Ok(await _service.CreateOrder(orderDto));
     }
 
     [HttpPost]
     [Route("/getSerialOrder")]
-    public async Task<ServiceResponse<long>> GetSerialOrder(UsernameDate usernameDate)
+    public async Task<ActionResult<ServiceResponse<long>>> GetSerialOrder(UsernameDateStatus usernameDateStatus)
     {
-        var result = await _service.GetSerialOrder(usernameDate.Username, usernameDate.Date);
-        return result;
+        var result = await _service.GetSerialOrder(usernameDateStatus.Username, usernameDateStatus.Date, usernameDateStatus.Status);
+        return Ok(result);
+    }
+    
+    [HttpPost]
+    [Route("/checkOut")]
+    public async Task<ActionResult<ServiceResponse<long>>> CheckOut([FromBody]long serialOrder)
+    {
+        Console.WriteLine("Controller received serial order" + serialOrder);
+        var result = await _service.CheckOut(serialOrder);
+        return Ok(result);
     }
 
 }

@@ -2,7 +2,7 @@
 
 public class CartService : ICartService
 {
-    public event Action OnChange;
+    public event Action? OnChange;
 
     private readonly HttpClient _httpClient;
 
@@ -15,6 +15,7 @@ public class CartService : ICartService
     {
         Console.WriteLine(item.ToString());
         await _httpClient.PostAsJsonAsync("/addToCart", item);
+        OnChange?.Invoke();
 
     }
 
@@ -24,12 +25,11 @@ public class CartService : ICartService
         return result;
     }
 
-    public async Task<long> CreateOrder(OrderDTO order)
+    public async Task<ServiceResponse<long>> CreateOrder(OrderDTO order)
     {
         var response = await _httpClient.PostAsJsonAsync("/createOrder", order);
-        var contents = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(contents);
-        return Convert.ToInt64(contents);
+        var contents = await response.Content.ReadFromJsonAsync<ServiceResponse<long>>();
+        return contents;
     }
 
     public Task<ServiceResponse<List<ShoppingCartItem>>> GetShoppingCart(long serialOrder)
@@ -39,14 +39,26 @@ public class CartService : ICartService
         return result;
     }
 
-    public async Task<ServiceResponse<long>> GetSerialOrder(UsernameDate usernameDate)
+    public async Task<ServiceResponse<long>> GetSerialOrder(UsernameDateStatus usernameDateStatus)
     {
-        var result = await _httpClient.PostAsJsonAsync("/getSerialOrder", usernameDate);
+        var result = await _httpClient.PostAsJsonAsync("/getSerialOrder", usernameDateStatus);
 
-        var result2 = result.Content.ReadFromJsonAsync<ServiceResponse<long>>().Result;
+        var response = result.Content.ReadFromJsonAsync<ServiceResponse<long>>().Result;
 
-        return result2;
+        return response;
     }
 
+    public async Task<ServiceResponse<long>> CheckOut(long serialOrder)
+    {
+        var result = await _httpClient.PostAsJsonAsync("/checkOut", serialOrder);
+        var response = result.Content.ReadFromJsonAsync<ServiceResponse<long>>().Result;
+        OnChange?.Invoke();
+        return response;
+    }
 
+    public async Task RemoveProductFromCart(OrderLineDTO item)
+    {
+       await _httpClient.PostAsJsonAsync("/removeProductFromCart", item);
+       OnChange?.Invoke();
+    }
 }

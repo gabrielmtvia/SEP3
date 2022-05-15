@@ -4,8 +4,11 @@ public interface ICartService
 {
     event Action OnChange;
     Task AddToCart(OrderLineDTO item);
-    Task<long> CreateOrder(OrderDTO order);
+    Task<ServiceResponse<long>> CreateOrder(OrderDTO order);
     Task<ServiceResponse<List<OrderLineDTO>>> GetCartItems(long orderId);
     Task<ServiceResponse<List<ShoppingCartItem>>> GetShoppingCart(long serialOrder);
-    Task<ServiceResponse<long>> GetSerialOrder(UsernameDate usernameDate);
+    Task<ServiceResponse<long>> GetSerialOrder(UsernameDateStatus usernameDateStatus);
+    Task<ServiceResponse<long>> CheckOut(long serialOrder);
+
+    Task RemoveProductFromCart(OrderLineDTO item);
 }
