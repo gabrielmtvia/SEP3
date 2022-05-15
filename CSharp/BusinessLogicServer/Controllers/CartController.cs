@@ -29,6 +29,15 @@ public class CartController : ControllerBase
         var result = await _service.GetShoppingCart(serialOrder);
         return Ok(result);
     }
+    
+    [HttpGet]
+    [Route("/getAllOrders/{username}")]
+    public async Task<ActionResult<ServiceResponse<List<OrderDTO>>>> GetAllOrdersByUsernameAsync(string username)
+    {
+        var result = await _service.GetAllOrdersByUsernameAsync(username);
+        return Ok(result);
+    }
+    
 
     [HttpPost]
     [Route("/addToCart")]

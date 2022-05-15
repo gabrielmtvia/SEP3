@@ -10,4 +10,5 @@ public interface ICartService
     Task<ServiceResponse<long>> GetSerialOrder(string username, string date, OrderStatus status);
     Task<ServiceResponse<long>> CheckOut(long serialOrder);
     Task RemoveProductFromCartAsync(OrderLineDTO item);
+    Task<ServiceResponse<List<OrderDTO>>> GetAllOrdersByUsernameAsync(string username);
 }

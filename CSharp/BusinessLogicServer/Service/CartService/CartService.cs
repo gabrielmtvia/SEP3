@@ -185,7 +185,6 @@ public class CartService : ICartService
             Console.WriteLine(i.SerialOrder + " " + i.Isbn + " " + i.Quantity);
         }
         
-        //ShoppingCart.Remove(item);
         ShoppingCart.RemoveAt(ShoppingCart.FindIndex(i=>i.Isbn == item.Isbn && i.SerialOrder == item.SerialOrder && i.Quantity == item.Quantity));
         
         Console.WriteLine("after deleting");
@@ -195,4 +194,27 @@ public class CartService : ICartService
         }
 
     }
+
+    public async Task<ServiceResponse<List<OrderDTO>>> GetAllOrdersByUsernameAsync(string username)
+    {
+        var orders = new List<OrderDTO>();
+        
+        foreach (var order in OrderList)
+        {
+            if(order.Username.Equals(username)) 
+                orders.Add(order);
+        }
+        if(orders.Count != 0)
+            return new ServiceResponse<List<OrderDTO>>()
+            {
+            Data = orders
+            };
+
+        return new ServiceResponse<List<OrderDTO>>()
+        {
+            Message = "Empty order history",
+            Success = false
+        };
+    }
+    
 }

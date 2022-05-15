@@ -29,6 +29,9 @@
       <Compile Update="Pages\CartBase.cs">
         <DependentUpon>Cart.razor</DependentUpon>
       </Compile>
+      <Compile Update="Pages\CustomerOrderHistoryBase.cs">
+        <DependentUpon>CustomerOrderHistory.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

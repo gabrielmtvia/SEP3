@@ -61,4 +61,17 @@ public class CartService : ICartService
        await _httpClient.PostAsJsonAsync("/removeProductFromCart", item);
        OnChange?.Invoke();
     }
+
+    public async Task<ServiceResponse<List<OrderDTO>>> GetAllOrdersByUsernameAsync(string username)
+    {
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<OrderDTO>>>($"/getAllOrders/{username}");
+        if(result != null)
+            return result;
+        
+        return new ServiceResponse<List<OrderDTO>>()
+        {
+            Success = false,
+            Message = "Network error"
+        };
+    }
 }
