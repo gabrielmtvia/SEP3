@@ -4,7 +4,6 @@ namespace BusinessLogicServer.Models.Orders;
 
 public class OrderModel : IOrderModel
 {
-    
     private IOrderNetworking networking;
 
     public OrderModel(IOrderNetworking networking)

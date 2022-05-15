@@ -1,4 +1,4 @@
-﻿using BusinessLogicServer.Models.Orders;
+using BusinessLogicServer.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusinessLogicServer.Controllers;
