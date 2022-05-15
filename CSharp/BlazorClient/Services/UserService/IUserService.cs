@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using ModelClasses;
 
 namespace BlazorClient.Services.UserService;
 

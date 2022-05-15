@@ -2,7 +2,6 @@ using System.Security.Claims;
 using System.Text.Json;
 using BlazorClient.Services.UserService;
 using Microsoft.JSInterop;
-using ModelClasses;
 
 namespace BlazorClient.authentication;
 

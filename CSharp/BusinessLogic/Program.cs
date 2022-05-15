@@ -1,6 +1,5 @@
-global using ModelClasses;
-using BusinessLogicServer.Model.Order;
-using BusinessLogicServer.Networking.Order;
+using BusinessLogicServer.Models.Orders;
+using BusinessLogicServer.Networking.Orders;
 using BusinessLogicServer.Service.BookService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;

@@ -11,13 +11,12 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
         <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <Protobuf Include="Protos\Order.proto" OutputDir="./Protobuf/Order" GrpcServices="Client" />
-        <Protobuf Include="Protos\Book.proto" OutputDir="./Protobuf/Book" GrpcServices="Client" />
+        <Protobuf Include="C:\SEP3_Group2\CSharp\Shared\Protos\Order.proto" OutputDir="C:\SEP3_Group2\CSharp\Shared\Protobuf/Order" GrpcServices="Client" />
+        <Protobuf Include="C:\SEP3_Group2\CSharp\Shared\Protos\Book.proto" OutputDir="C:\SEP3_Group2\CSharp\Shared\Protobuf/Book" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Models\UserLogin" />
-      <Folder Include="Protos" />
     </ItemGroup>
 
     <ItemGroup>

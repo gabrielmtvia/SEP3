@@ -1,23 +1,18 @@
-﻿namespace ModelClasses;
-
-public class Order
+﻿public class Order
 {
-    public long id { get; set; }
-    public string description { get; set; }
-    public double amount { get; set; }
-    public bool delivered { get; set; }
+    public long Id { get; set; }
+    public string Description { get; set; }
+    public double Amount { get; set; }
+    public string Status { get; set; }
 //if you date make put ? in it cause it might be null
-    public Order(long id, string description, double amount, bool delivered)
+    public Order(long id, string description, double amount, string status)
     {
-        this.id = id;
-        this.description = description;
-        this.amount = amount;
-        this.delivered = delivered;
+        Id = id;
+        Description = description;
+        Amount = amount;
+        Status = status;
     }
-
     public Order()
     {
     }
-    
-    
 }

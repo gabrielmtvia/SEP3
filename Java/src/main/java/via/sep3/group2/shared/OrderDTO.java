@@ -3,83 +3,75 @@ package via.sep3.group2.shared;
 import via.sep3.grpc.order.Order;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "orders")
-public class OrderDTO
-{
+@Table (name="orders")
+
+
+public class OrderDTO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
-    public String description;
-    public double amount;
-    public boolean delivered;
+    @Column(name = "id")
+    private long id;
+    private double amount;
+    private String description;
+    private java.sql.Date date;
+    private String status;
+    @ManyToOne (fetch = FetchType.LAZY)
+    //  @JoinColumn(name = "userid", referencedColumnName="id")
 
-    public OrderDTO(long id, String description, double amount, boolean delivered)
-    {
-        this.id = id;
-        this.description = description;
-        this.amount = amount;
-        this.delivered = delivered;
-    }
+    @JoinColumn(
+            name="username",
+            // nullable=false,
+            foreignKey = @ForeignKey(
+                    name="userid",
+                    foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE "
+            )
+    )
+    private UserDTO user;
+    //  @ManyToOne (mappedBy="orders",  fetch = FetchType.LAZY)
+    //  private UserDTO userDTO;
 
-    public OrderDTO(Order.OrderMessage message)
-    {
-        this.id = message.getId();
-        description = message.getDescription();
-        amount = message.getAmount();
-        delivered = message.getDelivered();
-    }
+ /* @OneToMany(mappedBy = "ordersDTO")
+  Set<OrdersDTO> ratings;*/
 
-    public OrderDTO()
-    {
-    }
-
-    public void setId(long id)
-    {
-        this.id = id;
-    }
-
-    public long getId()
-    {
+    public long getId() {
         return id;
     }
 
-    public String getDescription()
-    {
-        return description;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setDescription(String description)
-    {
-        this.description = description;
+    public Date getDate() {
+        return date;
     }
 
-    public double getAmount()
-    {
-        return amount;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setAmount(double amount)
-    {
-        this.amount = amount;
+    public String getStatus() {
+        return status;
     }
 
-    public boolean isDelivered()
-    {
-        return delivered;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setDelivered(boolean delivered)
-    {
-        this.delivered = delivered;
+    public UserDTO getUserDTO() {
+        return user;
     }
 
-    // need it in the c# part as well , this is buliding your OrderMessage object(your order as a proto message)
-    // if it is in this side of the system it means that this message will be sent as a response
-    // when is in C# (in our case the client) it will be used when is sent a request
+    public void setUserDTO(UserDTO userDTO) {
+        this.user = userDTO;
+    }
+
     public Order.OrderMessage buildOrderMessage()
     {
-        return Order.OrderMessage.newBuilder().setId(id).setDescription(description).setAmount(amount).setDelivered(delivered).build();
+        return Order.OrderMessage.newBuilder().setId(id).setAmount(amount).setDescription(description).setStatus(status).build();
     }
 }

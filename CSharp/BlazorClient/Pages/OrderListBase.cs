@@ -1,6 +1,6 @@
 ﻿using BlazorClient.Services;
+using BlazorClient.Services.OrderService;
 using Microsoft.AspNetCore.Components;
-using ModelClasses;
 
 namespace BlazorClient.Pages;
 
@@ -30,6 +30,6 @@ public class OrderListBase : ComponentBase
 
     public void OnChange(ChangeEventArgs args)
     {
-        OrderToCreate.delivered = args.Value.Equals("true");
+        OrderToCreate.Status = "D";
     }
 }

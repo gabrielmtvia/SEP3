@@ -1,7 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
-namespace ModelClasses;
-
 public class User
 {
     

@@ -1,4 +1,4 @@
-﻿@page "/BookDetails/{Isbn:long}"
+﻿@page "/BookDetails/{Isbn}"
 @inject IBookService _bookService
 
 @if (Book == null)
@@ -27,7 +27,7 @@ else
     public string Message = string.Empty;
 
     [Parameter]
-    public long Isbn { get; set; }
+    public string Isbn { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {

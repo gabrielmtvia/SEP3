@@ -6,7 +6,7 @@ message OrderMessage {
   int64 id = 1;
   string description = 2;
   double amount = 3;
-  bool delivered = 4;
+  string status = 4;
 
 }
 message OrderByIdMessage {

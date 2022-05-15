@@ -1,7 +1,6 @@
 using BlazorClient.authentication;
 using BlazorClient.Services.UserService;
 using Microsoft.AspNetCore.Components;
-using ModelClasses;
 
 
 namespace BlazorClient.Pages;

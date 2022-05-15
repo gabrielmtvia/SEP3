@@ -1,9 +1,10 @@
-﻿using BusinessLogicServer.Networking.Order;
+﻿using BusinessLogicServer.Networking.Orders;
 
-namespace BusinessLogicServer.Model.Order;
+namespace BusinessLogicServer.Models.Orders;
 
 public class OrderModel : IOrderModel
 {
+    
     private IOrderNetworking networking;
 
     public OrderModel(IOrderNetworking networking)
@@ -11,12 +12,12 @@ public class OrderModel : IOrderModel
         this.networking = networking;
     }
 
-    public async Task<List<ModelClasses.Order>> GetAllOrdersAsync()
+    public async Task<List<Order>> GetAllOrdersAsync()
     {
        return await networking.GetAllOrdersAsync();
     }
 
-    public async Task CreateOrderAsync(ModelClasses.Order order)
+    public async Task CreateOrderAsync(Order order)
     {
         await networking.CreateOrderAsync(order);
     }

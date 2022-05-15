@@ -8,6 +8,6 @@ import via.sep3.group2.shared.OrderDTO;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderDTO, Long>
 {
-    OrderDTO findByIdAndAmount(@Param("id")Long id, @Param("amount")double price);
+   // OrderDTO findByIdAndAmount(@Param("id")Long id, @Param("amount")double price);
 
 }

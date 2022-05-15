@@ -26,15 +26,15 @@ public class BookService : IBookService
         BooksChanged.Invoke();
     }
     
-    public async Task<ServiceResponse<Book>> GetBookAsync(long isbn)
+    public async Task<ServiceResponse<Book>> GetBookAsync(string isbn)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/Book/{isbn}");
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/BookToAdd/{isbn}");
         return result;
     }
 
     public async Task SearchBooks(string searchText)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/BookToAdd/search/{searchText}");
 
         if (result != null && result.Data != null)
         {
@@ -52,7 +52,7 @@ public class BookService : IBookService
     public async Task<List<string>> GetBookSearchSuggestionsAsync(string searchText)
     {
         var result =
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/Book/searchSuggestions/{searchText}");
+            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/BookToAdd/searchSuggestions/{searchText}");
         return result.Data;
     }
 }

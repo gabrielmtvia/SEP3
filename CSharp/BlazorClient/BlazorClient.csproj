@@ -23,6 +23,16 @@
       <Compile Update="Shared\BookListBase.cs">
         <DependentUpon>BookList.razor</DependentUpon>
       </Compile>
+      <Compile Update="Pages\SearchBookBase.cs">
+        <DependentUpon>SearchBook.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\AddBookBase.cs">
+        <DependentUpon>AddBook.razor</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
     </ItemGroup>
 
 </Project>

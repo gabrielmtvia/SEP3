@@ -1,12 +1,10 @@
 
-global using ModelClasses;
 global using BlazorClient.authentication;
-global using BlazorClient.Services;
 global using BlazorClient.Services.BookService;
-global using BlazorClient.Services.OrderService;
 global using BlazorClient.Services.UserService;
-using System.Security.Claims;
 using BlazorClient.Services.CategoryService;
+using BlazorClient.Services.OrderService;
+
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,21 +14,14 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
-// builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
-// {
-//     client.BaseAddress = new Uri("https://localhost:7031");
-// });
+
 builder.Services.AddScoped<IAuthService, AuthServiceIMP>();
 builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
-builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookService, BlazorClient.Services.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IOrderService, OrderService>(); 
+builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
 
-// builder.Services.AddHttpClient<IBookService, BookService>(client =>
-// {
-//     client.BaseAddress = new Uri("https://localhost:7031");
-// });
 
 builder.Services.AddAuthorization(options =>
 {

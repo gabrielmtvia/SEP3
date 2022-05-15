@@ -1,4 +1,4 @@
-﻿using BusinessLogicServer.Model.Order;
+﻿using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Service.BookService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +24,7 @@ public class BookController : ControllerBase
     
     [HttpGet]
     [Route("{isbn}")]
-    public async Task<ActionResult<ServiceResponse<Book>>> GetBookAsync(long isbn)
+    public async Task<ActionResult<ServiceResponse<Book>>> GetBookAsync(string isbn)
     {
         var result = await _service.GetBookAsync(isbn);
         return Ok(result);

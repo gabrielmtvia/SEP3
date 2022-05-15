@@ -56,7 +56,7 @@ public class OrderNetworkingImpl extends OrderServiceGrpc.OrderServiceImplBase
     @Override
     public void createOrder(Order.OrderMessage request, StreamObserver<Order.VoidMessage> responseObserver)
     {
-        OrderDTO orderDTO = new OrderDTO(request);
+        OrderDTO orderDTO = new OrderDTO();
         dao.createOrder(orderDTO);
         Order.VoidMessage build = Order.VoidMessage.newBuilder().build(); //always have this, you have to build the response message
         responseObserver.onNext(build);
