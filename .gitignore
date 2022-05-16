@@ -1,3 +1,4 @@
+.idea/
 Java/.idea/
 Java/target/
 Java/src/main/java/via/sep3/group2/grpc/
@@ -12,4 +13,3 @@ CSharp/ModelClasses/bin/
 CSharp/Shared/obj/
 CSharp/Shared/bin/
 CSharp/Shared/Protobuf/
-
