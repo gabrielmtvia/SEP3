@@ -1,4 +1,6 @@
-﻿using BlazorClient.Shared;
+﻿using System.Text.Json;
+using BlazorClient.Shared;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorClient.Services.BookService;
 
@@ -13,6 +15,16 @@ public class BookService : IBookService
     public BookService(HttpClient httpClient)
     {
         _httpClient = httpClient;
+    }
+
+    public Task<ActionResult<ServiceResponse<Book>>> GetBookByIsbnAsync(string isbn)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task AddBookAsync(Book book)
+    {
+        await _httpClient.PostAsJsonAsync("/Book", book);
     }
 
     public async Task GetBooksAsync(string? genreUrl = null)
