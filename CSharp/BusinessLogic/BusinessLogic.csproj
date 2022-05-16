@@ -11,8 +11,8 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
         <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <Protobuf Include="C:\SEP3_Group2\CSharp\Shared\Protos\Order.proto" OutputDir="C:\SEP3_Group2\CSharp\Shared\Protobuf/Order" GrpcServices="Client" />
-        <Protobuf Include="C:\SEP3_Group2\CSharp\Shared\Protos\Book.proto" OutputDir="C:\SEP3_Group2\CSharp\Shared\Protobuf/Book" GrpcServices="Client" />
+        <Protobuf Include="../Shared\Protos\Order.proto" OutputDir="../Shared\Protobuf/Order" GrpcServices="Client" />
+        <Protobuf Include="../Shared\Protos\Book.proto" OutputDir="../Shared\Protobuf/Book" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,6 +22,30 @@
     <ItemGroup>
       <ProjectReference Include="..\BlazorClient\BlazorClient.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="obj\BusinessLogic.csproj.nuget.dgspec.json" />
+      <Content Include="obj\Debug\net6.0\apphost.exe" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.AssemblyInfoInputs.cache" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.assets.cache" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.csproj.AssemblyReference.cache" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.csproj.CoreCompileInputs.cache" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.csproj.FileListAbsolute.txt" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.dll" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.genruntimeconfig.cache" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.MvcApplicationPartsAssemblyInfo.cache" />
+      <Content Include="obj\Debug\net6.0\BusinessLogic.pdb" />
+      <Content Include="obj\Debug\net6.0\staticwebassets.build.json" />
+      <Content Include="obj\project.assets.json" />
+      <Content Include="obj\project.nuget.cache" />
+      <Content Include="obj\project.packagespec.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+      <Compile Include="obj\Debug\net6.0\BusinessLogic.AssemblyInfo.cs" />
+      <Compile Include="obj\Debug\net6.0\BusinessLogic.MvcApplicationPartsAssemblyInfo.cs" />
     </ItemGroup>
 
 </Project>

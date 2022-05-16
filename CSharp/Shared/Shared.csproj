@@ -8,17 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Protobuf Include="Protos\Book.proto">
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
-      <Protobuf Include="Protos\Order.proto">
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
+      <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+      <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
-      <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
+      <Folder Include="Protos" />
     </ItemGroup>
 
 </Project>

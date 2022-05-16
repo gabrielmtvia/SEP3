@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
+
 namespace BlazorClient.Services.BookService;
 
 public interface IBookService
@@ -11,4 +13,7 @@ public interface IBookService
 
     Task SearchBooks(string searchText);
     Task<List<string>> GetBookSearchSuggestionsAsync(string searchText);
+    Task<ActionResult<ServiceResponse<Book>>> GetBookByIsbnAsync(string isbn);
+
+    Task AddBookAsync(Book book);
 }
