@@ -1,7 +1,7 @@
 .idea/
 Java/.idea/
 Java/target/
-Java/src/main/java/via/sep3/group2/grpc/
+Java/src/main/java/via/sep3/grpc/
 CSharp/.idea/
 CSharp/BlazorClient/obj/
 CSharp/BlazorClient/bin/
