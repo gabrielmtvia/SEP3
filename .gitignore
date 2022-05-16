@@ -2,11 +2,12 @@ Java/.idea/
 Java/target/
 Java/src/main/java/via/sep3/group2/grpc/
 CSharp/.idea/
-CSharp/BusinessLogicServer/Protobuf/
 CSharp/BlazorClient/obj/
 CSharp/BlazorClient/bin/
+CSharp/BusinessLogic/Protobuf/
+CSharp/BusinessLogic/obj/
+CSharp/BusinessLogic/bin/
 CSharp/ModelClasses/obj/
 CSharp/ModelClasses/bin/
-CSharp/BusinessLogicServer/obj/
-CSharp/BusinessLogicServer/bin/
+
 

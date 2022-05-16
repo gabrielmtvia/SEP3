@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_package = "via.sep3.grpc.order";
+
+message OrderMessage {
+  int64 id = 1;
+  string description = 2;
+  double amount = 3;
+  string status = 4;
+
+}
+message OrderByIdMessage {
+  int64 id= 1;
+}
+
+message ListOrderMessage {
+  repeated OrderMessage orders = 1;
+}
+
+message VoidMessage {
+
+}
+
+service OrderService {
+  rpc getAllOrders(VoidMessage) returns (ListOrderMessage);
+  rpc createOrder(OrderMessage) returns (VoidMessage);
+  rpc getOrderById(OrderByIdMessage) returns (OrderMessage);
+}
