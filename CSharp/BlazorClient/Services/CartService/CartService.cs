@@ -13,7 +13,16 @@ public class CartService : ICartService
 
     public async Task AddToCart(OrderLineDTO item)
     {
-        Console.WriteLine(item.ToString());
+        // var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<OrderLineDTO>>>($"/Cart/{item.SerialOrder}");
+        // if (result != null && result.Data != null)
+        // {
+        //     var orderLine = result.Data.Find(o => o.Isbn == item.Isbn);
+        //     if (orderLine != null)
+        //     {
+        //         item.Quantity += orderLine.Quantity;
+        //     }
+        // }
+
         await _httpClient.PostAsJsonAsync("/addToCart", item);
         OnChange?.Invoke();
 

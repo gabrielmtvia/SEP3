@@ -8,7 +8,7 @@ namespace BlazorClient.Pages;
 public class BookDetailsBase : ComponentBase {
     public Book? Book;
     public string Message = string.Empty;
-    public long OrderId { get; set; }
+    public long OrderId { get; set; } 
     public string Username = string.Empty;
     [Inject] private ICartService _cartService { get; set; }
     [Inject] private IBookService _bookService { get; set; }
@@ -20,18 +20,44 @@ public class BookDetailsBase : ComponentBase {
     public async Task CreateShoppingCart()
     {
         var result = authenticationStateTask.Result.User.Identity.Name;
-        Console.WriteLine(result);
+        
         if (result != null)
         {
-            OrderDTO newOrder = new OrderDTO()
+            Username = result;
+            var response = await _cartService.GetAllOrdersByUsernameAsync(Username);
+            if (response.Success && response.Data !=null)
             {
-                Date = DateTime.Today.ToString("dd-MM-yyyy"),
-                Username = result,
-                Status = OrderStatus.NotConfirmed
-            };
-            var response = await _cartService.CreateOrder(newOrder);
-            OrderId = response.Data;
-            Console.WriteLine(DateTime.Today.ToString("dd-MM-yyyy") + "order id" + OrderId + result + response.Message);
+                var currentOrder = response.Data.Find(o => o.Status == OrderStatus.NotConfirmed);
+
+                if (currentOrder != null)
+                {
+                    OrderId = currentOrder.SerialOrder;
+                }
+                else
+                {
+                    OrderDTO newOrder = new OrderDTO()
+                    {
+                        Date = DateTime.Today.ToString("dd-MM-yyyy"),
+                        Username = result,
+                        Status = OrderStatus.NotConfirmed
+                    };
+                    var response2 = await _cartService.CreateOrder(newOrder);
+                    OrderId = response2.Data;
+                }
+                
+            }
+            
+            else
+            {
+                OrderDTO newOrder = new OrderDTO()
+                {
+                    Date = DateTime.Today.ToString("dd-MM-yyyy"),
+                    Username = result,
+                    Status = OrderStatus.NotConfirmed
+                };
+                var response2 = await _cartService.CreateOrder(newOrder);
+                OrderId = response2.Data;
+            }
         }
     }
 
@@ -47,21 +73,12 @@ public class BookDetailsBase : ComponentBase {
         {
             Book = result.Data;
         }
+
     }
 
     public async Task AddToCart()
     {
-        var response = await _cartService.GetSerialOrder(new UsernameDateStatus() {Date = DateTime.Today.ToString("dd-MM-yyyy"), Username = Username, Status = OrderStatus.NotConfirmed});
-        if (response.Success)
-        {
-            OrderId = response.Data;
-            Console.WriteLine("Current order " + response.Data);
-        }
-        else
-        {
-            Console.WriteLine(response.Message + "Add to cart method");
-            await CreateShoppingCart();
-        }
+        await CreateShoppingCart();
         
         var orderLine = new OrderLineDTO
         {
@@ -74,24 +91,5 @@ public class BookDetailsBase : ComponentBase {
         Console.WriteLine("Order ID is " + OrderId);
     }
 
-    public async Task PrintOutShoppingCart()
-    {
-        var result = _cartService.GetCartItems(OrderId).Result;
-        Console.WriteLine("OrderID is " + OrderId);
-
-        List<OrderLineDTO> data = new List<OrderLineDTO>();
-
-        if (result.Data != null)
-            data = result.Data;
-        
-        Console.WriteLine(result.Message);
-
-        foreach (var order in data)
-        {
-            Console.WriteLine(order.Isbn);
-            Console.WriteLine(order.Quantity);
-            Console.WriteLine(order.SerialOrder);
-        }
-    }
-
+   
 }

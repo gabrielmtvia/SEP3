@@ -28,3 +28,14 @@
     font-weight: bold;
     text-align: right;
 }
+
+.button {
+    display: flex;
+   justify-content: flex-end;
+}
+
+.orderList {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px;
+}

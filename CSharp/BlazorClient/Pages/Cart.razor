@@ -1,11 +1,18 @@
 ﻿@page "/Cart"
+@using System.Net.Http.Headers
+@using System.Reflection
 @inherits CartBase
-
+@inject NavigationManager _navigationManager
 <h3>Shopping Cart</h3>
 
 @if (ShoppingCartItems == null || ShoppingCartItems.Count == 0)
 {
     <span>@message</span>
+    <div>
+        <button class="btn btn-primary" onclick="@((() => _navigationManager.NavigateTo("/CustomerOrderHistory")))">
+            <i class="oi oi-basket">Order History</i>
+            </button>
+    </div>
 }
 else
 {
@@ -14,7 +21,10 @@ else
         <div>
             <button class="btn btn-primary" @onclick="CheckOut">
                 <i class="oi oi-basket">Checkout</i>
-                </button>
+            </button>
+            <button class="btn btn-primary" onclick="@((() => _navigationManager.NavigateTo("/CustomerOrderHistory")))">
+                <i class="oi oi-basket">Order History</i>
+            </button>
         </div>
         @foreach (var product in ShoppingCartItems)
         {
@@ -24,6 +34,9 @@ else
                 </div>
                 <div class="name">
                     <h5><a href="/BookDetails/@product.Isbn">@product.Title</a></h5>
+                    <input type="number" value="@product.Quantity" @onchange="@((ChangeEventArgs e) => UpdateQuantity(e, product))"
+                           class="form-control input-quantity"
+                           min="1"/>
                     <button class="btn btn-danger" @onclick="@(()=>RemoveProductFromCart(product.Isbn, product.Quantity))">Remove from cart</button>
                 </div>
                 <div class="cart-product-price">$@product.Price</div>
@@ -31,7 +44,7 @@ else
             </div>
         }
         <div class="cart-product-price">
-            Total (@ShoppingCartItems.Count): $@ShoppingCartItems.Sum(items => @items.Price)
+            Total cart products (@ShoppingCartItems.Count): $@ShoppingCartItems.Sum(items => @items.Price * @items.Quantity)
         </div>
     </div>
 }

@@ -17,35 +17,44 @@ public class CartBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
+        username = authenticationStateTask.Result.User.Identity.Name;
         await LoadCart();
     }
     
     public async Task LoadCart()
     {
-        UsernameDateStatus usernameDateStatus = new UsernameDateStatus
+        var response = await _cartService.GetAllOrdersByUsernameAsync(username);
+        
+        if (response.Success && response.Data !=null)
         {
-            Username = authenticationStateTask.Result.User.Identity.Name,
-            Date = DateTime.Today.ToString("dd-MM-yyyy"),
-            Status = OrderStatus.NotConfirmed
-        };
+            var currentOrder = response.Data.Find(o => o.Status == OrderStatus.NotConfirmed);
 
-        var result = await _cartService.GetSerialOrder(usernameDateStatus);
-       
-        if (result.Success)
-        {
-            serialOrder = result.Data;
-            ShoppingCartItems = _cartService.GetShoppingCart(serialOrder).Result.Data;
-            if (ShoppingCartItems.Count == 0)
-                message = "Your cart is empty";
+            if (currentOrder != null)
+            {
+                serialOrder = currentOrder.SerialOrder;
+                ShoppingCartItems = _cartService.GetShoppingCart(serialOrder).Result.Data;
+                if (ShoppingCartItems.Count == 0)
+                {
+                    message = "Your cart is empty";
+                }
+
+                else
+                {
+                    message = "";
+                }
+            }
             else
             {
-                message = "";
+                message = "You haven't added any product yet. Please review our catalog and add some items to the cart";
             }
+            
         }
+
+        
         else
         {
             ShoppingCartItems = new List<ShoppingCartItem>();
-            message = "New shopping cart created";
+            message = "You haven't added any product yet. Please review our catalog and add some items to the cart";
         }
         
     }
@@ -77,5 +86,40 @@ public class CartBase : ComponentBase
         };
         await _cartService.RemoveProductFromCart(item);
         await LoadCart();
+    }
+
+    public async Task UpdateQuantity(ChangeEventArgs e, ShoppingCartItem item)
+    {
+        int quantity = 0;
+        
+        if (!e.Equals(null) && !e.Value.Equals(null))
+        {
+            quantity = Int32.Parse(e.Value.ToString());
+        }
+
+        
+        if (quantity == 0)
+        {
+            await RemoveProductFromCart(serialOrder, item.Quantity);
+        }
+
+        else
+        {
+            if (quantity < 0) quantity = 1;
+
+            OrderLineDTO updateQuantity = new OrderLineDTO()
+            {
+                Quantity = quantity,
+                SerialOrder = serialOrder,
+                Isbn = item.Isbn
+            };
+
+            await _cartService.AddToCart(updateQuantity);
+
+        }
+
+        Console.WriteLine("Update method");
+        await LoadCart();
+
     }
 }
