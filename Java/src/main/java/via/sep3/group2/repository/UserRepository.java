@@ -15,6 +15,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserDTO, String> {
+
 UserDTO findByUsernameAndPassword (@Param("username")String username, @Param("password")String password);
 
     @Transactional

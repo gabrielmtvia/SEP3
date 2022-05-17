@@ -30,9 +30,13 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void login (UserOuterClass.Login request, StreamObserver<UserOuterClass.Role> roleStreamObserver){
+
+
         String role=userDAO.getRole(request.getUsername(), request.getPassword());
-        if (role==null)
-            role="NOROLE";
+        if(role==null)
+            role="NO_ROLE";
+
+       // else role=userDAO.getRole(request.getUsername(), request.getPassword()
 
         UserOuterClass.Role reply= UserOuterClass.Role.newBuilder().setRole(role).build();
         roleStreamObserver.onNext(reply);
