@@ -1,6 +1,6 @@
 using BusinessLogicServer.Models.Books;
 using BusinessLogicServer.Models.Orders;
-using BusinessLogicServer.Service.BookService;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusinessLogicServer.Controllers;
@@ -9,11 +9,11 @@ namespace BusinessLogicServer.Controllers;
 [Route("[controller]")]
 public class BookController : ControllerBase
 {
-    private IBookService _service;
+   
     private IBookModel model;
-    public BookController(IBookService service, IBookModel model)
+    public BookController(IBookModel model)
     {
-        _service = service;
+        
         this.model = model;
     }
 
@@ -36,7 +36,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await _service.GetAllBooksAsync();
+            var result = await model.GetAllBooksAsync();
             return Ok(result);
         }
         catch (Exception e)
@@ -44,14 +44,14 @@ public class BookController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+  /*  
     [HttpGet]
     [Route("{isbn}")]
     public async Task<ActionResult<ServiceResponse<Book>>> GetBookAsync(string isbn)
     {
         try
         {
-            var result = await _service.GetBookAsync(isbn);
+            var result = await model.GetBookAsync(isbn);
             return Ok(result);
         }
         catch (Exception e)
@@ -67,7 +67,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await _service.GetBooksByGenreAsync(genreUrl);
+            var result = await model.GetBooksByGenreAsync(genreUrl);
             return Ok(result);
         }
         catch (Exception e)
@@ -82,7 +82,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await _service.SearchBooksAsync(searchText);
+            var result = await model.SearchBooksAsync(searchText);
             return Ok(result);
         }
         catch (Exception e)
@@ -97,13 +97,13 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await _service.GetBookSearchSuggestionsAsync(searchText);
+            var result = await model.GetBookSearchSuggestionsAsync(searchText);
             return Ok(result);
         }
         catch (Exception e)
         {
             return StatusCode(500, e.Message);
         }
-    }
+    } */
 
     }

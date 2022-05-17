@@ -4,7 +4,7 @@ namespace BusinessLogicServer.Service.BookService;
 
 public class BookService : IBookService
 {
-    private static List<Book> _books = new List<Book>()
+ /*   private static List<Book> _books = new List<Book>()
     {
         new Book()
         {
@@ -94,6 +94,12 @@ public class BookService : IBookService
         return response;
     }
 
+    public Task<ServiceResponse<Book>> GetBookByIsbnAsync(string isbn)
+    {
+        var response = new ServiceResponse<Book>();
+        return null;
+    }
+
     public async Task<ServiceResponse<Book>> GetBookAsync(string isbn)
     {
         var response = new ServiceResponse<Book>();
@@ -178,5 +184,5 @@ public class BookService : IBookService
         {
             Data = result
         };
-    }
-}
+    }*/
+} 

@@ -1,0 +1,62 @@
+﻿@page "/AddBook"
+<h3>AddBookToAdd</h3>
+
+@inject NavigationManager navMgr
+@inject IBookService bookService
+@inherits AddBookBase;
+
+
+<div class="design">
+ <EditForm Context="myContext" Model="BookToAdd" OnValidSubmit="@TryAddBookAsync">
+
+     <DataAnnotationsValidator/>
+     <ValidationSummary/>
+     
+   <div class="form-outline mb-4">
+         <select @onchange="SelectedGenreChanged" multiple>
+             @foreach (string genre in genres)
+             {
+                 <option value="@genre">@genre</option>
+             }
+         </select>
+    </div>
+
+     <div class="form-outline mb-4">
+         <InputFile class="form-control" OnChange="SaveImageAsync"
+                    accept="image/jpeg, image/png, image/gif" id="inputFile"/>
+         <label class="form-label" for="inputFile">Choose file</label>
+     </div>
+     <div class="form-outline mb-4">
+         <InputText type="text" id="bookTitle" class="form-control"@bind-Value="BookToAdd.Title"/>
+         <label class="form-label" for="bookTitle">Book Title</label>
+     </div>
+     
+     <div class="form-outline mb-4">
+         <InputText type="text" id="bookAuthor" class="form-control"@bind-Value="BookToAdd.Author"/>
+         <label class="form-label" for="bookAuthor">Book Author</label>
+     </div>
+     
+     <div class="form-outline mb-4">
+         <InputText type="text" id="bookEdition" class="form-control"@bind-Value="BookToAdd.Edition"/>
+         <label class="form-label" for="bookEdition">Book Edition</label>
+     </div>
+     
+     <div class="form-outline mb-4">
+         <InputText type="text" id="bookIsbn" class="form-control"@bind-Value="BookToAdd.Isbn"/>
+         <label class="form-label" for="bookIsbn">Book Isbn</label>
+     </div>
+     
+     <div class="form-outline mb-4">
+         <InputNumber type="number" id="bookPrice" class="form-control"@bind-Value="BookToAdd.Price"/>
+         <label class="form-label" for="bookPrice">Book Price</label>
+     </div>
+     
+     <div class="form-outline mb-4">
+         <InputTextArea type="text" id="bookDescription" class="form-control"@bind-Value="BookToAdd.Description"/>
+         <label class="form-label" for="bookDescription">Book Description</label>
+     </div>
+     
+     <button type="submit" class="btn btn-primary btn-block mb-4">ADD BOOK</button>
+     
+ </EditForm>
+ </div>

@@ -1,4 +1,9 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Threading.Tasks;
 using BlazorClient.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +12,8 @@ namespace BlazorClient.Services.BookService;
 public class BookService : IBookService
 {
     private readonly HttpClient _httpClient;
+    
+    
 
     public string Message { get; set; } = "Loading books...";
     public event Action BooksChanged;
@@ -16,11 +23,9 @@ public class BookService : IBookService
     {
         _httpClient = httpClient;
     }
-
-    public Task<ActionResult<ServiceResponse<Book>>> GetBookByIsbnAsync(string isbn)
-    {
-        throw new NotImplementedException();
-    }
+  
+    
+    
 
     public async Task AddBookAsync(Book book)
     {
@@ -38,11 +43,13 @@ public class BookService : IBookService
         BooksChanged.Invoke();
     }
     
-    public async Task<ServiceResponse<Book>> GetBookAsync(string isbn)
+    public async Task<ServiceResponse<Book>> GetBookByIsbnAsync(string isbn)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/BookToAdd/{isbn}");
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/Book/{isbn}");
         return result;
     }
+
+    
 
     public async Task SearchBooks(string searchText)
     {
