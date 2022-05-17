@@ -3,8 +3,11 @@ package via.sep3.group2.networking;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
+//import via.sep3.group2.dao.UserDAO;
+//import via.sep3.group2.models.UserDTO;
 import via.sep3.group2.dao.UserDAO;
-import via.sep3.group2.models.UserDTO;
+//import via.sep3.group2.persistance.UserDAO;
+import via.sep3.group2.shared.UserDTO;
 import via.sep3.grpc.user.UserOuterClass;
 import via.sep3.grpc.user.UserServiceGrpc;
 

@@ -4,11 +4,12 @@ import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import via.sep3.group2.models.*;
+//import via.sep3.group2.models.*;
 import via.sep3.group2.repository.BookRepository;
 import via.sep3.group2.repository.OrderLineWithCompositeKeyRepository;
 import via.sep3.group2.repository.OrdersRepository;
 import via.sep3.group2.repository.UserRepository;
+import via.sep3.group2.shared.*;
 
 import java.sql.Date;
 import java.util.List;
@@ -53,6 +54,7 @@ class OrderLineWithCompositeKeyDAOTest {
 
         orderLineWithCompositeKeyRepository.save(orderLineWithCompositeKeyDTO1);
         orderLineWithCompositeKeyRepository.save(orderLineWithCompositeKeyDTO2);
+
 
 
        List<OrderLineWithCompositeKeyDTO>  orderlines =(orderLineWithCompositeKeyRepository.findAll());

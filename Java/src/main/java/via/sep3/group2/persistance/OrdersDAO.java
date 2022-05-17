@@ -2,10 +2,11 @@ package via.sep3.group2.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import via.sep3.group2.models.OrdersDTO;
-import via.sep3.group2.models.UserDTO;
+//import via.sep3.group2.models.OrdersDTO;
+//import via.sep3.group2.models.UserDTO;
 import via.sep3.group2.repository.OrdersRepository;
 import via.sep3.group2.repository.UserRepository;
+import via.sep3.group2.shared.OrdersDTO;
 
 import java.util.List;
 

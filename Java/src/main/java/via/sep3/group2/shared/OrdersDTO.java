@@ -1,10 +1,8 @@
-package via.sep3.group2.models;
+package via.sep3.group2.shared;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table (name="orderss")
@@ -15,7 +13,7 @@ public class OrdersDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    private java.sql.Date date;
+    private Date date;
     private String status;
 
     @OneToMany(

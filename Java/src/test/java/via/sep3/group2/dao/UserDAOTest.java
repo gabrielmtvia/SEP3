@@ -2,15 +2,14 @@ package via.sep3.group2.dao;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.util.Assert;
-import via.sep3.group2.models.UserDTO;
 import via.sep3.group2.repository.UserRepository;
+import via.sep3.group2.shared.UserDTO;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
 //@AutoConfigureTestDatabase
 class UserDAOTest {

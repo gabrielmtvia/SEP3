@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 //import via.sep3.group2.models.OrdersDTO;
 
 //import via.sep3.group2.models.UserDTO;
-import via.sep3.group2.models.UserDTO;
+//import via.sep3.group2.models.UserDTO;
 import via.sep3.group2.repository.OrderRepository;
 import via.sep3.group2.repository.UserRepository;
+import via.sep3.group2.shared.UserDTO;
 
 import java.sql.SQLException;
 import java.util.List;

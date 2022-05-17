@@ -1,4 +1,4 @@
-package via.sep3.group2.models;
+package via.sep3.group2.shared;
 
 public class JoinDTO {
     private long id;

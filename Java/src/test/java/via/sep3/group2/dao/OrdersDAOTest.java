@@ -1,28 +1,19 @@
 package via.sep3.group2.dao;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.util.Assert;
-import via.sep3.group2.models.OrdersDTO;
-import via.sep3.group2.models.UserDTO;
 import via.sep3.group2.repository.OrdersRepository;
 import via.sep3.group2.repository.UserRepository;
+import via.sep3.group2.shared.OrdersDTO;
+import via.sep3.group2.shared.UserDTO;
 
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
 import java.sql.Date;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class OrdersDAOTest {
