@@ -1,25 +1,46 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>BlazorClient</PageTitle>
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu/>
+            </div>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <Search/>
-            <AuthorizeView>
-                <a class="oi oi-account-logout"  @onclick="Logout"/>
-            </AuthorizeView>
+            <main>
+               
+                    <div class="top-row px-4">
+                        <Search/>
+                          <a class="oi oi-account-login" href="/Login" ></a>
+                    </div>
+                 
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    </NotAuthorized>
+    <Authorized>
+        <div class="page">
+                    <div class="sidebar">
+                        <NavMenu/>
+                    </div>
+        
+                    <main>
+                        <div class="top-row px-4">
+                            <Search />
+                            <a class="oi oi-account-logout"  @onclick="Logout"></a>
+                         
+                        </div>
+        
+                        <article class="content px-4">
+                            @Body
+                        </article>
+                    </main>
+                </div>
+    </Authorized>
+</AuthorizeView>
 
 @code {
 
