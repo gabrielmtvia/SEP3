@@ -1,7 +1,4 @@
-﻿@using BlazorClient.authentication
-@using Login
-@inherits LayoutComponentBase
-
+﻿@inherits LayoutComponentBase
 
 <PageTitle>BlazorClient</PageTitle>
 
@@ -13,7 +10,6 @@
     <main>
         <div class="top-row px-4">
             <Search/>
-            <LoginButtons />
             <AuthorizeView>
                 <a class="oi oi-account-logout"  @onclick="Logout"/>
             </AuthorizeView>
