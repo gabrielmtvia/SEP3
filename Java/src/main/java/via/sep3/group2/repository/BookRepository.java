@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import via.sep3.group2.shared.BookDTO;
 
 @Repository
-public interface BookRepository extends JpaRepository<BookDTO, String>
-{
+public interface BookRepository extends JpaRepository<BookDTO, String>{
+
+
 }

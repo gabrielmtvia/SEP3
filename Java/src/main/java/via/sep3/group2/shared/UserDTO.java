@@ -8,12 +8,17 @@ import java.util.List;
 
 @Entity
 @Table(name="users")
-public class UserDTO implements Serializable {
+public class UserDTO  {
     @Id
     // @Column(name = "userid")
     private String username;
     private String password;
-    private java.sql.Date birthday;
+    // private java.sql.Date birthday;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private String phone;
+    private String email;
     private String role;
 
     //@OneToOne(cascade=CascadeType.PERSIST)
@@ -22,12 +27,48 @@ public class UserDTO implements Serializable {
             orphanRemoval = true)*/
     //  mappedBy = "userDTO", orphanRemoval = true)
     @OneToMany ( cascade = CascadeType.ALL,
-                 mappedBy = "user",orphanRemoval = true
+            mappedBy = "user",orphanRemoval = true
     )
+    private List<OrdersDTO> orders ;
 
-    // @JoinColumn(name="username")
-    private List<OrderDTO> orders ;
+    public UserDTO(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
+    public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role) {
+        this.username = username;
+        this.password = password;
+        // this.birthday = birthday;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.role = role;
+    }
+
+    public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role, List<OrdersDTO> orders) {
+        this.username = username;
+        this.password = password;
+        //this.birthday = birthday;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.role = role;
+        this.orders = orders;
+    }
+
+    public UserDTO(String username) {
+        this.username = username;
+    }
+
+    public UserDTO() {
+
+    }
 
 
     public String getRole() {
@@ -38,11 +79,11 @@ public class UserDTO implements Serializable {
         this.role = role;
     }
 
-    public List<OrderDTO> getOrders() {
+    public List<OrdersDTO> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderDTO> orders) {
+    public void setOrders(List<OrdersDTO> orders) {
         this.orders = orders;
     }
 
@@ -62,11 +103,45 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public Date getBirthday() {
-        return birthday;
+
+
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String mail) {
+        this.email = mail;
     }
 }
