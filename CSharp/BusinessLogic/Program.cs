@@ -4,6 +4,7 @@ using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Networking.Books;
 using BusinessLogicServer.Networking.Orders;
 using BusinessLogicServer.Service.BookService;
+using BusinessLogicServer.Service.CartService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
 
@@ -20,9 +21,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOrderNetworking, OrderNetworking>();
 builder.Services.AddScoped<IBookNetworking, BookNetworking>();
 builder.Services.AddScoped<IOrderModel, OrderModel>();
+builder.Services.AddSingleton<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 //builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IBookModel, BookModel>();
+builder.Services.AddSingleton<ICartService, CartService>();
 
 
 

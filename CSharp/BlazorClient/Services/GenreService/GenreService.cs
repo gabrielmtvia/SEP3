@@ -1,4 +1,6 @@
-﻿namespace BlazorClient.Services.CategoryService;
+﻿using BlazorClient.Services.CategoryService;
+
+namespace BlazorClient.Services.GenreService;
 
 public class GenreService : IGenreService
 {

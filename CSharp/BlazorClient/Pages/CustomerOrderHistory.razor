@@ -1,0 +1,72 @@
+﻿@page "/CustomerOrderHistory"
+@inherits CustomerOrderHistoryBase
+@inject NavigationManager _navigationManager
+
+<h3>Customer Order History</h3>
+
+@if (OrderList == null || OrderList.Count == 0)
+{
+    <span>@Message</span>
+}
+else
+{
+    <span>@Message</span>
+    <div>
+        @if (CurrentOrder.Count != 0)
+        {
+          <span>Displaying order number [@CurrentSerialOrder]</span>  
+        }
+        
+        @foreach (var product in CurrentOrder)
+        {
+            <div class="container">
+                <div class="image-wrapper">
+                    <img src="@product.ImageUrl" class="image"/>
+                </div>
+                <div class="name">
+                    <h5><a href="/BookDetails/@product.Isbn">@product.Title</a></h5>
+                </div>
+                <div class="cart-product-price">$@product.Price</div>
+                <div class="cart-product-quantity">Quantity: @product.Quantity</div>
+            </div>
+        }
+        @if (CurrentOrder.Count != 0)
+        {
+            <div class="cart-product-price">
+                Total (@CurrentOrder.Count): $@CurrentOrder.Sum(items => @items.Price * @items.Quantity)
+            </div>
+        }
+        @if (CurrentOrder.Count != 0 && CurrentOrderStatus == OrderStatus.NotConfirmed)
+        {
+            <div class="button">
+                <button class="btn btn-primary" onclick="@((()=> _navigationManager.NavigateTo($"/Cart")))">
+                    <i class="oi oi-basket">Edit cart</i>
+                </button>
+            </div>
+        }
+        @if (OrderList.Count != 0)
+        {
+            <div class="orderList">
+                <h4>Order number</h4>
+                <h4>Status</h4>
+                <h4>Order date</h4>
+                <h4>Review Order</h4>
+
+            </div>
+        }
+        @foreach (var order in OrderList)
+        {
+            <div class="orderList">
+                <h4>@order.SerialOrder</h4>
+                <h4>@order.Status</h4>
+                <h4>@order.Date</h4>
+                <button class="btn btn-primary" @onclick="@(() => LoadOrder(order.SerialOrder))">
+                    <i class="oi oi-basket">Review order</i>
+                </button>
+            </div>
+
+        }
+
+    </div>
+}
+

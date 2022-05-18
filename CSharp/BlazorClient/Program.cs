@@ -2,7 +2,9 @@
 global using BlazorClient.authentication;
 global using BlazorClient.Services.BookService;
 global using BlazorClient.Services.UserService;
+using BlazorClient.Services.CartService;
 using BlazorClient.Services.CategoryService;
+using BlazorClient.Services.GenreService;
 using BlazorClient.Services.OrderService;
 
 using Microsoft.AspNetCore.Components.Authorization;
@@ -13,12 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
-
+builder.Services.AddSingleton(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
+// builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
+// {
+//     client.BaseAddress = new Uri("https://localhost:7031");
+// });
 builder.Services.AddScoped<IAuthService, AuthServiceIMP>();
 builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
-builder.Services.AddScoped<IBookService, BlazorClient.Services.BookService.BookService>();
+builder.Services.AddSingleton<IBookService, BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
 
@@ -28,6 +33,12 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("MustBeAdmin",
         pb =>
             pb.RequireAuthenticatedUser().RequireClaim("Role", "Admin"));
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddSingleton<ICartService, CartService>();
+// builder.Services.AddHttpClient<IBookService, BookService>(client =>
+// {
+//     client.BaseAddress = new Uri("https://localhost:7031");
+// });
 
     options.AddPolicy("MustBeCustomer",
         a => 
