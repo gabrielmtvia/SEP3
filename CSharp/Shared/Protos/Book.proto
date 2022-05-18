@@ -3,10 +3,25 @@ syntax = "proto3";
 option java_package = "via.sep3.grpc.book";
 
 message BookMessage{
-  string book = 1;
+  string isbn = 1;
+  string title = 2;
+  string author = 3;
+  string edition = 4;
+  string description = 5;
+  double price = 6;
+  string url = 7;
+
+}
+
+message EmptyBookMessage{
+
+}
+
+message ListOfBooks{
+  repeated BookMessage books = 1;
 }
 
 service BookService {
-  rpc getAllBooks( BookMessage) returns ( BookMessage);
-  rpc addBook(BookMessage) returns (BookMessage);
+  rpc getAllBooks( EmptyBookMessage) returns ( ListOfBooks);
+  rpc createBook(BookMessage) returns (EmptyBookMessage);
 }

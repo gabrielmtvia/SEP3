@@ -14,7 +14,7 @@ public class RegisterServiceIMP : IRegisterService
         this._httpClient = _httpClient;
     }
     
-    public async void createUser(UserDTO userDto)
+    public async Task createUser(UserDTO userDto)
     {
         // string Register = JsonSerializer.Serialize(userDto);
         //

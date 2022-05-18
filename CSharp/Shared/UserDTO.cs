@@ -1,7 +1,8 @@
 namespace ModelClasses;
-
+using System.ComponentModel.DataAnnotations;
 public class UserDTO
 {
+    
     public string userName { get; set; }
     public string firstName { get; set; }
     
@@ -28,7 +29,12 @@ public class UserDTO
        
     }
 
-   
+    public UserDTO(string userName, string firstName, string password)
+    {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.password = password;
+    }
 
     public UserDTO()
     {

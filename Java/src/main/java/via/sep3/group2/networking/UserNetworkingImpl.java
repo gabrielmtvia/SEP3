@@ -22,7 +22,7 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
     }
     @Override
     public void createUser(User.UserMessage request, StreamObserver<User.EmptyMessage> responseObserver){
-        UserDTO userDTO=new UserDTO(request.getUsername(),request.getPassword(),request.getUsername(),request.getLastname(),
+        UserDTO userDTO=new UserDTO(request.getUsername(),request.getPassword(),request.getFirstname(),request.getLastname(),
                 request.getAddress(),request.getEmail(),request.getPhone(),request.getRole()   );
         userDAO.createUser(userDTO);
         User.EmptyMessage build =  User.EmptyMessage.newBuilder().build();

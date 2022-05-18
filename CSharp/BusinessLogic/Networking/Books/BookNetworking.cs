@@ -16,7 +16,7 @@ public class BookNetworking : IBookNetworking
     
     public async Task AddBookAsync(Book book)
     {
-        var serialize = JsonSerializer.Serialize(book);
+      /*  var serialize = JsonSerializer.Serialize(book);
         var bookMessage = new BookMessage
         {
             Book = serialize
@@ -24,7 +24,12 @@ public class BookNetworking : IBookNetworking
 
         var addBook = client.addBook(bookMessage);
 
-        Console.WriteLine(addBook.Book);
+        Console.WriteLine(addBook.Book);*/
+      await client.createBookAsync(new BookMessage
+      {
+          Isbn = book.Isbn,Author = book.Author,Description = book.Description,Edition = book.Edition
+          ,Price = book.Price,Title = book.Title,Url = book.ImageUrl
+      });
     }
 
     public async Task<Book> GetBookByIsbnAsync(string isbn)

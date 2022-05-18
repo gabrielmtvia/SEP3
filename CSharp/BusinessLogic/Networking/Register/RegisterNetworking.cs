@@ -15,7 +15,7 @@ public class RegisterNetworking: IRegisterNetworking
     {
         
         
-        userClient.createUser(new UserMessage
+      await  userClient.createUserAsync(new UserMessage
         {
             Username = userDto.userName, Password = userDto.password, Firstname = userDto.firstName, Lastname = userDto.lastName,
             Address = userDto.address, Phone = userDto.phone, Email = userDto.email, Role = userDto.role

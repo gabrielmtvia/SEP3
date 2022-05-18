@@ -20,9 +20,9 @@ public class Book
     [StringLength(500, ErrorMessage = "Book description title is too long.")]
     public string Description { get; set; } = string.Empty;
     public string ImageUrl { get; set; } = string.Empty;
-    [Required, Range(1, 300)]
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal Price { get; set; }
+  //  [Required, Range(1, 300)]
+  //  [Column(TypeName = "decimal(18,2)")]
+    public double Price { get; set; }
     [Required]
     public List<Genre> Genres { get; set; }
 

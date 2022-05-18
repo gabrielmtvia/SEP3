@@ -8,7 +8,8 @@ namespace BlazorClient;
 
 public class RegisterBase : ComponentBase
 {
-  
+    [Inject]
+      public IRegisterService _registerService { get; set; }
     [Inject] public IAuthService iAuthService { get; set; }
 
     [Inject] public NavigationManager NavigationManager { get; set; }
@@ -19,32 +20,31 @@ public class RegisterBase : ComponentBase
     public IEnumerable<Claim> claims;
     public ClaimsPrincipal user; 
     public UserDTO userDto = new();
-
-    public IRegisterService _registerService;
+   
    
      
   
 
     private string? errorLabel = String.Empty;
 
-    protected  void CreateAccount()
+    public async Task CreateAccount()
     {
         errorLabel = "";
-        try
-        {
-
-            _registerService.createUser(userDto);
+       // try
+       // {
+          //  userDto = new UserDTO("zxzx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx");
+           await _registerService.createUser(userDto);
             
             Console.WriteLine("just checking in registration" + userDto.userName);
             Console.WriteLine("just checking in registration" + userDto.phone);
         
           
-        }
-        catch (Exception e)
-        {
-            errorLabel = $"Error: {e.Message}";
+     //   }
+      //  catch (Exception e)
+      //  {
+      //      errorLabel = $"Error: {e.Message}";
 
-        }
+     //   }
     }
     
     protected override async Task OnInitializedAsync()
