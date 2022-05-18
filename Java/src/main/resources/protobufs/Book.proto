@@ -23,5 +23,5 @@ message ListOfBooks{
 
 service BookService {
   rpc getAllBooks( EmptyBookMessage) returns ( ListOfBooks);
-  rpc addBook(BookMessage) returns (EmptyBookMessage);
+  rpc createBook(BookMessage) returns (EmptyBookMessage);
 }

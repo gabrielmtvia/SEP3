@@ -4,5 +4,5 @@ namespace BlazorClient.Services.RegisterService;
 
 public interface IRegisterService
 {
-    void  createUser(UserDTO userDto);
+   Task  createUser(UserDTO userDto);
 }

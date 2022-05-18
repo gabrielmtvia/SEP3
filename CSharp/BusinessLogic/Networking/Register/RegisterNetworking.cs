@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 
 namespace BusinessLogicServer.Networking.Register;
@@ -15,16 +16,21 @@ public class RegisterNetworking: IRegisterNetworking
     {
         
         
-        userClient.createUser(new UserMessage
+      await  userClient.createUserAsync(new UserMessage
         {
             Username = userDto.userName, Password = userDto.password, Firstname = userDto.firstName, Lastname = userDto.lastName,
             Address = userDto.address, Phone = userDto.phone, Email = userDto.email, Role = userDto.role
         });
        
+      
     }
 
-    public async Task<string> GetRole(string username, string password)
+    public async Task<string> GetRole(User user)
     {
-        throw new NotImplementedException();
+        string  role = "";
+     var answer=  await userClient.loginAsync(new LoginMessage{Password = user.password,Username = user.userName});
+     role = answer.Role; 
+     
+     return role;
     }
 }
