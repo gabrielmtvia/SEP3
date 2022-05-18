@@ -1,11 +1,13 @@
 package via.sep3.group2.shared;
 
-import via.sep3.grpc.order.Order;
+//import via.sep3.grpc.order.Order;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
+import via.sep3.group2.shared.UserDTO;
+import via.sep3.grpc.order.Order;
 
 @Entity
 @Table (name="orders")

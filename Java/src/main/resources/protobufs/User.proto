@@ -6,7 +6,7 @@ option java_package = "via.sep3.grpc.user";
 message EmptyMessage {
 
 }
-message User{
+message UserMessage{
   string username = 1;
   string password = 2;
   string firstname = 3;
@@ -17,17 +17,17 @@ message User{
   string role = 8;
 }
 
-message Login{
+message LoginMessage{
   string username = 1;
   string password = 2;
 }
 
-message Role{
+message RoleMessage{
   string role = 1;
 }
 
 service UserService{
-  rpc createUser(User) returns(EmptyMessage);
-  rpc login(Login) returns(Role);
+  rpc createUser(UserMessage) returns(EmptyMessage);
+  rpc login(LoginMessage) returns(RoleMessage);
 
 }
