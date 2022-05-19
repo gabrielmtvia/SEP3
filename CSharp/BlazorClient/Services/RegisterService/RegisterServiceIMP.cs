@@ -41,4 +41,6 @@ public class RegisterServiceIMP : IRegisterService
         await _httpClient.PostAsync("/Register", byteContent);
       
     }
+    
+    
 }

@@ -25,10 +25,10 @@ public class RegisterNetworking: IRegisterNetworking
       
     }
 
-    public async Task<string> GetRole(User user)
+    public async Task<string> GetRole(string userName, string password)
     {
         string  role = "";
-     var answer=  await userClient.loginAsync(new LoginMessage{Password = user.password,Username = user.userName});
+     var answer=  await userClient.loginAsync(new LoginMessage{Password = password,Username = userName});
      role = answer.Role; 
      
      return role;

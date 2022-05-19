@@ -7,7 +7,7 @@ namespace BlazorClient.authentication;
 
 public class AuthServiceIMP : IAuthService
 {
-   
+
 
     
     private readonly IUserService IuserService;
@@ -21,16 +21,19 @@ public class AuthServiceIMP : IAuthService
 
     public async Task LoginAsync(string username, string password)
     {
+        string s = await IuserService.GetUserAsync2(username, password);
+        User? myuser = new User(username, password, s);
+        
+       // string? user1 = await IuserService.GetUserAsync(username, password); // Get user from database
+        //User? user = await IuserService.GetUserAsync(username, password); // Get user from database
         
         
-        User? user = await IuserService.GetUserAsync(username, password); // Get user from database
-
-        ValidateLoginCredentials(password, user); // Validate input data against data from database
+        ValidateLoginCredentials(password, myuser); // Validate input data against data from database
         // validation success
-        await CacheUserAsync(user!); // Cache the user object in the browser 
-
-        ClaimsPrincipal principal = CreateClaimsPrincipal(user); // convert user object to ClaimsPrincipal
-
+        await CacheUserAsync(myuser!); // Cache the user object in the browser 
+        
+        ClaimsPrincipal principal = CreateClaimsPrincipal(myuser); // convert user object to ClaimsPrincipal
+        
         OnAuthStateChanged?.Invoke(principal); // notify interested classes in the change of authentication state
     }
 

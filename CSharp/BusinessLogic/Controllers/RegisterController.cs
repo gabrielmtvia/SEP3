@@ -37,4 +37,24 @@ public class RegisterController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+       
+    
+    [HttpGet]
+    public async Task<ActionResult<string>> GetRole( string userName, string password)
+    {
+        try
+        {
+            return await _registerModelmodel.GetRole(userName,password);
+
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    
+    
+    
 }

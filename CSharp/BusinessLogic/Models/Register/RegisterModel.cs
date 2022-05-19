@@ -1,5 +1,6 @@
  
 using BusinessLogicServer.Networking.Register;
+using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 
 namespace BusinessLogicServer.Models.Register;
@@ -23,4 +24,11 @@ public class RegisterModel: IRegisterModel
     {
         await RegisterNetworking.CreateUser(userDto );
     }
+
+    public async Task<string> GetRole(string userName, string password)
+    {
+       return await RegisterNetworking.GetRole(userName, password);
+    }
+
+     
 }
