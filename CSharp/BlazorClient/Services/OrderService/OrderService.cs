@@ -1,15 +1,27 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
+using ModelClasses;
+using ModelClasses.Contracts;
 
 namespace BlazorClient.Services.OrderService;
 
-public class OrderService : IOrderService
+public class OrderService : IOrderService, IOrdersDao
 {
     private readonly HttpClient httpClient;
 
     public OrderService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
+    }
+    
+    public async Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status)
+    {
+        return await httpClient.GetFromJsonAsync<ICollection<OrdersDTO>>($"/Orders/{status}");
+    }
+
+    public async Task<ICollection<OrdersDTO>> GetAllOrdersAsync()
+    {
+        return await httpClient.GetFromJsonAsync<ICollection<OrdersDTO>>("/Orders");
     }
 
     public async Task<IEnumerable<Order>> GetOrders()

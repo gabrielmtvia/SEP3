@@ -6,6 +6,7 @@ using BlazorClient.Services.CategoryService;
 using BlazorClient.Services.OrderService;
 using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components.Authorization;
+using ModelClasses.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,8 @@ builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
 builder.Services.AddScoped<IBookService, BlazorClient.Services.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
+builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
+builder.Services.AddScoped<IOrdersDao, BlazorClient.Services.OrderService.OrderService>();
 builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 
 builder.Services.AddAuthorization(options =>
