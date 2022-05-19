@@ -27,7 +27,7 @@ public class LoginBase : ComponentBase
             
             
        
-          NavigationManager.NavigateTo("/");
+          NavigationManager.NavigateTo("/PolicyExample1");
         }
         catch (Exception e)
         {
