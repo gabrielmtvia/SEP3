@@ -27,7 +27,7 @@ public class LoginBase : ComponentBase
             
             
        
-          NavigationManager.NavigateTo("/Orderlist");
+          NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
         {
