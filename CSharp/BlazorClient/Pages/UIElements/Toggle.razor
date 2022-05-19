@@ -1,0 +1,16 @@
+@namespace UIElements
+
+<label class="switch">
+    <input  type="checkbox" 
+            checked=@IsDispatched 
+            @onchange="@((arg) => Callback.InvokeAsync((bool)arg.Value))">
+    <span class="slider round"></span>
+</label>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> Callback { get; set; }
+
+    [Parameter]
+    public bool IsDispatched { get; set; }
+}

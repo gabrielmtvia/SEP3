@@ -7,6 +7,7 @@ using BlazorClient.Services.GenreService;
 using BlazorClient.Services.OrderService;
 
 using Microsoft.AspNetCore.Components.Authorization;
+using ModelClasses.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ builder.Services.AddSingleton<ICartService, CartService>();
 // {
 //     client.BaseAddress = new Uri("https://localhost:7031");
 // });
+builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
+builder.Services.AddScoped<IOrdersDao, BlazorClient.Services.OrderService.OrderService>();
+builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 
 builder.Services.AddAuthorization(options =>
 {
