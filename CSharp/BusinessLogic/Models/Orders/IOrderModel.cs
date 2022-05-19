@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicServer.Models.Orders;
+﻿using ModelClasses;
+
+namespace BusinessLogicServer.Models.Orders;
 
 public interface IOrderModel
 {

@@ -1,4 +1,3 @@
- 
 using BusinessLogicServer.Networking.Register;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;

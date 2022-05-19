@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicServer.Service.GenreService;
+﻿using ModelClasses;
+
+namespace BusinessLogicServer.Service.GenreService;
 
 public interface IGenreService
 {

@@ -1,4 +1,6 @@
-﻿namespace BlazorClient.Services.CartService;
+﻿using ModelClasses;
+
+namespace BlazorClient.Services.CartService;
 
 public interface ICartService
 {

@@ -1,5 +1,6 @@
 ﻿using BusinessLogicServer.Service.CartService;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 

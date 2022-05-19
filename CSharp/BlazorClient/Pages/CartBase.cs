@@ -1,6 +1,7 @@
 ﻿using BlazorClient.Services.CartService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using ModelClasses;
 
 namespace BlazorClient.Pages;
 
@@ -45,7 +46,7 @@ public class CartBase : ComponentBase
             }
             else
             {
-                message = "You haven't added any product yet. Please review our catalog and add some items to the cart";
+                //message = "You haven't added any product yet. Please review our catalog and add some items to the cart";
             }
             
         }
@@ -76,7 +77,7 @@ public class CartBase : ComponentBase
         await LoadCart();
     }
 
-    public async Task RemoveProductFromCart(long isbn, int quantity)
+    public async Task RemoveProductFromCart(string isbn, int quantity)
     {
         OrderLineDTO item = new OrderLineDTO()
         {
@@ -100,7 +101,7 @@ public class CartBase : ComponentBase
         
         if (quantity == 0)
         {
-            await RemoveProductFromCart(serialOrder, item.Quantity);
+            await RemoveProductFromCart(item.Isbn, item.Quantity);
         }
 
         else

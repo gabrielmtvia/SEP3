@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using BlazorClient.Shared;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BlazorClient.Services.BookService;
 

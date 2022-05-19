@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicServer.Networking.Orders;
+﻿using ModelClasses;
+
+namespace BusinessLogicServer.Networking.Orders;
 
 public interface IOrderNetworking
 {

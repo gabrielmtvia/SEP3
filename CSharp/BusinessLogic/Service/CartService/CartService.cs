@@ -1,4 +1,5 @@
 ﻿using BusinessLogicServer.Service.BookService;
+using ModelClasses;
 
 namespace BusinessLogicServer.Service.CartService;
 
@@ -94,16 +95,16 @@ public class CartService : ICartService
         {
             if (item.SerialOrder == serialOrder)
             {
-                var book = BookService.GetBookAsync(item.Isbn);
+                var book = await BookService.GetBookByIsbnAsync(item.Isbn);
                 shoppingCart.Add(
                     new ShoppingCartItem
                     {
-                        Author = book.Result.Data.Author,
-                        ImageUrl = book.Result.Data.ImageUrl,
-                        Isbn = book.Result.Data.Isbn,
-                        Price = book.Result.Data.Price,
+                        Author = book.Data.Author,
+                        ImageUrl = book.Data.ImageUrl,
+                        Isbn = book.Data.Isbn,
+                        Price = book.Data.Price,
                         Quantity = item.Quantity.Value,
-                        Title = book.Result.Data.Title
+                        Title = book.Data.Title
                     });
             }
         }

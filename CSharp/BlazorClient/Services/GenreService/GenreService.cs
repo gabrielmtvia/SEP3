@@ -1,4 +1,4 @@
-﻿using BlazorClient.Services.CategoryService;
+﻿using ModelClasses;
 
 namespace BlazorClient.Services.GenreService;
 

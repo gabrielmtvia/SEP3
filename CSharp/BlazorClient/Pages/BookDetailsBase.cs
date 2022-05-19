@@ -2,6 +2,7 @@
 using BlazorClient.Services.CartService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using ModelClasses;
 
 namespace BlazorClient.Pages;
 
@@ -15,7 +16,7 @@ public class BookDetailsBase : ComponentBase {
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     [Parameter]
-    public long Isbn { get; set; }
+    public string Isbn { get; set; } = String.Empty;
 
     public async Task CreateShoppingCart()
     {
@@ -64,7 +65,7 @@ public class BookDetailsBase : ComponentBase {
     protected override async Task OnParametersSetAsync()
     {
         Message = "Loading products";
-        var result = await _bookService.GetBookAsync(Isbn);
+        var result = await _bookService.GetBookByIsbnAsync(Isbn);
         if (!result.Success)
         {
             Message = result.Message;

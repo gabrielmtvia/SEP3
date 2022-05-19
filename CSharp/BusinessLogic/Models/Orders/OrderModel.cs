@@ -1,4 +1,5 @@
 ﻿using BusinessLogicServer.Networking.Orders;
+using ModelClasses;
 
 namespace BusinessLogicServer.Models.Orders;
 

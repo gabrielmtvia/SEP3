@@ -1,5 +1,6 @@
 using BusinessLogicServer.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 

@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace ModelClasses;
+﻿namespace ModelClasses;
 
 public class OrderDTO
 {

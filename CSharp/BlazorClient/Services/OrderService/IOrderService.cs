@@ -1,4 +1,6 @@
-﻿namespace BlazorClient.Services.OrderService;
+﻿using ModelClasses;
+
+namespace BlazorClient.Services.OrderService;
 
 public interface IOrderService
 {

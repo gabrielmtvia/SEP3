@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BusinessLogicServer.Service.GenreService;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 

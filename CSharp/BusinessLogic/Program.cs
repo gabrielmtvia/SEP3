@@ -1,14 +1,13 @@
-using BlazorClient.Services.BookService;
-using BusinessLogicServer.Models.Books;
+using BlazorClient.Services.RegisterService;
 using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Models.Register;
 using BusinessLogicServer.Networking.Books;
 using BusinessLogicServer.Networking.Orders;
 using BusinessLogicServer.Networking.Register;
-using BusinessLogicServer.Service.BookService;
 using BusinessLogicServer.Service.CartService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
+using IBookService = BusinessLogicServer.Service.BookService.IBookService;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +25,7 @@ builder.Services.AddScoped<IOrderModel, OrderModel>();
 builder.Services.AddSingleton<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 //builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IBookModel, BookModel>();
+//builder.Services.AddScoped<IBookModel, BookModel>();
 builder.Services.AddSingleton<ICartService, CartService>();
 builder.Services.AddScoped<IRegisterModel, RegisterModel>();
 builder.Services.AddScoped<IRegisterNetworking, RegisterNetworking>();
@@ -39,7 +38,6 @@ builder.Services.AddSingleton(
     new OrderService.OrderServiceClient(GrpcChannel.ForAddress("http://localhost:9090")));
 builder.Services.AddSingleton(new BookService.BookServiceClient(GrpcChannel.ForAddress("http://localhost:9090")));
 builder.Services.AddSingleton(new UserService.UserServiceClient(GrpcChannel.ForAddress("http://localhost:9090")));
-
 
 var app = builder.Build();
 

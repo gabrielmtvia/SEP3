@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using ModelClasses;
 
 namespace BusinessLogicServer.Networking.Books;
 

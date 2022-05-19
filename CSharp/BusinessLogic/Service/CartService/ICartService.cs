@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicServer.Service.CartService;
+﻿using ModelClasses;
+
+namespace BusinessLogicServer.Service.CartService;
 
 public interface ICartService
 {

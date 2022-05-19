@@ -1,4 +1,6 @@
-﻿namespace BusinessLogicServer.Networking.Books;
+﻿using ModelClasses;
+
+namespace BusinessLogicServer.Networking.Books;
 
 public interface IBookNetworking
 {

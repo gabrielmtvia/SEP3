@@ -1,6 +1,7 @@
 ﻿using BlazorClient.Services.CartService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using ModelClasses;
 
 namespace BlazorClient.Pages;
 

@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+
+namespace ModelClasses;
+
 public class User
 {
     
@@ -9,8 +12,8 @@ public class User
     public string userName { get; set; }
     
     [Required, MinLength(5), MaxLength(13) ]
-     public string password { get; set; }
-     public string role { get; set; }
+    public string password { get; set; }
+    public string role { get; set; }
      
     
     public User(string userName, string password, string role)
