@@ -54,7 +54,7 @@ public class BookService : IBookService
 
     public async Task SearchBooks(string searchText)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/BookToAdd/search/{searchText}");
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
 
         if (result != null && result.Data != null)
         {
@@ -72,7 +72,8 @@ public class BookService : IBookService
     public async Task<List<string>> GetBookSearchSuggestionsAsync(string searchText)
     {
         var result =
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/BookToAdd/searchSuggestions/{searchText}");
+            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/Book/searchSuggestions/{searchText}");
+        Console.WriteLine(result.Message);
         return result.Data;
     }
 }

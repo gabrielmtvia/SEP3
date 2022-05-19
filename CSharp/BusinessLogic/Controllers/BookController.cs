@@ -101,8 +101,8 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
-    [Route("searchsuggestions/{searchText}")]
-    public async Task<ActionResult<ServiceResponse<List<Book>>>> GetBookSearchSuggestions(string searchText)
+    [Route("searchSuggestions/{searchText}")]
+    public async Task<ActionResult<ServiceResponse<List<string>>>> GetBookSearchSuggestions(string searchText)
     {
         var result = await _service.GetBookSearchSuggestionsAsync(searchText);
         return Ok(result);
