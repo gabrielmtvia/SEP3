@@ -35,7 +35,6 @@ builder.Services.AddSingleton<ICartService, CartService>();
 // });
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
 builder.Services.AddScoped<IOrdersDao, BlazorClient.Services.OrderService.OrderService>();
-builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 
 builder.Services.AddAuthorization(options =>
 {
