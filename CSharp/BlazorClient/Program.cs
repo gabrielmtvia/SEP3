@@ -6,7 +6,7 @@ using BlazorClient.Services.CartService;
 using BlazorClient.Services.CategoryService;
 using BlazorClient.Services.GenreService;
 using BlazorClient.Services.OrderService;
-
+using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +26,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStat
 builder.Services.AddSingleton<IBookService, BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
-
+builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 
 builder.Services.AddAuthorization(options =>
 {

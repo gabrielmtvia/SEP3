@@ -13,6 +13,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <Protobuf Include="../Shared\Protos\Order.proto" OutputDir="../Shared\Protobuf/Order" GrpcServices="Client" />
         <Protobuf Include="../Shared\Protos\Book.proto" OutputDir="../Shared\Protobuf/Book" GrpcServices="Client" />
+
+        <Protobuf Include="../Shared\Protos\User.proto" OutputDir="../Shared\Protobuf/User" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>

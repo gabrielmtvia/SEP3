@@ -21,7 +21,9 @@ public class AuthServiceIMP : IAuthService
 
     public async Task LoginAsync(string username, string password)
     {
-        User? user = await IuserService.GetUserAsync(username); // Get user from database
+        
+        
+        User? user = await IuserService.GetUserAsync(username, password); // Get user from database
 
         ValidateLoginCredentials(password, user); // Validate input data against data from database
         // validation success
