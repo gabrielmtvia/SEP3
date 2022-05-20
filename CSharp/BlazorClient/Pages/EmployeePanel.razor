@@ -114,9 +114,7 @@ else
 @code {
     string errorLabel = "";
 
-    // filtering feature
     private ICollection<OrdersDTO> ordersToShow;
-    
     private string? orderStatusFilter;
     private bool doShowFilters;
     
@@ -178,23 +176,23 @@ else
         if (orderStatusFilter!.Equals("ALL"))
         {
             ordersToShow = await orderService.GetAllOrdersAsync();
-            Console.WriteLine("Orders to show: " + ordersToShow.Count);
         }
         else
         {
             ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);    
         }
-        // in case we can't implement the method "GetOrderByStatusAsync()" we can get away with just GetAllOrders().
     }
-    
-    private void Edit(int itemId)
-    {
-        navMgr.NavigateTo($"EditTodo/{itemId}");
-    }
-    
+
     private void ShowOrderDetails(OrdersDTO order)
     {
         orderToView = order;
         showModalWithOrderDetails = true;
     }
 }
+
+
+
+
+
+
+
