@@ -14,7 +14,7 @@ public class UserDTO
     public string address { get; set; }
     [Required]
     public string phone { get; set; }
-    [StringLength(7, ErrorMessage = "role too long (8 characters limit).")]
+  
     public string role { get; set; }
     [Required, MinLength(5), MaxLength(13) ]
     public string password { get; set; }
