@@ -5,7 +5,7 @@ global using BlazorClient.Services.UserService;
 using BlazorClient.Services.CartService;
 using BlazorClient.Services.GenreService;
 using BlazorClient.Services.OrderService;
-
+using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components.Authorization;
 using ModelClasses.Contracts;
 
@@ -28,7 +28,7 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
 builder.Services.AddSingleton<ICartService, CartService>();
 //builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
-
+builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 // builder.Services.AddHttpClient<IBookService, BookService>(client =>
 // {
 //     client.BaseAddress = new Uri("https://localhost:7031");

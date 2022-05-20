@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.StaticFiles.Infrastructure;
+﻿using BusinessLogicServer.Networking.DummyDataForTesting;
+using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using ModelClasses;
 using ModelClasses.Contracts;
 
@@ -7,6 +8,7 @@ namespace BusinessLogicServer.Networking.Orders;
 public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrderDao
 {
     private OrderService.OrderServiceClient client;
+    private DummyOrdersRepository _dummyOrdersRepository;
 
     public OrderNetworking(OrderService.OrderServiceClient client)
     {
@@ -52,25 +54,9 @@ public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrder
     {
         // TODO: connection with gRPC service and fetching the data from database is to be implemented by Khaled.
         // Something like in the commented method above GetAllOrdersAsync()
-        // until it's implemented properly, the below dummy lines serve as an example.
-        ICollection<OrdersDTO> orders = Array.Empty<OrdersDTO>();
-        if (status.Equals("CONFIRMED"))
-        {
-            orders = new []
-            {
-                new OrdersDTO(1, DateTime.Now, "CONFIRMED", "customer1"),
-                new OrdersDTO(2, DateTime.Now.AddDays(-1), "CONFIRMED", "customer2"),
-                new OrdersDTO(3, DateTime.Now.AddDays(-2), "CONFIRMED", "customer3")
-            };    
-        }
-        else if (status.Equals("DISPATCHED"))
-        {
-            orders = new []
-            {
-                new OrdersDTO(3, DateTime.Now.AddDays(-3), "DISPATCHED", "customer4"),
-                new OrdersDTO(3, DateTime.Now.AddDays(-4), "DISPATCHED", "customer5")
-            };
-        }
+        // until it's implemented properly, the below dummy repository serve for testing purposes.
+        
+        ICollection<OrdersDTO> orders = _dummyOrdersRepository.GetOrdersByStatusAsync(status);
         return orders;
     }
 
@@ -79,14 +65,8 @@ public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrder
         // TODO: connection with gRPC service and fetching the data from database is to be implemented by Khaled.
         // Something like in the commented method above GetAllOrdersAsync()
         // until it's implemented properly, the below dummy lines serve as an example.
-        ICollection<OrdersDTO> orders = new []
-        {
-            new OrdersDTO(1, DateTime.Now, "CONFIRMED", "customer1"),
-            new OrdersDTO(2, DateTime.Now.AddDays(-1), "CONFIRMED", "customer2"),
-            new OrdersDTO(3, DateTime.Now.AddDays(-2), "CONFIRMED", "customer3"),
-            new OrdersDTO(3, DateTime.Now.AddDays(-3), "DISPATCHED", "customer4"),
-            new OrdersDTO(3, DateTime.Now.AddDays(-4), "DISPATCHED", "customer5")
-        };
+        
+        ICollection<OrdersDTO> orders = _dummyOrdersRepository.GetAllOrdersAsync();
         return orders;
     }
 }
