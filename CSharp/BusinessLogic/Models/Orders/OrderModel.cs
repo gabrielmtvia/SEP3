@@ -1,28 +1,25 @@
 ﻿using BusinessLogicServer.Networking.Orders;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BusinessLogicServer.Models.Orders;
 
-public class OrderModel : IOrderModel, IOrdersDao
+public class OrderModel : IOrderModel
 {
     private IOrderNetworking networking;
-    private IOrderNetworkingExtendingIOrderDao orderNetworkingDao;
 
-    public OrderModel(IOrderNetworking networking, IOrderNetworkingExtendingIOrderDao orderNetworkingDao)
+    public OrderModel(IOrderNetworking networking)
     {
         this.networking = networking;
-        this.orderNetworkingDao = orderNetworkingDao;
     }
 
     public async Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status)
     {
-        return await orderNetworkingDao.GetOrdersByStatusAsync(status);
+        return await networking.GetOrdersByStatusAsync(status);
     }
 
     public async Task<ICollection<OrdersDTO>> GetAllOrdersAsync()
     {
-        return await orderNetworkingDao.GetAllOrdersAsync();
+        return await networking.GetAllOrdersAsync();
     }
     
     // I commented the lines below out, because I needed this method to be implemented differently, and I didn't see

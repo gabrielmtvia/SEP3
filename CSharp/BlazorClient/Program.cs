@@ -7,7 +7,6 @@ using BlazorClient.Services.GenreService;
 using BlazorClient.Services.OrderService;
 using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components.Authorization;
-using ModelClasses.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +33,6 @@ builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 //     client.BaseAddress = new Uri("https://localhost:7031");
 // });
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
-builder.Services.AddScoped<IOrdersDao, BlazorClient.Services.OrderService.OrderService>();
 
 builder.Services.AddAuthorization(options =>
 {

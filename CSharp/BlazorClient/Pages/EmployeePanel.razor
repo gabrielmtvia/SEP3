@@ -1,8 +1,7 @@
 @page "/EmployeePanel"
 @using ModelClasses
-@using ModelClasses.Contracts
 @using UIElements
-@inject IOrdersDao dao
+@inject IOrderService orderService
 @inject NavigationManager navMgr
 
 <h3>Employee Panel</h3>
@@ -147,9 +146,9 @@ else
         else order.status = "CONFIRMED";
         try
         {
-            // TODO: the commented method below shall be uncommented when the dao.UpdateOrder() starts working.
+            // TODO: the commented method below shall be uncommented when the orderService.UpdateOrder() starts working.
             // this shall be done when implementing another user story
-            //await dao.UpdateOrder(order);
+            //await orderService.UpdateOrder(order);
         }
         catch (Exception e)
         {
@@ -178,12 +177,12 @@ else
     {
         if (orderStatusFilter!.Equals("ALL"))
         {
-            ordersToShow = await dao.GetAllOrdersAsync();
+            ordersToShow = await orderService.GetAllOrdersAsync();
             Console.WriteLine("Orders to show: " + ordersToShow.Count);
         }
         else
         {
-            ordersToShow = await dao.GetOrdersByStatusAsync(orderStatusFilter);    
+            ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);    
         }
         // in case we can't implement the method "GetOrderByStatusAsync()" we can get away with just GetAllOrders().
     }

@@ -2,6 +2,7 @@
 Java/.idea/
 Java/target/
 Java/src/main/java/via/sep3/grpc/
+Java/src/main/java/via/sep3/grpc/order/
 CSharp/.idea/
 CSharp/BlazorClient/obj/
 CSharp/BlazorClient/bin/
@@ -13,3 +14,4 @@ CSharp/ModelClasses/bin/
 CSharp/Shared/obj/
 CSharp/Shared/bin/
 CSharp/Shared/Protobuf/
+

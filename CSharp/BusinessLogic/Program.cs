@@ -8,7 +8,6 @@ using BusinessLogicServer.Service.CartService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
 using IBookService = BusinessLogicServer.Service.BookService.IBookService;
-using ModelClasses.Contracts;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,11 +20,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IOrderNetworking, OrderNetworking>();
-builder.Services.AddScoped<IOrderNetworkingExtendingIOrderDao, OrderNetworking>();
 builder.Services.AddScoped<IBookNetworking, BookNetworking>();
 builder.Services.AddScoped<IOrderModel, OrderModel>();
 builder.Services.AddSingleton<IBookService, BusinessLogicServer.Service.BookService.BookService>();
-builder.Services.AddScoped<IOrdersDao, OrderModel>();
 //builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 //builder.Services.AddScoped<IBookModel, BookModel>();

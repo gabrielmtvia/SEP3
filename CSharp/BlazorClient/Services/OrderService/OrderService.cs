@@ -1,11 +1,10 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BlazorClient.Services.OrderService;
 
-public class OrderService : IOrderService, IOrdersDao
+public class OrderService : IOrderService
 {
     private readonly HttpClient httpClient;
 

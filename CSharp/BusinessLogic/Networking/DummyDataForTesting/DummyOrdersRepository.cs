@@ -4,7 +4,7 @@ namespace BusinessLogicServer.Networking.DummyDataForTesting;
 
 public class DummyOrdersRepository
 {
-    public ICollection<OrdersDTO> GetOrdersByStatusAsync(string status)
+    public async Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status)
     {
         ICollection<OrdersDTO> orders = Array.Empty<OrdersDTO>();
         if (status.Equals("CONFIRMED"))
@@ -28,7 +28,7 @@ public class DummyOrdersRepository
         return orders;
     }
 
-    public ICollection<OrdersDTO> GetAllOrdersAsync()
+    public async Task<ICollection<OrdersDTO>> GetAllOrdersAsync()
     {
         ICollection<OrdersDTO> orders = new []
         {

@@ -1,14 +1,13 @@
 ﻿using BusinessLogicServer.Networking.DummyDataForTesting;
 using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BusinessLogicServer.Networking.Orders;
 
-public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrderDao
+public class OrderNetworking : IOrderNetworking
 {
     private OrderService.OrderServiceClient client;
-    private DummyOrdersRepository _dummyOrdersRepository;
+    private DummyOrdersRepository _dummyOrdersRepository = new();
 
     public OrderNetworking(OrderService.OrderServiceClient client)
     {
@@ -56,7 +55,7 @@ public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrder
         // Something like in the commented method above GetAllOrdersAsync()
         // until it's implemented properly, the below dummy repository serve for testing purposes.
         
-        ICollection<OrdersDTO> orders = _dummyOrdersRepository.GetOrdersByStatusAsync(status);
+        ICollection<OrdersDTO> orders = await _dummyOrdersRepository.GetOrdersByStatusAsync(status);
         return orders;
     }
 
@@ -66,7 +65,7 @@ public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrder
         // Something like in the commented method above GetAllOrdersAsync()
         // until it's implemented properly, the below dummy lines serve as an example.
         
-        ICollection<OrdersDTO> orders = _dummyOrdersRepository.GetAllOrdersAsync();
+        ICollection<OrdersDTO> orders = await _dummyOrdersRepository.GetAllOrdersAsync();
         return orders;
     }
 }
