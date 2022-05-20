@@ -5,10 +5,10 @@ public class User
  
  
     //[Required]
-    [StringLength(8, ErrorMessage = "UserName too long (8 characters limit).")]
+  //  [StringLength(8, ErrorMessage = "UserName too long (8 characters limit).")]
     public string userName { get; set; }
     
-    [Required, MinLength(5), MaxLength(13) ]
+  //  [Required, MinLength(5), MaxLength(13) ]
      public string password { get; set; }
      public string role { get; set; }
      

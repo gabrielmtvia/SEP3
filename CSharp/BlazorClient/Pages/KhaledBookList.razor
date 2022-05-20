@@ -1,0 +1,42 @@
+@page "/KhaledBookList"
+@using ModelClasses
+@inject IBookService BookService
+@inject NavigationManager navMgr
+
+<h3>KhaledBookList</h3>
+
+@if (Books == null)
+{
+    <div class="spinner"></div>
+    
+}
+else
+{
+    <div class="card-deck">
+        @foreach (var book in Books)
+        {
+            <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+                <div class="card-header">
+                    <h3>@book.Isbn @book.Title @book.Author @book.Edition @book.Description @book.ImageUrl @book.Price</h3>
+                </div>
+
+               
+            </div>
+        }
+    </div>
+   
+    }
+
+
+
+@code {
+    public IEnumerable<Book> Books { get; set; }
+   // public Order OrderToCreate { set; get; }
+    protected override async Task OnInitializedAsync()
+    {
+       // OrderToCreate = new Order();
+        Thread.Sleep(2000);
+        Books = (await BookService.GetAllBooks()).ToList();
+    }
+    
+}

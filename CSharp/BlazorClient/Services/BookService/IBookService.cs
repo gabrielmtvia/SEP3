@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BlazorClient.Services.BookService;
 
@@ -18,4 +19,6 @@ public interface IBookService
     Task <ServiceResponse<Book>> GetBookByIsbnAsync(string isbn);
 
     Task AddBookAsync(Book book);
+
+    Task <IEnumerable<Book>> GetAllBooks();
 }

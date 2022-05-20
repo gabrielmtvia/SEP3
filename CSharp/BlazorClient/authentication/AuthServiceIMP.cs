@@ -53,7 +53,7 @@ public class AuthServiceIMP : IAuthService
         return principal;
     }
 
-    private async Task<User?> GetUserFromCacheAsync()
+    public async Task<User?> GetUserFromCacheAsync()
     {
         string userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
         if (string.IsNullOrEmpty(userAsJson)) return null;

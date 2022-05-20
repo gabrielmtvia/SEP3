@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using BlazorClient.Shared;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BlazorClient.Services.BookService;
 
@@ -30,6 +31,11 @@ public class BookService : IBookService
     public async Task AddBookAsync(Book book)
     {
         await _httpClient.PostAsJsonAsync("/Book", book);
+    }
+
+    public async Task<IEnumerable<Book>> GetAllBooks()
+    {
+      return  await _httpClient.GetFromJsonAsync<Book[]>("/Book");
     }
 
     public async Task GetBooksAsync(string? genreUrl = null)

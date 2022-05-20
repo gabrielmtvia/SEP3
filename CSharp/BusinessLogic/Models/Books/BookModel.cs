@@ -1,4 +1,5 @@
 ﻿using BusinessLogicServer.Networking.Books;
+using ModelClasses;
 
 namespace BusinessLogicServer.Models.Books;
 
@@ -23,9 +24,9 @@ public class BookModel : IBookModel
         
     }
 
-    public Task<List<Book>> GetAllBooksAsync()
+    public async Task<List<Book>> GetAllBooksAsync()
     {
-        throw new NotImplementedException();
+        return await bookNetworking.GetAllBooks();
     }
 
     public async Task<Book> GetBookByIsbn(String isbn)

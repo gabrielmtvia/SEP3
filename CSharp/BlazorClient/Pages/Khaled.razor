@@ -1,0 +1,88 @@
+@page "/Khaled"
+@inject IRegisterService registerService
+@inject NavigationManager navMgr
+@using ModelClasses
+@using BlazorClient.Services.RegisterService
+@using Microsoft.AspNetCore.Components;
+<h3>Register</h3>
+
+
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+ 
+
+
+
+<div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                    @bind="userDto.userName" />
+            <label class="form-label" for="form3Example3">Enter Username</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+                    @bind="userDto.password" />
+            <label class="form-label" for="form3Example3">Enter Password</label>
+        </div>
+	<div class="form-outline mb-4">
+		<input type="text" id="form3Example3" class="form-control form-control-lg"
+		       @bind="userDto.firstName" />
+		<label class="form-label" for="form3Example3">Enter Firstname</label>
+	</div>
+	  <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg"
+                        @bind="userDto.lastName" />
+                <label class="form-label" for="form3Example3">Enter Lastname</label>
+            </div>
+	<div class="form-outline mb-4">
+		<input type="text" id="form3Example3" class="form-control form-control-lg"
+		       @bind="userDto.email" />
+		<label class="form-label" for="form3Example3">Enter Email</label>
+	</div>
+	
+	  <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg"
+                        @bind="userDto.address" />
+                <label class="form-label" for="form3Example3">Enter Address</label>
+            </div>
+	<div class="form-outline mb-4">
+		<input type="text" id="form3Example3" class="form-control form-control-lg"
+		       @bind="userDto.phone" />
+		<label class="form-label" for="form3Example3">Enter Phone</label>
+	</div>
+	
+	<div class="form-outline mb-4">
+		<input type="text" id="form3Example3" class="form-control form-control-lg"
+		       @bind="userDto.role" />
+		<label class="form-label" for="form3Example3">Enter Role</label>
+	</div>
+	
+	
+	
+	
+	
+	<button type="button" class="btn btn-primary btn-lg" @onclick="() => CreateUser(userDto)">Create new</button>
+    
+ </div>
+
+
+@code {
+	[Inject] 
+	
+	public IRegisterService RegisterService { get; set; }
+	
+	public UserDTO UserDto { get; set; }
+	
+	UserDTO userDto = new UserDTO();
+
+	public async Task CreateUser(UserDTO userDto)
+	{
+		 RegisterService.createUser(userDto);
+		Console.WriteLine(userDto.birthday.ToString());
+	}
+
+}

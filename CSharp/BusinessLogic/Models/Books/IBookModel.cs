@@ -1,4 +1,5 @@
 ﻿using BusinessLogicServer.Networking.Books;
+using ModelClasses;
 
 namespace BusinessLogicServer.Models.Books;
 

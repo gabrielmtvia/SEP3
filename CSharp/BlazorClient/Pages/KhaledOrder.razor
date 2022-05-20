@@ -1,0 +1,30 @@
+@page "/KhaledOrder"
+@inject IAuthService Authentication
+<h3>Customer Page</h3>
+
+<div>
+    <button type="button" class="btn btn-primary btn-lg" @onclick="() => DisplayUsername()">Display Username</button>
+</div>
+
+<label class="form-label" for="form3Example3">@username</label>
+
+
+
+@code {
+    private User _user;
+    string username = "";
+    protected override async Task OnInitializedAsync()
+    {
+        _user = await Authentication.GetUserFromCacheAsync();
+        
+    }
+
+
+    private void DisplayUsername()
+    {
+        
+        Console.WriteLine(_user.userName);
+        username = _user.userName;
+    }
+
+}

@@ -32,7 +32,7 @@ public class RegisterBase : ComponentBase
         errorLabel = "";
        // try
        // {
-          //  userDto = new UserDTO("zxzx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx");
+          
            await _registerService.createUser(userDto);
             
             Console.WriteLine("just checking in registration" + userDto.userName);

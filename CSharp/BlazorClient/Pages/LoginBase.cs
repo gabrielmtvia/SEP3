@@ -9,21 +9,23 @@ public class LoginBase : ComponentBase
 {
 
     
-    
+    [Inject]
+    public IUserService IuserService { get; set; }
     [Inject] public IAuthService iAuthService { get; set; }
   
     [Inject] public NavigationManager NavigationManager { get; set; }
 
     public User user = new();
     private string? errorLabel = String.Empty;
-    protected async Task LoginAsync()
+    public async Task LoginAsync()
     {
         errorLabel = "";
         try
         {
             Console.WriteLine(user.userName);
             Console.WriteLine(user.password);
-            iAuthService.LoginAsync(user.userName, user.password);
+           await iAuthService.LoginAsync(user.userName, user.password);
+           // IuserService.GetUserAsync(user.userName, user.password);
             
             
        

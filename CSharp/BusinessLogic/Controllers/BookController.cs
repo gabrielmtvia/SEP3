@@ -2,6 +2,7 @@ using BusinessLogicServer.Models.Books;
 using BusinessLogicServer.Models.Orders;
 
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 
@@ -31,7 +32,7 @@ public class BookController : ControllerBase
         }
     }
 
-    [HttpGet]
+ /*   [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Book>>>> GetAllBooksAsync()
     {
         try
@@ -43,6 +44,12 @@ public class BookController : ControllerBase
         {
             return StatusCode(500, e.Message);
         }
+    }
+*/
+    [HttpGet]
+    public async Task<List<Book>> GetAllBooks()
+    {
+        return await model.GetAllBooksAsync();
     }
   /*  
     [HttpGet]
