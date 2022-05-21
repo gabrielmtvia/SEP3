@@ -26,7 +26,7 @@ public class UserServiceIMP : IUserService
     //
     // }
     
-    public async Task<string?> GetUserAsync2(string username, string password)
+    public async Task<string?> GetUserAsync(string username, string password)
     {
         HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7031/Register?userName={username}&password={password}");
        

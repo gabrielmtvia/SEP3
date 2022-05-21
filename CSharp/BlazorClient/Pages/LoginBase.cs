@@ -45,7 +45,7 @@ public class LoginBase : ComponentBase
     
     public async void alertMsg()
     {
-        string s = await IuserService.GetUserAsync2(user.userName, user.password);
+        string s = await IuserService.GetUserAsync(user.userName, user.password);
         if (s.Equals("Admin"))
         {
             Alert("Welcome back " + user.userName );
