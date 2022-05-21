@@ -14,4 +14,6 @@ public interface IOrderModel
     public Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status);
     public Task<ICollection<OrdersDTO>> GetAllOrdersAsync();
     public Task CreateOrderAsync(Order order);
+    public Task<UserDTO> GetCustomer(string orderUsername);
+    public Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId);
 }

@@ -6,7 +6,9 @@ public interface IOrderService
 {
     public Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status);
     public Task<ICollection<OrdersDTO>> GetAllOrdersAsync();
-    Task<IEnumerable<Order>> GetOrders();
+    public Task<UserDTO> GetCustomer(string orderUsername);
+    public Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId);
+    public Task<IEnumerable<Order>> GetOrders();
     void CreateOrder(Order o);
     void DeleteOrder(long orderId);
 }
