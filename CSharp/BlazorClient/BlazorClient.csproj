@@ -33,6 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Blazored.LocalStorage" Version="4.3.0-preview.1" />
       <PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
       <Compile Update="Pages\BookDetailsBase.cs">
         <DependentUpon>BookDetails.razor</DependentUpon>

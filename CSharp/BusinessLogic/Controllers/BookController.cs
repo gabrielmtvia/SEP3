@@ -33,7 +33,7 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ServiceResponse<List<Book>>>> GetAllBooksAsync()
+    public async Task<ActionResult<ServiceResponse<CartList<Book>>>> GetAllBooksAsync()
     {
         try
         {

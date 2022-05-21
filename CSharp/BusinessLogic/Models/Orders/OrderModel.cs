@@ -29,7 +29,7 @@ public class OrderModel : IOrderModel
     // @Eliza and @Gabriel - if you guys think it's OK, then you can safely remove the comment together with the commented code.
     // see affected 2 other files: OrderController.cs, and IOrderModel.cs 
 
-    // public async Task<List<Order>> GetAllOrdersAsync()
+    // public async Task<CartList<Order>> GetAllOrdersAsync()
     // {
     //    return await networking.GetAllOrdersAsync();
     // }
