@@ -30,6 +30,9 @@
         <DependentUpon>AddBook.razor</DependentUpon>
       </Compile>
       <Compile Include="wwwroot\javaScript\Msg.cs" />
+      <Compile Update="Pages\EmployeeList.cs">
+        <DependentUpon>ListOfEmployee.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -43,6 +46,12 @@
       <Compile Update="Pages\CustomerOrderHistoryBase.cs">
         <DependentUpon>CustomerOrderHistory.razor</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Pages\EmployeeCss.css">
+        <DependentUpon>ListOfEmployee.razor</DependentUpon>
+      </None>
     </ItemGroup>
 
 </Project>
