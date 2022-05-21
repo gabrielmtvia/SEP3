@@ -2,6 +2,7 @@ using BlazorClient.Services.RegisterService;
 using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Models.Register;
 using BusinessLogicServer.Networking.Books;
+using BusinessLogicServer.Networking.DummyDataForTesting;
 using BusinessLogicServer.Networking.Orders;
 using BusinessLogicServer.Networking.Register;
 using BusinessLogicServer.Service.CartService;
@@ -29,6 +30,10 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddSingleton<ICartService, CartService>();
 builder.Services.AddScoped<IRegisterModel, RegisterModel>();
 builder.Services.AddScoped<IRegisterNetworking, RegisterNetworking>();
+
+// the following DummyRepository shall be removed when the networking classes do not use it anymore.
+// The dummy repo was made by Tomasz G, and was used for testing purposes in OrderNetworking.cs. 
+builder.Services.AddSingleton<DummyRepositoryDao>();
 
 
 
