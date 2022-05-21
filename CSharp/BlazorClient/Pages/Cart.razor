@@ -37,7 +37,7 @@ else
                     <input type="number" value="@product.Quantity" @onchange="@((ChangeEventArgs e) => UpdateQuantity(e, product))"
                            class="form-control input-quantity"
                            min="1"/>
-                    <button class="btn btn-danger" @onclick="@(()=>RemoveProductFromCart(product.Isbn, product.Quantity))">Remove from cart</button>
+                    <button class="btn btn-danger" @onclick="@(()=>RemoveProductFromCart(product.Isbn))">Remove from cart</button>
                 </div>
                 <div class="cart-product-price">$@product.Price</div>
                 <div class="cart-product-quantity">Quantity: @product.Quantity</div>

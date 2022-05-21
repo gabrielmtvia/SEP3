@@ -18,16 +18,16 @@ public class OrderNetworking : IOrderNetworking
     // THE LINES BELOW ARE THE IMPLEMENTATION FROM THE PROOF OF CONCEPT.
     // It's different from what we need now, because
     // 1) now we are using OrdersDTO.cs instead of Order.cs,
-    // 2) We need to pass ICollection instead of List, because it's already implemented as such in Tier 1 and partly in Tier 2
-    // List may by converted to IEnumerable simply by "equal sign". F.x. IEnumerableObject1 = ListObject1;
+    // 2) We need to pass ICollection instead of CartList, because it's already implemented as such in Tier 1 and partly in Tier 2
+    // CartList may by converted to IEnumerable simply by "equal sign". F.x. IEnumerableObject1 = ListObject1;
 
-    // public async Task<List<Order>> GetAllOrdersAsync()
+    // public async Task<CartList<Order>> GetAllOrdersAsync()
     // {
     //     var voidMessage = new VoidMessage();
     //     var allOrdersAsync = await client.getAllOrdersAsync(voidMessage);
     //
     //     var orderMessages = allOrdersAsync.Orders;
-    //     var orders = new List<Order>();
+    //     var orders = new CartList<Order>();
     //     foreach (var orderMessage in orderMessages)
     //     {
     //         // create an order from orderMessage (solution)

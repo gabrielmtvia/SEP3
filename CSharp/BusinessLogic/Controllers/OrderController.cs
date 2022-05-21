@@ -67,7 +67,7 @@ public class OrderController : ControllerBase
     // see affected 2 other files: IOrderModel.cs, and OrderModel.cs
     
     // [HttpGet]
-    // public async Task<List<Order>> GetAllOrdersAsync()
+    // public async Task<CartList<Order>> GetAllOrdersAsync()
     // {
     //     return await model.GetAllOrdersAsync();
     // }

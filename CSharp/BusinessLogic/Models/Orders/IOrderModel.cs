@@ -9,7 +9,7 @@ public interface IOrderModel
     // @Eliza and @Gabriel - if you guys think it's OK, then you can safely remove the comment together with the commented code.
     // see affected 2 other files: OrderController.cs, and OrderModel.cs 
     
-    //public Task<List<Order>> GetAllOrdersAsync();
+    //public Task<CartList<Order>> GetAllOrdersAsync();
     
     public Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status);
     public Task<ICollection<OrdersDTO>> GetAllOrdersAsync();
