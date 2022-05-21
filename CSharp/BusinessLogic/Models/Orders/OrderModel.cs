@@ -38,4 +38,14 @@ public class OrderModel : IOrderModel
     {
         await networking.CreateOrderAsync(order);
     }
+
+    public async Task<UserDTO> GetCustomer(string orderUsername)
+    {
+        return await networking.GetCustomer(orderUsername);
+    }
+
+    public async Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId)
+    {
+        return await networking.GetOrderLines(orderId);
+    }
 }

@@ -68,4 +68,14 @@ public class OrderNetworking : IOrderNetworking
         ICollection<OrdersDTO> orders = await _dummyOrdersRepository.GetAllOrdersAsync();
         return orders;
     }
+
+    public async Task<UserDTO> GetCustomer(string orderUsername)
+    {
+        return await _dummyOrdersRepository.GetCustomer(orderUsername);
+    }
+
+    public async Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId)
+    {
+        return await _dummyOrdersRepository.GetOrderLines(orderId);
+    }
 }

@@ -43,6 +43,34 @@ public class OrderController : ControllerBase
         }
     }
     
+    [HttpGet("/Orders/Customer/{orderUsername}")]
+    public async Task<ActionResult<UserDTO>> GetCustomer(string orderUsername)
+    {
+        try
+        {
+            UserDTO customer = await model.GetCustomer(orderUsername);
+            return Ok(customer);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet("/Orders/Orderlines/{orderId}")]
+    public async Task<ActionResult<ICollection<OrderLineDTO>>> GetOrderLines(long orderId)
+    {
+        try
+        {
+            ICollection<OrderLineDTO> items = await model.GetOrderLines(orderId);
+            return Ok(items);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
     // [HttpGet]
     // [Route("/Orders/")]
     // public async Task<ActionResult<ICollection<OrdersDTO>>> GetAllOrdersAsync()
