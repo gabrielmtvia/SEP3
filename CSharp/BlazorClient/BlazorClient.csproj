@@ -29,6 +29,7 @@
       <Compile Update="Pages\AddBookBase.cs">
         <DependentUpon>AddBook.razor</DependentUpon>
       </Compile>
+      <Compile Include="wwwroot\javaScript\Msg.cs" />
     </ItemGroup>
 
     <ItemGroup>

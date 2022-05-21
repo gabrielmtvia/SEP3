@@ -2,6 +2,7 @@ using System.Security.Claims;
 using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using ModelClasses;
 
 namespace BlazorClient.Pages;
@@ -9,11 +10,14 @@ namespace BlazorClient.Pages;
 public class RegisterBase : ComponentBase
 {
     [Inject]
-      public IRegisterService _registerService { get; set; }
+    public IRegisterService _registerService { get; set; }
     [Inject] public IAuthService iAuthService { get; set; }
+    [Inject] public IUserService IuserService{ get; set; }
 
     [Inject] public NavigationManager NavigationManager { get; set; }
-
+    [Inject] private IJSRuntime JsRuntime { get; set; }
+    
+    
     [CascadingParameter]
     
     public Task<AuthenticationState> AuthState { get; set; }
@@ -29,22 +33,11 @@ public class RegisterBase : ComponentBase
 
     public async Task CreateAccount()
     {
-        errorLabel = "";
-       // try
-       // {
-          //  userDto = new UserDTO("zxzx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx", "zxxx");
+            errorLabel = "";
+      
            await _registerService.createUser(userDto);
-            
-            Console.WriteLine("just checking in registration" + userDto.userName);
-            Console.WriteLine("just checking in registration" + userDto.phone);
-        
+           alertMsg();
           
-     //   }
-      //  catch (Exception e)
-      //  {
-      //      errorLabel = $"Error: {e.Message}";
-
-     //   }
     }
     
     protected override async Task OnInitializedAsync()
@@ -54,5 +47,23 @@ public class RegisterBase : ComponentBase
         if (user.Identity == null) return;
 
         claims = user.Claims;
+    }
+    
+    public void alertMsg()
+    {
+        // string s = IuserService.GetUserAsync2(user)
+        if (userDto.userName !=null && userDto.firstName !=null && userDto.lastName !=null && userDto.phone !=null && userDto.email !=null && userDto.address !=null && userDto.password !=null)
+        {
+            Thread.Sleep(500);
+            Alert("You have created account Successfully \n Go to log in please ");
+            NavigationManager.NavigateTo("/Login");
+
+        }
+      
+    }
+
+    private async Task Alert(string msg)
+    {
+        await JsRuntime.InvokeAsync<object>("Alert", msg);
     }
 }

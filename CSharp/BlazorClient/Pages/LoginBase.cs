@@ -1,6 +1,7 @@
 using BlazorClient.authentication;
 using BlazorClient.Services.UserService;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ModelClasses;
 
 
@@ -10,8 +11,9 @@ public class LoginBase : ComponentBase
 {
 
     
-    
+    [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] public IAuthService iAuthService { get; set; }
+    [Inject] public IUserService IuserService{ get; set; }
   
     [Inject] public NavigationManager NavigationManager { get; set; }
 
@@ -22,13 +24,13 @@ public class LoginBase : ComponentBase
         errorLabel = "";
         try
         {
-            Console.WriteLine(user.userName);
-            Console.WriteLine(user.password);
+          
             iAuthService.LoginAsync(user.userName, user.password);
             
-            
-       
           NavigationManager.NavigateTo("/PolicyExample1");
+          
+         Thread.Sleep(500);
+         alertMsg();
         }
         catch (Exception e)
         {
@@ -41,6 +43,27 @@ public class LoginBase : ComponentBase
         NavigationManager.NavigateTo("/Register");
     }
     
-  
+    public async void alertMsg()
+    {
+        string s = await IuserService.GetUserAsync2(user.userName, user.password);
+        if (s.Equals("Admin"))
+        {
+            Alert("Welcome back " + user.userName );
+        }
+        if (s.Equals("Customer"))
+        {
+            Alert("Welcome back " + user.userName);
+        }
+        if (s.Equals("Employee"))
+        {
+            Alert("Welcome back " + user.userName);
+        }
+        
+    }
+
+    private async Task Alert(string msg)
+    {
+        await JsRuntime.InvokeAsync<object>("Alert", msg);
+    }
 
 }
