@@ -1,7 +1,6 @@
 using BusinessLogicServer.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BusinessLogicServer.Controllers;
 
@@ -10,12 +9,10 @@ namespace BusinessLogicServer.Controllers;
 public class OrderController : ControllerBase
 {
     private IOrderModel model;
-    private IOrdersDao businessLogicDao;
 
-    public OrderController(IOrderModel model, IOrdersDao businessLogicDao)
+    public OrderController(IOrderModel model)
     {
         this.model = model;
-        this.businessLogicDao = businessLogicDao;
     }
 
     [HttpGet("/Orders/{status}")]
@@ -23,7 +20,7 @@ public class OrderController : ControllerBase
     {
         try
         {
-            ICollection<OrdersDTO> items = await businessLogicDao.GetOrdersByStatusAsync(status);
+            ICollection<OrdersDTO> items = await model.GetOrdersByStatusAsync(status);
             return Ok(items);
         }
         catch (Exception e)
@@ -37,7 +34,7 @@ public class OrderController : ControllerBase
     {
         try
         {
-            ICollection<OrdersDTO> items = await businessLogicDao.GetAllOrdersAsync();
+            ICollection<OrdersDTO> items = await model.GetAllOrdersAsync();
             return Ok(items);
         }
         catch (Exception e)
