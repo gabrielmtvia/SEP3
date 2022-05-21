@@ -44,7 +44,7 @@ builder.Services.AddAuthorization(options =>
 
     options.AddPolicy("MustBeCustomer",
         a => 
-            a.RequireAuthenticatedUser().RequireClaim("Role", "CUSTOMER"));
+            a.RequireAuthenticatedUser().RequireClaim("Role", "Customer"));
     
     options.AddPolicy("MustBeEmployee",
         a => 
