@@ -6,5 +6,14 @@ public class OrderLineDTO
     public string Isbn { get; set; } = string.Empty;
     public int? Quantity { get; set; }
 
-    public Book Book { get; set; } = null!;
+    public OrderLineDTO(long? serialOrder, int? quantity, string isbn)
+    {
+        SerialOrder = serialOrder;
+        Quantity = quantity;
+        Isbn = isbn;
+    }
+
+    public OrderLineDTO()
+    {
+    }
 }
