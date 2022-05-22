@@ -1,4 +1,6 @@
 package via.sep3.group2.shared;
+import via.sep3.grpc.book.Book;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +22,7 @@ public class BookDTO {
             mappedBy = "isbn",fetch = FetchType.LAZY)
     //  @MapsId("isbn")
 
-    List<OrderLineWithCompositeKeyDTO> orderlines;
+    List<OrderLineDTO> orderlines;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -73,7 +75,7 @@ public class BookDTO {
         this.price = price;
     }
 
-    public BookDTO(String isbn, String title, String author, String edition, String description, double price, String url, List<OrderLineWithCompositeKeyDTO> orderlines, Set<GenreDTO> genres) {
+    public BookDTO(String isbn, String title, String author, String edition, String description, double price, String url, List<OrderLineDTO> orderlines, Set<GenreDTO> genres) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -156,14 +158,19 @@ public class BookDTO {
         this.price = price;
     }
 
-    public List<OrderLineWithCompositeKeyDTO> getOrderlines() {
+    public List<OrderLineDTO> getOrderlines() {
         return orderlines;
     }
 
-    public void setOrderlines(List<OrderLineWithCompositeKeyDTO> orderlines) {
+    public void setOrderlines(List<OrderLineDTO> orderlines) {
         this.orderlines = orderlines;
     }
     /* @OneToMany(mappedBy = "bookDTO")
     Set<BookDTO> ratings;*/
+    public Book.BookMessage buildBookMessage()
+    {
+        return Book.BookMessage.newBuilder().setIsbn(isbn).setTitle(title).setAuthor(author).setEdition(edition).setDescription(description)
+                .setPrice(price).setUrl(url).build();
+    }
 
 }

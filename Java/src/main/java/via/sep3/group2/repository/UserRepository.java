@@ -18,7 +18,7 @@ UserDTO findByUsernameAndPassword (@Param("username")String username, @Param("pa
     @Modifying(clearAutomatically = true)
     @Query("update UserDTO u set u.username = :newUsername where u.username = :Username")
     void setUsernameForUser( @Param("newUsername")String newUsername ,@Param("Username")String Username);
-
+     UserDTO findByUsername(@Param("username")String username);
 
 
 

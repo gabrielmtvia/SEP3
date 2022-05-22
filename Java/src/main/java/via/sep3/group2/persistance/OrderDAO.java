@@ -2,34 +2,50 @@ package via.sep3.group2.persistance;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import via.sep3.group2.shared.OrderDTO;
+//import via.sep3.group2.models.OrdersDTO;
+//import via.sep3.group2.models.UserDTO;
 import via.sep3.group2.repository.OrderRepository;
-
+import via.sep3.group2.shared.OrderDTO;
 
 import java.util.List;
 
 @Repository
-public class OrderDAO
-{
-    private OrderRepository repository;
+public class OrderDAO {
+
+    private OrderRepository ordersRepository;
 
     @Autowired
-    public OrderDAO(OrderRepository repository)
-    {
-        this.repository = repository;
+    public OrderDAO(OrderRepository ordersRepository) {
+        this.ordersRepository = ordersRepository;
     }
 
-    public List<OrderDTO> getAllOrders()
+    public void createOrder(OrderDTO ordersDTO){
+        ordersRepository.saveAndFlush(ordersDTO);
+
+
+    }
+    public List<OrderDTO> getOrdersByUsername(String username)
     {
-        return repository.findAll();
+              return ordersRepository.findOrdersDTOByUser(username);
+    }
+    public long getSerialOrderByUsernameAndStatus(String username,String status){
+        return ordersRepository.findOrdersDTOByUserAndStatus(username, status);
     }
 
-    public void createOrder(OrderDTO order)
-    {
-        repository.save(order);
+    public void updateStatusOfOrder(long id,String status){
+
+     ordersRepository.setOrderStatus(status,id);
+   //  ordersRepository.flush();
+
+     //ordersRepository.save()
+    }
+    public List<OrderDTO> getAllOrders(){
+        return ordersRepository.findAll();
     }
 
-    public void getAnOrderById(long id) {
-        repository.findById(id);
+    public List<OrderDTO> getAllOrdersByStatus(String status){
+        return ordersRepository.findOrdersDTOByStatus(status);
     }
+
+
 }

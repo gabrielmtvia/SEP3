@@ -1,20 +1,18 @@
 package via.sep3.group2.dao;
 
-import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 //import via.sep3.group2.models.*;
 import via.sep3.group2.repository.BookRepository;
-import via.sep3.group2.repository.OrderLineWithCompositeKeyRepository;
-import via.sep3.group2.repository.OrdersRepository;
+import via.sep3.group2.repository.OrderLineRepository;
+import via.sep3.group2.repository.OrderRepository;
 import via.sep3.group2.repository.UserRepository;
 import via.sep3.group2.shared.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class OrderLineWithCompositeKeyDAOTest {
@@ -22,13 +20,13 @@ class OrderLineWithCompositeKeyDAOTest {
     @Autowired
     BookRepository bookRepository;
     @Autowired
-    OrderLineWithCompositeKeyRepository orderLineRepository;
+    OrderLineRepository orderLineRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private OrdersRepository ordersRepository;
+    private OrderRepository ordersRepository;
      @Autowired
-    private OrderLineWithCompositeKeyRepository orderLineWithCompositeKeyRepository;
+    private OrderLineRepository orderLineWithCompositeKeyRepository;
 
     @Test
     void createOrderLine() {
@@ -37,7 +35,9 @@ class OrderLineWithCompositeKeyDAOTest {
 
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
-        OrdersDTO ordersDTO=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        OrderDTO ordersDTO=new OrderDTO(timestamp ,"NOTCONFIRMED",userDTO);
         ordersRepository.save(ordersDTO);
 
 
@@ -47,8 +47,8 @@ class OrderLineWithCompositeKeyDAOTest {
         bookRepository.save(book2);
 
 
-       OrderLineWithCompositeKeyDTO orderLineWithCompositeKeyDTO1=new OrderLineWithCompositeKeyDTO(ordersDTO.getId(),"1",6);
-        OrderLineWithCompositeKeyDTO orderLineWithCompositeKeyDTO2=new OrderLineWithCompositeKeyDTO(ordersDTO.getId(),"2",4);
+       OrderLineDTO orderLineWithCompositeKeyDTO1=new OrderLineDTO(ordersDTO.getId(),"1",6);
+        OrderLineDTO orderLineWithCompositeKeyDTO2=new OrderLineDTO(ordersDTO.getId(),"2",4);
 
 
 
@@ -57,10 +57,10 @@ class OrderLineWithCompositeKeyDAOTest {
 
 
 
-       List<OrderLineWithCompositeKeyDTO>  orderlines =(orderLineWithCompositeKeyRepository.findAll());
+       List<OrderLineDTO>  orderlines =(orderLineWithCompositeKeyRepository.findAll());
        // System.out.println(orderlines.get(0).getBookDTO());
 
-        for (OrderLineWithCompositeKeyDTO o:orderlines
+        for (OrderLineDTO o:orderlines
              ) {
             System.out.println(o.getId()+", "+o.getIsbn()+", "+o.getQte()
                 //   + o.getBookDTO().getTitle()

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_package = "via.sep3.grpc.genre";
+
+message GenreMessage {
+
+  string type = 1;
+
+}
+message EmptyGenreMessage {
+
+}
+
+message ListGenreMessage {
+  repeated GenreMessage genreMessage = 1;
+}
+
+
+
+service GenreService {
+  rpc getAllGenres(EmptyGenreMessage) returns (ListGenreMessage);
+  rpc createGenre(GenreMessage) returns (EmptyGenreMessage);
+
+}

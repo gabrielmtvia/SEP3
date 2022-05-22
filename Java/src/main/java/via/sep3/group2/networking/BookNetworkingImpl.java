@@ -7,7 +7,8 @@ import via.sep3.group2.persistance.BookDAO;
 import via.sep3.group2.shared.BookDTO;
 import via.sep3.grpc.book.Book;
 import via.sep3.grpc.book.BookServiceGrpc;
-import via.sep3.grpc.user.User;
+
+import java.util.List;
 
 @GrpcService
 public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
@@ -29,5 +30,23 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getAllBooks(Book.EmptyBookMessage request, StreamObserver<Book.ListOfBooks> responseObserver){
+
+        List<BookDTO> books= bookDAO.getAllBooks();
+        Book.ListOfBooks.Builder builder =  Book.ListOfBooks.newBuilder();
+
+        for (BookDTO book:books
+             ) {
+            builder.addBooks(book.buildBookMessage());
+        }
+        Book.ListOfBooks reply = builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+
+
+    }
+
 
 }

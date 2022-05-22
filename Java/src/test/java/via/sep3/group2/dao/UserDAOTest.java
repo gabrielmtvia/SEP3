@@ -20,6 +20,13 @@ class UserDAOTest {
     @Test
     void createUser() {
 
+        UserDTO userDTO=new UserDTO("a","b","CUSTOMER");
+        UserDTO userDTO2=new UserDTO("a","b","Admin");
+        repository.save(userDTO);
+        repository.save(userDTO2);
+
+        Assert.isTrue(repository.findByUsernameAndPassword("a","b").getRole().equals("Admin"));
+
     }
 
     @Test

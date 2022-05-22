@@ -8,12 +8,8 @@ import org.springframework.stereotype.Repository;
 
 //import via.sep3.group2.models.UserDTO;
 //import via.sep3.group2.models.UserDTO;
-import via.sep3.group2.repository.OrderRepository;
 import via.sep3.group2.repository.UserRepository;
 import via.sep3.group2.shared.UserDTO;
-
-import java.sql.SQLException;
-import java.util.List;
 
 @Repository
 public class UserDAO {
@@ -41,10 +37,6 @@ public class UserDAO {
             } catch (Exception e) {
        // e.printStackTrace();
     }
-
-
-
-
         /////
 
         return role;
@@ -52,6 +44,10 @@ public class UserDAO {
 
     public void updateUsernameOfUser(String newUsername,String username){
         userRepository.setUsernameForUser(newUsername,username);
+    }
+
+    public UserDTO findUserByUsername(String username){
+        return userRepository.findByUsername(username);
     }
     //public List
 

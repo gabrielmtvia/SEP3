@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.util.Assert;
-import via.sep3.group2.repository.OrdersRepository;
+import via.sep3.group2.repository.OrderRepository;
 import via.sep3.group2.repository.UserRepository;
-import via.sep3.group2.shared.OrdersDTO;
+import via.sep3.group2.shared.OrderDTO;
 import via.sep3.group2.shared.UserDTO;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -22,7 +23,7 @@ class OrdersDAOTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private OrdersRepository ordersRepository;
+    private OrderRepository ordersRepository;
     @Test
     void createOrder() {
         UserDTO userDTO=new UserDTO("a","a","CUSTOMER");
@@ -34,14 +35,15 @@ class OrdersDAOTest {
 
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
-        OrdersDTO ordersDTO=new OrdersDTO(date,"NOTCONFIRMED",userDTO2);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO2);
         ordersRepository.save(ordersDTO);
 
 
 
-        List<OrdersDTO> orders=ordersRepository.findOrdersDTOByUser("a");
+        List<OrderDTO> orders=ordersRepository.findOrdersDTOByUser("a");
         Assert.isTrue(orders.contains(ordersDTO));
-        List<OrdersDTO> orders2=ordersRepository.findOrdersDTOByUser("b");
+        List<OrderDTO> orders2=ordersRepository.findOrdersDTOByUser("b");
         assertThat(orders2.contains(ordersDTO)).isFalse();
 
 
@@ -57,10 +59,12 @@ class OrdersDAOTest {
         userRepository.save(userDTO1);
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
-        OrdersDTO ordersDTO=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
-        OrdersDTO ordersDTO1=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
 
-        OrdersDTO ordersDTO2=new OrdersDTO(date,"NOTCONFIRMED",userDTO1);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
+        OrderDTO ordersDTO1=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
+
+        OrderDTO ordersDTO2=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO1);
         ordersRepository.save(ordersDTO);
         ordersRepository.save(ordersDTO1);
         ordersRepository.save(ordersDTO2);
@@ -74,16 +78,16 @@ class OrdersDAOTest {
 
       //  System.out.println(ordersRepository.findOrdersDTOById(1).getStatus()+"******************");
        // List<OrdersDTO> orders=ordersRepository.findOrdersDTOByUser(userDTO.getUsername());
-        List<OrdersDTO> orders=ordersRepository.findOrdersDTOByUser("a");
+        List<OrderDTO> orders=ordersRepository.findOrdersDTOByUser("a");
 
         assertThat(ordersRepository.findOrdersDTOByUser("a").size()==2);
         Assert.isTrue(ordersRepository.findOrdersDTOByUser("a").contains(ordersDTO));
         Assert.isTrue(ordersRepository.findOrdersDTOByUser("a").contains(ordersDTO1));
 
         System.out.println("-------------- The List of Orders by Username---------------"+"\n");
-        for (OrdersDTO o:orders
+        for (OrderDTO o:orders
              ) {
-            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDate().toString()+
+            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDateTime().toString()+
                     ", "+o.getStatus()+","+o.getUserDTO().getFirstname()+", "+o.getUserDTO().getRole()+"\n");
 
         }
@@ -91,11 +95,11 @@ class OrdersDAOTest {
         System.out.println("-------------- *****************************---------------");
 
 //////////////////////////////
-        List<OrdersDTO> orders1=ordersRepository.findAll();
+        List<OrderDTO> orders1=ordersRepository.findAll();
         System.out.println("-------------- The List of Orders ---------------"+"\n");
-        for (OrdersDTO o:orders1
+        for (OrderDTO o:orders1
         ) {
-            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDate().toString()+
+            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDateTime().toString()+
                     ", "+o.getStatus()+","+o.getUserDTO().getFirstname()+", "+o.getUserDTO().getRole()+"\n");
 
         }
@@ -112,10 +116,12 @@ class OrdersDAOTest {
         userRepository.save(userDTO1);
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
-        OrdersDTO ordersDTO=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
        // OrdersDTO ordersDTO1=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
 
-        OrdersDTO ordersDTO2=new OrdersDTO(date,"NOTCONFIRMED",userDTO1);
+        OrderDTO ordersDTO2=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO1);
         ordersRepository.save(ordersDTO);
       //  ordersRepository.save(ordersDTO1);
         ordersRepository.save(ordersDTO2);
@@ -135,10 +141,12 @@ class OrdersDAOTest {
         userRepository.save(userDTO1);
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
-        OrdersDTO ordersDTO=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
-        OrdersDTO ordersDTO1=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
 
-        OrdersDTO ordersDTO2=new OrdersDTO(date,"NOTCONFIRMED",userDTO1);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
+        OrderDTO ordersDTO1=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
+
+        OrderDTO ordersDTO2=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO1);
         ordersRepository.save(ordersDTO);
         ordersRepository.save(ordersDTO1);
         ordersRepository.save(ordersDTO2);
@@ -153,12 +161,12 @@ class OrdersDAOTest {
         ordersRepository.setOrderStatus("DELIVERED",7);
         Assert.isTrue(ordersRepository.findOrdersDTOById(7).getStatus().equals("DELIVERED"));
 
-        List<OrdersDTO> orders=ordersRepository.findOrdersDTOByUser("a");
+        List<OrderDTO> orders=ordersRepository.findOrdersDTOByUser("a");
 
         System.out.println("-------------- The List of Orders by Username---------------"+"\n");
-        for (OrdersDTO o:orders
+        for (OrderDTO o:orders
         ) {
-            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDate().toString()+
+            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDateTime().toString()+
                     ", "+o.getStatus()+"\n");
 
         }
@@ -177,20 +185,22 @@ class OrdersDAOTest {
         userRepository.save(userDTO1);
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
-        OrdersDTO ordersDTO=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
-        OrdersDTO ordersDTO1=new OrdersDTO(date,"NOTCONFIRMED",userDTO);
 
-        OrdersDTO ordersDTO2=new OrdersDTO(date,"CONFIRMED",userDTO1);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
+        OrderDTO ordersDTO1=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
+
+        OrderDTO ordersDTO2=new OrderDTO(timestamp,"CONFIRMED",userDTO1);
         ordersRepository.save(ordersDTO);
         ordersRepository.save(ordersDTO1);
         ordersRepository.save(ordersDTO2);
 
-        List<OrdersDTO> orders=ordersRepository.findOrdersDTOByStatus("CONFIRMED");
+        List<OrderDTO> orders=ordersRepository.findOrdersDTOByStatus("CONFIRMED");
 
         System.out.println("-------------- The List of Orders by Username---------------"+"\n");
-        for (OrdersDTO o:orders
+        for (OrderDTO o:orders
         ) {
-            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDate().toString()+
+            System.out.println(o.getId()+", "+o.getUserDTO().getUsername()+", "+o.getDate().toLocalDateTime().toString()+
                     ", "+o.getStatus()+"\n");
 
         }

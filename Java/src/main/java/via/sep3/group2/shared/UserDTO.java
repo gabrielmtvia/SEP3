@@ -1,9 +1,6 @@
 package via.sep3.group2.shared;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +26,7 @@ public class UserDTO  {
     @OneToMany ( cascade = CascadeType.ALL,
             mappedBy = "user",orphanRemoval = true
     )
-    private List<OrdersDTO> orders ;
+    private List<OrderDTO> orders ;
 
     public UserDTO(String username, String password, String role) {
         this.username = username;
@@ -49,7 +46,7 @@ public class UserDTO  {
         this.role = role;
     }
 
-    public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role, List<OrdersDTO> orders) {
+    public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role, List<OrderDTO> orders) {
         this.username = username;
         this.password = password;
         //this.birthday = birthday;
@@ -79,11 +76,11 @@ public class UserDTO  {
         this.role = role;
     }
 
-    public List<OrdersDTO> getOrders() {
+    public List<OrderDTO> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrdersDTO> orders) {
+    public void setOrders(List<OrderDTO> orders) {
         this.orders = orders;
     }
 
