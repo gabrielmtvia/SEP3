@@ -2,6 +2,7 @@
 
 public interface IGenreService
 {
-    List<Genre> Genres { get; set; }
-    Task GetGenresAsync();
+    Task AddGenreAsync(Genre genreToAdd);
+    Task <List<Genre>> GetAllGenresAsync();
+   
 }
