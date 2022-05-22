@@ -4,36 +4,67 @@ using System.Runtime.InteropServices;
 
 public class Book
 {
-    
     [Required]
     [StringLength(13, ErrorMessage = "ISBN number must be 13 digits")]
     public string Isbn { get; set; }
+
     [Required]
     [StringLength(200, ErrorMessage = "Book title is too long.")]
     public string Title { get; set; } = string.Empty;
+
     [Required]
     [StringLength(200, ErrorMessage = "Author name is too long.")]
     public string Author { get; set; } = string.Empty;
+
     [StringLength(200, ErrorMessage = "Edition name is too long.")]
     public string Edition { get; set; } = string.Empty;
+
     [Required]
-    [StringLength(500, ErrorMessage = "Book description title is too long.")]
+    [StringLength(1500, ErrorMessage = "Book description is too long.")]
     public string Description { get; set; } = string.Empty;
+
     public string ImageUrl { get; set; } = string.Empty;
+
     [Required, Range(1, 300)]
     [Column(TypeName = "decimal(18,2)")]
-    public decimal Price { get; set; }
-    [Required]
-    public List<Genre> Genres { get; set; }
+    public double Price { get; set; }
+
+    [Required] public List<Genre> Genres { get; set; }
 
     public Book()
     {
-        Genres = new List<Genre>();
     }
-    
+
+    public Book(BookMessage book)
+    {
+        Isbn = book.Isbn;
+        Title = book.Title;
+        Author = book.Author;
+        Edition = book.Edition;
+        Description = book.Description;
+        ImageUrl = book.ImageUrl;
+        Price = book.Price;
+        Genres = Genre.FromListMessageToGenreList(book.Genres);
+    }
+
+    public BookMessage BuildBookMessage()
+    {
+        return new BookMessage
+        {
+            Isbn = this.Isbn,
+            Author = this.Author,
+            Description = this.Description,
+            Edition = this.Edition,
+            Genres = Genre.BuildListGenreMessage(this.Genres),
+            ImageUrl = this.ImageUrl,
+            Price = this.Price,
+            Title = this.Title
+        };
+    }
 
     public override string ToString()
     {
-        return $"Title - {Title}, Author - {Author}, Price - {Price}, Description - {Description}, Edition - {Edition}, Genres - {Genres}, ISBN - {Isbn}, ImageUrl - {ImageUrl}";
+        return
+            $"Title - {Title}, Author - {Author}, Price - {Price}, Description - {Description}, Edition - {Edition}, Genres - {Genres}, ISBN - {Isbn}, ImageUrl - {ImageUrl}";
     }
 }

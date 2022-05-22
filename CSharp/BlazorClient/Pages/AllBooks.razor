@@ -1,0 +1,24 @@
+﻿@page "/AllBooks"
+<h3>Search book</h3>
+@inject NavigationManager navMgr
+@inject IBookService bookService
+@inherits AllBooksBase
+
+
+@if (AllBooks == null) // sometimes the view part will load faster than the data from the code so you need this check
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else 
+{
+    <RadzenDataGrid AllowFiltering="false" AllowPaging="false"
+                    AllowSorting="true" Data="@AllBooks" TItem="Book" ColumnWidth="200px">
+        <Columns>
+            <RadzenDataGridColumn TItem="Book" Property="Header" Title="Title"/>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+

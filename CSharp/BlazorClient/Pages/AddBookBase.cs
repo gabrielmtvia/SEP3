@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using BlazorClient.Services.ImageService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -8,10 +9,28 @@ public class AddBookBase : ComponentBase
 {
     [Inject]
     public IBookService BookService { get; set; }
+    [Inject]
+    private IImageService ImageService { set; get; }
     public Book BookToAdd = new Book();
-    public List<string> genres = new() {"Action", "Fantasy", "Drama", "Horror", "Classics", "History", "Crime", "Mystery" };
-    public ImageFile imageFile;
-
+    public List<Genre> genres = new()
+    {
+        new Genre
+        {
+            Name = "Drama",
+            Url = "something"
+        },
+        new Genre
+        {
+            Name = "Scientific",
+            Url = "something else"
+        },
+        new Genre
+        {
+            Name = "Crime",
+            Url = "no url"
+        }
+        
+    };
     public async Task TryAddBookAsync()
     {
         await BookService.AddBookAsync(BookToAdd);
@@ -19,37 +38,13 @@ public class AddBookBase : ComponentBase
 
     public void SelectedGenreChanged(ChangeEventArgs obj)
     {
-        foreach (var str in (string[]) obj.Value!)
-        {
-            Console.WriteLine(str);
-        }
+        List<Genre> genres = this.genres.FindAll(genre => ((string[]) obj.Value).All(g => g.Equals(genre.Name)));
+        BookToAdd.Genres =  genres;
     }
 
     public async Task SaveImageAsync(InputFileChangeEventArgs arg)
     {
-        
-        var browserFile = arg.File;
-        var requestImageFileAsync = await browserFile.RequestImageFileAsync(browserFile.ContentType, 1000, 800);
-        var buffer = new byte[requestImageFileAsync.Size];
-        using (var stream = requestImageFileAsync.OpenReadStream())
-        {
-            await stream.ReadAsync(buffer);
-        }
-
-      /*  imageFile = new ImageFile()
-        {
-            Base64Data = Convert.ToBase64String(buffer),
-            ContentType = requestImageFileAsync.ContentType,
-            FileName = requestImageFileAsync.Name
-        }; */
-        
-        
-
+        var uploadImageAsync = await ImageService.UploadImageAsync(arg.File);
+        BookToAdd.ImageUrl = uploadImageAsync;
     }
-}
-
-public class ImageFile
-{
-    // we do not upload images we upload urls for an image
-    
 }

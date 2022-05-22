@@ -3,6 +3,7 @@ global using BlazorClient.authentication;
 global using BlazorClient.Services.BookService;
 global using BlazorClient.Services.UserService;
 using BlazorClient.Services.CategoryService;
+using BlazorClient.Services.ImageService;
 using BlazorClient.Services.OrderService;
 
 using Microsoft.AspNetCore.Components.Authorization;
@@ -21,6 +22,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStat
 builder.Services.AddScoped<IBookService, BlazorClient.Services.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
+builder.Services.AddScoped<IImageService, ImageService>(); 
 
 
 builder.Services.AddAuthorization(options =>
@@ -41,7 +43,7 @@ builder.Services.AddAuthorization(options =>
     //     a => 
     //         a.RequireAuthenticatedUser().RequireAssertion(context =>
     //         {
-    //             Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));
+    //             Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));   
     //             if (levelClaim == null) return false;
     //             return int.Parse(levelClaim.Value) >= 2;
     //         }));

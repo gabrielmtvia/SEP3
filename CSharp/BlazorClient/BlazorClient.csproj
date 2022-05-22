@@ -23,16 +23,27 @@
       <Compile Update="Shared\BookListBase.cs">
         <DependentUpon>BookList.razor</DependentUpon>
       </Compile>
-      <Compile Update="Pages\SearchBookBase.cs">
-        <DependentUpon>SearchBook.razor</DependentUpon>
+      <Compile Update="Pages\AllBooksBase.cs">
+        <DependentUpon>AllBooks.razor</DependentUpon>
       </Compile>
       <Compile Update="Pages\AddBookBase.cs">
         <DependentUpon>AddBook.razor</DependentUpon>
       </Compile>
+      <Compile Update="Pages\AddGenreBase.cs">
+        <DependentUpon>AddGenre.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="CloudinaryDotNet" Version="1.17.0" />
+      <PackageReference Include="Radzen.Blazor" Version="3.18.10" />
       <PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Pages\AddBook.razor.css">
+        <DependentUpon>AddBook.razor.razor</DependentUpon>
+      </None>
     </ItemGroup>
 
 </Project>

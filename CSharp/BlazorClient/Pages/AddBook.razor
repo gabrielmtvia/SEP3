@@ -14,16 +14,16 @@
      
    <div class="form-outline mb-4">
          <select @onchange="SelectedGenreChanged" multiple>
-             @foreach (string genre in genres)
+             @foreach (Genre genre in genres)
              {
-                 <option value="@genre">@genre</option>
+                 <option value="@genre.Name">@genre.Name</option>
              }
          </select>
     </div>
-
+ 
      <div class="form-outline mb-4">
          <InputFile class="form-control" OnChange="SaveImageAsync"
-                    accept="image/jpeg, image/png, image/gif" id="inputFile"/>
+                    accept="image/*" id="inputFile"/>
          <label class="form-label" for="inputFile">Choose file</label>
      </div>
      <div class="form-outline mb-4">

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.StaticFiles.Infrastructure;
-
-namespace BusinessLogicServer.Networking.Orders;
+﻿namespace BusinessLogicServer.Networking.Orders;
 
 public class OrderNetworking : IOrderNetworking
 {
@@ -14,14 +12,17 @@ public class OrderNetworking : IOrderNetworking
 
     public async Task<List<Order>> GetAllOrdersAsync()
     {
-        var voidMessage = new VoidMessage();
-        var allOrdersAsync = await client.getAllOrdersAsync(voidMessage);
+      
+        
+        var allOrdersAsync = await client.getAllOrdersAsync(new VoidMessage());
 
+       
         var orderMessages = allOrdersAsync.Orders;
         var orders = new List<Order>();
+        
+        
         foreach (var orderMessage in orderMessages)
         {
-            // create an order from orderMessage (solution)
             var toAdd = new Order
             {
                 Id = orderMessage.Id,
@@ -31,7 +32,6 @@ public class OrderNetworking : IOrderNetworking
             };
             orders.Add(toAdd);
         }
-
         return orders;
     }
 
