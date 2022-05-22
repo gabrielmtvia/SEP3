@@ -51,4 +51,9 @@ public class OrderService : IOrderService
     {
         await httpClient.DeleteAsync($"/deleteOrder/{orderId}");
     }
+
+    public async Task UpdateOrderStatusAsync(OrdersDTO order)
+    {
+        await httpClient.PostAsJsonAsync($"/Orders/UpdateStatus/",order);
+    }
 }

@@ -11,4 +11,5 @@ public interface IOrderService
     public Task<IEnumerable<Order>> GetOrders();
     void CreateOrder(Order o);
     void DeleteOrder(long orderId);
+    public Task UpdateOrderStatusAsync(OrdersDTO order);
 }

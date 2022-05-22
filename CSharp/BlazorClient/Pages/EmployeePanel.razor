@@ -3,7 +3,6 @@
 @using UIElements
 @inject NavigationManager navMgr
 @inject IBookService _bookService
-
 @inject IOrderService orderService
 
 <h3>Employee Panel</h3>
@@ -72,7 +71,6 @@ else
         }
         </tbody>
     </table>
-    <a href="https://www.flaticon.com/free-icons/document" title="document icons">Document icons created by Freepik - Flaticon</a>
 }
 @if (!string.IsNullOrEmpty(errorLabel))
 {
@@ -163,18 +161,15 @@ else
     </Modal>
 }
 
+<a href="https://www.flaticon.com/free-icons/document" title="document icons">Document icons created by Freepik - Flaticon</a>
 @code {
-    string errorLabel = "";
-    private readonly string editErrorLabel = string.Empty;
-
-    private ICollection<OrdersDTO> ordersToShow;
+    private string errorLabel = "";
+    private string editErrorLabel = string.Empty;
     private string? orderStatusFilter;
+    private ICollection<OrdersDTO> ordersToShow;
     private bool doShowFilters;
-    
     private bool showModalWithOrderDetails;
-    private bool showModalGeneralInfo;
-    
-    private OrdersDTO orderToView = new();
+    private bool showModalGeneralInfo = false;
     private UserDTO customerToView = new();
     private ICollection<OrderLineDTO> orderlinesToView = new List<OrderLineDTO>();
     private ICollection<Book> booksToView = new List<Book>();
@@ -195,7 +190,6 @@ else
     
     private async Task ToggleStatus(bool toggleBoolean, OrdersDTO order)
     {
-        showModalGeneralInfo = true;
         errorLabel = "";
         
         // switching the Toggle status to "True" changes the order status to "DISPATCHED". "False" changes to "CONFIRMED" 
@@ -204,27 +198,22 @@ else
         
         try
         {
-            // TODO: the commented method below shall be uncommented when the orderService.UpdateOrder() starts working.
-            // this shall be done when implementing another user story
-            // await orderService.UpdateOrder(order);
+            await orderService.UpdateOrderStatusAsync(order);
         }
         catch (Exception e)
         {
             errorLabel = e.Message;
         }
-        
-        // calling ApplyFilter here should not be necessary. It's for safety reasons only,
-        // in case where Blazor App didn't refresh the values or the database didn't update the order as it should.
         await ApplyFilters();
     }
 
-    private void OpenCloseFilters()
+    private async Task OpenCloseFilters()
     {
         doShowFilters = !doShowFilters;
         if (!doShowFilters)
         {
             orderStatusFilter = "ALL";
-    // ordersToShow = allOrders;
+            await ApplyFilters();
         }
     }
     
@@ -236,13 +225,20 @@ else
     
     private async Task ApplyFilters()
     {
-        if (orderStatusFilter!.Equals("ALL"))
+        try
         {
-            ordersToShow = await orderService.GetAllOrdersAsync();
+            if (orderStatusFilter!.Equals("ALL"))
+            {
+                ordersToShow = await orderService.GetAllOrdersAsync();
+            }
+            else
+            {
+                ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);    
+            }
         }
-        else
+        catch (Exception e)
         {
-            ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);    
+            Console.WriteLine(e);
         }
     }
 
@@ -256,7 +252,6 @@ else
 
     private async Task ShowOrderDetails(OrdersDTO order)
     {
-        orderToView = order;
         customerToView = await orderService.GetCustomer(order.username);
         orderlinesToView = await orderService.GetOrderLines(order.id);
         await GatherBooksToView();
