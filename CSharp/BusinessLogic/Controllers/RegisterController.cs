@@ -57,7 +57,7 @@ public class RegisterController : ControllerBase
     
     [HttpGet]
     [Route("GetEmployees")]
-    public async Task<UserDTO?> GetEmployee( string role)
+    public async Task<ActionResult<UserDTO>> GetEmployee( string role)
     {
        
         return null; //await GetUserAsync(role);
