@@ -1,31 +1,31 @@
 package via.sep3.group2.persistance;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import via.sep3.group2.repository.BookRepository;
 import via.sep3.group2.shared.BookDTO;
 import java.util.List;
 
 @Repository
-public class BookDAO
-{
-    private BookRepository repository;
+public class BookDAO {
+    private BookRepository bookRepository;
 
-    public BookDAO(BookRepository repository)
-    {
-        this.repository = repository;
+    @Autowired
+    public BookDAO(BookRepository bookRepository){
+        this.bookRepository=bookRepository;
     }
 
     public List<BookDTO> getAllBooks()
     {
-        return repository.findAll();
+        return bookRepository.findAll();
     }
 
     public BookDTO getBookByIsbn(String isbn)
     {
-        return repository.findByIsbn(isbn);
+        return bookRepository.findByIsbn(isbn);
     }
 
     public void addBook(BookDTO book){
-        repository.saveAndFlush(book);
+        bookRepository.saveAndFlush(book);
     }
 }

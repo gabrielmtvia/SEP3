@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BusinessLogicServer.Controllers;
 

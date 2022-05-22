@@ -38,6 +38,15 @@
       <PackageReference Include="CloudinaryDotNet" Version="1.17.0" />
       <PackageReference Include="Radzen.Blazor" Version="3.18.10" />
       <PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
+      <Compile Update="Pages\BookDetailsBase.cs">
+        <DependentUpon>BookDetails.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\CartBase.cs">
+        <DependentUpon>Cart.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\CustomerOrderHistoryBase.cs">
+        <DependentUpon>CustomerOrderHistory.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

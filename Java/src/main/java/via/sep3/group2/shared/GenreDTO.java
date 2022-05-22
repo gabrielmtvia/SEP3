@@ -1,7 +1,6 @@
 package via.sep3.group2.shared;
 
-import via.sep3.grpc.book.Book;
-import via.sep3.grpc.order.Order;
+import via.sep3.grpc.genre.Genre;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,20 +11,41 @@ import java.util.Set;
 @Table (name="genre")
 public class GenreDTO {
     @Id
-    private String name;
-    private String url;
-
+    private String type;
     @ManyToMany (mappedBy = "genres",cascade = CascadeType.ALL)
     Set<BookDTO> books;
 
-    public GenreDTO()
-    {
+    public GenreDTO(String type, Set<BookDTO> books) {
+        this.type = type;
+        this.books = books;
     }
 
-    public GenreDTO(Book.GenreMessage message)
-    {
-        name = message.getName();
-        url = message.getUrl();
+    public GenreDTO(String type) {
+        this.type = type;
+    }
+
+    public GenreDTO() {
+
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Set<BookDTO> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<BookDTO> books) {
+        this.books = books;
+    }
+
+    public Genre.GenreMessage buildGenreMessage(){
+        return Genre.GenreMessage.newBuilder().setType(type).build();
     }
 
     public static List<GenreDTO> generateGenreListFromListGenreMessage(Book.ListGenreMessage message)
@@ -39,11 +59,6 @@ public class GenreDTO {
         return genreDTOS;
     }
 
-    public Book.GenreMessage buildGenreMessage()
-    {
-        return Book.GenreMessage.newBuilder().setName(name).setUrl(url).build();
-    }
-
     public static Book.ListGenreMessage genresToMessage(Iterable<GenreDTO> genres)
     {
         ArrayList<Book.GenreMessage> genrs= new ArrayList<>();
@@ -53,35 +68,5 @@ public class GenreDTO {
         }
         Book.ListGenreMessage listGenreMessage = Book.ListGenreMessage.newBuilder().addAllGenres(genrs).build();
         return listGenreMessage;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getUrl()
-    {
-        return url;
-    }
-
-    public void setUrl(String url)
-    {
-        this.url = url;
-    }
-
-    public Set<BookDTO> getBooks()
-    {
-        return books;
-    }
-
-    public void setBooks(Set<BookDTO> books)
-    {
-        this.books = books;
     }
 }

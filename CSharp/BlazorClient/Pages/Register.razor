@@ -1,4 +1,5 @@
 @page "/Register"
+@using ModelClasses
 @inherits RegisterBase
 @* @attribute [Authorize(Policy="MustBeAdmin")] *@
 <h3>Register</h3>
@@ -13,108 +14,136 @@
  
 
 
+
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">
 	<h4 class="card-title mt-3 text-center">Create Account</h4>
 
 
-	<form>
-	<div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		 </div>
-        <input name="" class="form-control" placeholder="User Name" type="text">
-	</div> <!-- form-group// -->
-		
-		<div class="form-group input-group">
-			
+	@*   *@
+	 <EditForm Context="myContext" Model="userDto" OnValidSubmit="@CreateAccount">
 
+		
+	
+	    
+	            <DataAnnotationsValidator/>
+	            <ValidationSummary/>
+		<div class="form-group input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 			</div>
-			<input name="" class="form-control" placeholder="First Name" type="text">
-
+			<InputText type="text"  placeholder="User Name" class="form-control"@bind-Value="userDto.userName"/>
 		</div> <!-- form-group// -->
-		
-		<div class="form-group input-group">
- 
-			<div class="input-group-prepend">
-				<span class="input-group-text"> <i class="fa fa-user"></i> </span>
-			</div>
-			<input name="" class="form-control" placeholder="Last Name" type="text">
-
-		</div> <!-- form-group// -->
-		
-		<div class="form-group input-group">
 			
-
-			<div class="input-group-prepend">
-				<span class="input-group-text">
-					
-					<i>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-							<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-						</svg>
-					</i>
-				</span>
+			<div class="form-group input-group">
 				
-			</div>
-			<input name="" class="form-control" placeholder="Address" type="text">
 
-		</div> <!-- form-group// -->
-        		
-		
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+				</div>
+				<InputText type="text" placeholder="First Name" class="form-control"@bind-Value="userDto.firstName"/>
+
+			</div> <!-- form-group// -->
+			
+			<div class="form-group input-group">
+	 
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+				</div>
+				<InputText type="text"  placeholder="Last Name" class="form-control"@bind-Value="userDto.lastName"/>
+			 
+
+			</div> <!-- form-group// -->
+			
+			<div class="form-group input-group">
+				
+
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						
+						<i>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+								<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+							</svg>
+						</i>
+					</span>
+					
+				</div>
+				<InputText type="text"  placeholder="Address" class="form-control"@bind-Value="userDto.address"/>
+			 
+
+			</div> <!-- form-group// -->
+        			
+			
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+				</div>
+				<InputText type="text"  placeholder="Email" class="form-control"@bind-Value="userDto.email"/>
+	        @* <input name="" class="form-control" placeholder="Email address" type="email"> *@
+	    </div> <!-- form-group// -->
+			
+			
 		<div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-		 </div>
-        <input name="" class="form-control" placeholder="Email address" type="email">
-    </div> <!-- form-group// -->
+    		<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+			</div>
+			<select class="custom-select" style="max-width: 120px;">
+				<option selected="">+971</option>
+				<option value="1">+972</option>
+				<option value="2">+198</option>
+				<option value="3">+701</option>
+			</select>
+			<InputText type="text"  placeholder="Phone number" class="form-control"@bind-Value="userDto.phone"/>
+    		 
+		</div> <!-- form-group// -->
+			
+	    <div class="form-group input-group">
+    		<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+			</div>
+		    <select class="form-control">
+			
+			    
+			    @* <AuthorizeView Policy="MustBeAdmin"> *@
+				   @* *@
+			    @* </AuthorizeView> *@
+			    
+			    @if (user.Identity == null)
+                {
+	                <option selected="">Customer</option>
+	                userDto.role = "Customer";
+                }
+			    else { 
+				    <option selected="">Employee</option>
+
+				    userDto.role = "Employee";
+			    } 
+			    
+			      
+	               
 		
-		
-	<div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-		</div>
-		<select class="custom-select" style="max-width: 120px;">
-		    <option selected="">+971</option>
-		    <option value="1">+972</option>
-		    <option value="2">+198</option>
-		    <option value="3">+701</option>
-		</select>
-    	<input name="" class="form-control" placeholder="Phone number" type="text">
-	</div> <!-- form-group// -->
-		
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-		</div>
-		<select class="form-control">
-			<option selected=""> Select type</option>
-			<option>Customer</option>
-			@* <option>Manager</option> *@
-			@* <option>Accaunting</option> *@
-		</select>
-	</div> <!-- form-group end.// -->
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <input class="form-control" placeholder="Create password" type="password">
-    </div> <!-- form-group// -->
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <input class="form-control" placeholder="Repeat password" type="password">
-    </div> <!-- form-group// -->                                      
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
-    </div> <!-- form-group// -->      
-    <p class="text-center">Have an account? <a href="Login">Log In</a> </p>                                                                 
-</form>
+		    </select>
+		</div> <!-- form-group end.// -->
+	    <div class="form-group input-group">
+		    <div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		    </div>
+		    <InputText type="password"  placeholder="Create password" class="form-control"@bind-Value="userDto.password"/>
+	        
+	    </div> <!-- form-group// -->
+	    <div class="form-group input-group">
+		    <div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		    </div>
+		      <InputText type="password"  placeholder="Repeat password" class="form-control"@bind-Value="userDto.password"/>
+	        
+	    </div> <!-- form-group// -->                                      
+	    <div class="form-group">
+	        <button type="submit" class="btn btn-primary btn-block" > Create Account  </button>
+	    </div> <!-- form-group// -->      
+	    <p class="text-center">Have an account? <a href="Login">Log In</a> </p>                                                                 
+	            @* </form> *@
+	</EditForm>
 </article>
 </div> <!-- card.// -->
-
- 
- 

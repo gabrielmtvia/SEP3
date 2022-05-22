@@ -1,6 +1,7 @@
 ﻿using BlazorClient.Services;
 using BlazorClient.Services.OrderService;
 using Microsoft.AspNetCore.Components;
+using ModelClasses;
 
 namespace BlazorClient.Pages;
 

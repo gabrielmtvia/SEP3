@@ -20,12 +20,12 @@ public class Book
     public string Edition { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(1500, ErrorMessage = "Book description is too long.")]
+    [StringLength(500, ErrorMessage = "Book description title is too long.")]
     public string Description { get; set; } = string.Empty;
 
     public string ImageUrl { get; set; } = string.Empty;
 
-    [Required, Range(1, 300)]
+    [Required, Range(1, 3000)]
     [Column(TypeName = "decimal(18,2)")]
     public double Price { get; set; }
 

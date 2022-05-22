@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using BlazorClient.Shared;
 using Microsoft.AspNetCore.Mvc;
+using ModelClasses;
 
 namespace BlazorClient.Services.BookService;
 
@@ -82,7 +83,8 @@ public class BookService : IBookService
     public async Task<List<string>> GetBookSearchSuggestionsAsync(string searchText)
     {
         var result =
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/BookToAdd/searchSuggestions/{searchText}");
+            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/Book/searchSuggestions/{searchText}");
+        Console.WriteLine(result.Message);
         return result.Data;
     }
 }

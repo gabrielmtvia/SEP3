@@ -1,28 +1,27 @@
 package via.sep3.group2.shared;
 
-import via.sep3.grpc.order.Order;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Date;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table (name="orders")
 
 
-public class OrderDTO implements Serializable {
+public class OrderDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    private double amount;
-    private String description;
-    private java.sql.Date date;
+    private Timestamp date;
     private String status;
-    @ManyToOne (fetch = FetchType.LAZY)
-    //  @JoinColumn(name = "userid", referencedColumnName="id")
 
+    @OneToMany(
+            mappedBy = "id",fetch = FetchType.LAZY)
+    //@MapsId("id")
+    private List<OrderLineDTO> orderlines;
+
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(
             name="username",
             // nullable=false,
@@ -32,11 +31,47 @@ public class OrderDTO implements Serializable {
             )
     )
     private UserDTO user;
-    //  @ManyToOne (mappedBy="orders",  fetch = FetchType.LAZY)
-    //  private UserDTO userDTO;
+   // private String username;
+
+  //  @ManyToOne (mappedBy="orders",  fetch = FetchType.LAZY)
+  //  private UserDTO userDTO;
 
  /* @OneToMany(mappedBy = "ordersDTO")
   Set<OrdersDTO> ratings;*/
+
+    public OrderDTO(long id, Timestamp date, String status, UserDTO user) {
+        this.id = id;
+        this.date = date;
+        this.status = status;
+        this.user = user;
+    }
+
+    public OrderDTO(Timestamp date, String status, UserDTO user) {
+        this.date = date;
+        this.status = status;
+        this.user = user;
+    }
+    public OrderDTO(long id, Timestamp date, String status) {
+        this.id = id;
+        this.date = date;
+        this.status = status;
+      //  this.user = user;
+    }
+   /* public OrdersDTO(Date date, String status, String username) {
+        this.date = date;
+        this.status = status;
+        this.user = username;
+    }*/
+
+    public OrderDTO(long id) {
+        this.id = id;
+    }
+
+    public OrderDTO() {
+
+    }
+
+
 
     public long getId() {
         return id;
@@ -46,11 +81,11 @@ public class OrderDTO implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -70,8 +105,30 @@ public class OrderDTO implements Serializable {
         this.user = userDTO;
     }
 
-    public Order.OrderMessage buildOrderMessage()
-    {
-        return Order.OrderMessage.newBuilder().setId(id).setAmount(amount).setDescription(description).setStatus(status).build();
+
+    public OrderDTO(long id, Timestamp date, String status, List<OrderLineDTO> orderlines, UserDTO user) {
+        this.id = id;
+        this.date = date;
+        this.status = status;
+        this.orderlines = orderlines;
+        this.user = user;
+    }
+
+
+
+    public List<OrderLineDTO> getOrderlines() {
+        return orderlines;
+    }
+
+    public void setOrderlines(List<OrderLineDTO> orderlines) {
+        this.orderlines = orderlines;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 }

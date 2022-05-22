@@ -2,6 +2,7 @@ package via.sep3.group2.networking;
 
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.beans.factory.annotation.Autowired;
 import via.sep3.group2.persistance.BookDAO;
 import via.sep3.group2.shared.BookDTO;
 import via.sep3.grpc.book.Book;
@@ -15,6 +16,7 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase
 {
     private BookDAO dao;
 
+    @Autowired
     public BookNetworkingImpl(BookDAO dao)
     {
         this.dao = dao;

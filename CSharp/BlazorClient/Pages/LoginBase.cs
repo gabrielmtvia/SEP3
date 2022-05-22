@@ -1,6 +1,7 @@
 using BlazorClient.authentication;
 using BlazorClient.Services.UserService;
 using Microsoft.AspNetCore.Components;
+using ModelClasses;
 
 
 namespace BlazorClient.Pages;
@@ -27,7 +28,7 @@ public class LoginBase : ComponentBase
             
             
        
-          NavigationManager.NavigateTo("/Orderlist");
+          NavigationManager.NavigateTo("/PolicyExample1");
         }
         catch (Exception e)
         {

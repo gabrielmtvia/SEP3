@@ -44,7 +44,7 @@ public class BookController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-  
+
     [HttpGet]
     [Route("{isbn}")]
     public async Task<ActionResult<Book>> GetBookAsync(string isbn)

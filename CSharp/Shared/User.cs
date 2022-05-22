@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+
+namespace ModelClasses;
+
 public class User
 {
     
@@ -9,10 +12,10 @@ public class User
     public string userName { get; set; }
     
     [Required, MinLength(5), MaxLength(13) ]
-     public string password { get; set; }
-     public string role { get; set; }
+    public string password { get; set; }
+    public string role { get; set; }
      
-   
+    
     public User(string userName, string password, string role)
     {
         this.userName = userName;
@@ -20,7 +23,21 @@ public class User
         this.role = role;
         
     }
+    public User(string userName, string password)
+    {
+        this.userName = userName;
+        this.password = password;
+
+        
+    }
+
     public User()
     {
+        
+    }
+   
+    public User(string responseContent)
+    {
+        this.role = responseContent;
     }
 }

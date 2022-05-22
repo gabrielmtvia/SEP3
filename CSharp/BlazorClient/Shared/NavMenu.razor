@@ -42,7 +42,7 @@
                         <span class="oi oi-book" aria-hidden="true"></span> Add book
                     </NavLink>
                 </div>
-                
+
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="AllBooks">
                         <span class="oi oi-book" aria-hidden="true"></span> All books
@@ -53,17 +53,24 @@
                         <span class="oi oi-book" aria-hidden="true"></span> Add genre
                     </NavLink>
                 </div>
-                
-                
+
+
                 <AuthorizeView Policy="MustBeAdmin">
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="Register">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Register an employee
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Register An Employee
                         </NavLink>
                     </div>
                 </AuthorizeView>
-                
-                 <div class="nav-item px-3">
+                <AuthorizeView Policy="MustBeEmployee">
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="EmployeePanel">
+                            <span class="oi oi-browser" aria-hidden="true"></span> Employee Panel
+                        </NavLink>
+                    </div>
+                </AuthorizeView>
+
+                <div class="nav-item px-3">
                      <NavLink class="nav-link" href="PolicyExample1">
                          <span class="oi oi-list-rich" aria-hidden="true"></span> Policy 1
                      </NavLink>

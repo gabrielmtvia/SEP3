@@ -2,6 +2,7 @@
 using BlazorClient.Services.ImageService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using ModelClasses;
 
 namespace BlazorClient.Pages;
 

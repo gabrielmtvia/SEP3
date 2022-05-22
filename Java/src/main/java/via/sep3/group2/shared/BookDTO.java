@@ -1,5 +1,4 @@
 package via.sep3.group2.shared;
-
 import via.sep3.grpc.book.Book;
 
 import javax.persistence.*;
@@ -21,17 +20,12 @@ public class BookDTO
     private String imageUrl;
     private double price;
 
-
-
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "book_genre",
             joinColumns = @JoinColumn(name = "isbn"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+            inverseJoinColumns = @JoinColumn(name = "type"))
     Set<GenreDTO> genres;
-   /* @OneToMany(mappedBy = "bookDTO")
-    Set<BookDTO> ratings;*/
 
     public BookDTO(String isbn, String title, String author, String edition, String description, String imageUrl, double price, Set<GenreDTO> genres)
     {

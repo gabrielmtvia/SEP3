@@ -1,4 +1,6 @@
-﻿public class Order
+﻿namespace ModelClasses;
+
+public class Order
 {
     public long Id { get; set; }
     public string Description { get; set; }
