@@ -1,12 +1,41 @@
 syntax = "proto3";
 
 option java_package = "via.sep3.grpc.book";
+// int64 is for long / int32 is for int
+
+import "Order.proto";
+
+message GenreMessage{
+  string name = 2;
+  string url = 3;
+}
+
 
 message BookMessage{
-  string book = 1;
+  string Isbn = 1;
+  string title = 2;
+  string author = 3;
+  string edition = 4;
+  string description = 5;
+  string imageUrl = 6;
+  double price = 7;
+  ListGenreMessage genres = 8;
+}
+
+message BookByIsbn{
+  string Isbn = 1;
+}
+
+message ListBooksMessage {
+  repeated BookMessage books = 1;
+}
+
+message ListGenreMessage{
+  repeated GenreMessage genres = 1;
 }
 
 service BookService {
-  rpc getAllBooks( BookMessage) returns ( BookMessage);
-  rpc addBook(BookMessage) returns (BookMessage);
+  rpc getAllBooks(VoidMessage) returns (ListBooksMessage);
+  rpc addBook(BookMessage) returns (VoidMessage);
+  rpc getBookByIsbn(BookByIsbn) returns (BookMessage);
 }
