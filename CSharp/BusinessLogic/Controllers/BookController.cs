@@ -11,7 +11,7 @@ namespace BusinessLogicServer.Controllers;
 public class BookController : ControllerBase
 {
    
-    /*private IBookModel model;
+    private IBookModel model;
     public BookController(IBookModel model)
     {
         
@@ -33,7 +33,7 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ServiceResponse<CartList<Book>>>> GetAllBooksAsync()
+    public async Task<ActionResult<List<Book>>> GetAllBooksAsync()
     {
         try
         {
@@ -52,7 +52,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await model.GetBookAsync(isbn);
+            var result = await model.GetBookByIsbn(isbn);
             return Ok(result);
         }
         catch (Exception e)
@@ -60,8 +60,9 @@ public class BookController : ControllerBase
             return StatusCode(500, e.Message);
         }
        
-    }*/
+    }
     
+    /*
     private IBookService _service;
 
     public BookController(IBookService service)
@@ -106,6 +107,6 @@ public class BookController : ControllerBase
     {
         var result = await _service.GetBookSearchSuggestionsAsync(searchText);
         return Ok(result);
-    }
+    }*/
 
     }
