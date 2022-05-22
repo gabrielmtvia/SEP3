@@ -18,7 +18,7 @@ public class FileContext
         else
         {
             CreateFileAsync();
-            LoadDataAsync();
+            Seed();
         }
     }
 
@@ -52,7 +52,7 @@ public class FileContext
     dummyRepo.orders = new [] { order1, order2,order3, order4, order5 };
     dummyRepo.orderlines = new[] {orderline1, orderline2, orderline3, orderline4, orderline5};
     dummyRepo.books = new[] {book1, book2, book3, book4, book5};
-
+    SaveChangesAsync();
     }
 
     private async Task CreateFileAsync()

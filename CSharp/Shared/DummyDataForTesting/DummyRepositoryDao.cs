@@ -9,7 +9,10 @@ public class DummyRepositoryDao
     public DummyRepositoryDao()
     {
         _fileContext = new FileContext();
-        repo = _fileContext.DummyModelClassOfDummyRepo;
+        while (repo == null)
+        {
+            repo = _fileContext.DummyModelClassOfDummyRepo;   
+        }
     }
 
     public async Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status)
@@ -43,8 +46,6 @@ public class DummyRepositoryDao
 
     public async Task UpdateOrderStatusAsync(long orderId, string orderStatus)
     {
-        Console.WriteLine("Status before: " + repo.orders.FirstOrDefault(o => o.id == orderId)!.status);
         repo.orders.FirstOrDefault(o => o.id == orderId)!.status = orderStatus;
-        Console.WriteLine("Status after: " + repo.orders.FirstOrDefault(o => o.id == orderId)!.status);
     }
 }
