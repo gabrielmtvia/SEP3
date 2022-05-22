@@ -41,6 +41,7 @@ public class RegisterController : ControllerBase
        
     
     [HttpGet]
+    
     public async Task<ActionResult<string>> GetRole( string userName, string password)
     {
         try
@@ -53,8 +54,17 @@ public class RegisterController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("GetEmployees")]
+    public async Task<UserDTO?> GetEmployee( string role)
+    {
+       
+        return null; //await GetUserAsync(role);
 
+        
+    }
     
     
-    
+
 }

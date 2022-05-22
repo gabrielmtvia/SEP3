@@ -7,6 +7,8 @@ public class EmployeeList : ComponentBase
 {
     public IEnumerable<UserDTO> Employees { get; set; }
 
+    private string role = "Employee";
+
     protected override Task OnInitializedAsync()
     {
         try
