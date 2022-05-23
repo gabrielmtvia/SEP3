@@ -48,5 +48,20 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
 
     }
 
+    @Override
+    public void getBookByIsbn(Book.BookIsbnMessage request, StreamObserver<Book.BookMessage> responseObserver){
+
+     BookDTO   book=bookDAO.getBookByIsbn(request.getIsbn());
+
+            Book.BookMessage reply = Book.BookMessage.newBuilder().setIsbn(book.getIsbn()).setTitle(book.getTitle()).setAuthor(book.getAuthor())
+                    .setEdition(book.getEdition()).setDescription(book.getDescription()).setPrice(book.getPrice()).setUrl(book.getUrl()).build();
+
+
+
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+
+    }
+
 
 }

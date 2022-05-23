@@ -27,8 +27,9 @@ public class BookService : IBookService
 
     public async Task AddBookAsync(Book book)
     {
-        Console.WriteLine("khale   " +book.Isbn);
-        await _httpClient.PostAsJsonAsync("/Book", book);
+        Console.WriteLine("khale   " +book.Isbn+", "+book.ImageUrl);
+       var result= await _httpClient.PostAsJsonAsync("/Book", book);
+       Console.WriteLine(result.ToString());
     
     }
 

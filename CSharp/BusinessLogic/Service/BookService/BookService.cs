@@ -1,4 +1,4 @@
-﻿using ModelClasses;
+﻿/*using ModelClasses;
 
 namespace BusinessLogicServer.Service.BookService;
 
@@ -19,9 +19,9 @@ public class BookService : IBookService
             {
                 new()
                 {
-                    Id = 4,
+                   // Id = 4,
                     Name = "Hollywood Novels",
-                    Url = "Hollywood-Novels"
+                   // Url = "Hollywood-Novels"
                 }
             }
         },
@@ -38,9 +38,9 @@ public class BookService : IBookService
             {
                 new()
                 {
-                    Id = 1,
+                   // Id = 1,
                     Name = "Science Fiction",
-                    Url = "Science-Fiction"
+                  //  Url = "Science-Fiction"
                 }
             },
         },
@@ -57,9 +57,9 @@ public class BookService : IBookService
             {
                 new Genre()
                 {
-                    Id = 2,
+                  //  Id = 2,
                     Name = "Historical Novels",
-                    Url = "Historical-Novels"
+                  //  Url = "Historical-Novels"
                 }
             },
         },
@@ -77,9 +77,9 @@ public class BookService : IBookService
             {
                 new()
                 {
-                    Id = 3,
+                  //  Id = 3,
                     Name = "English Literature",
-                    Url = "English-Literature"
+                   // Url = "English-Literature"
                 }
             }
         },
@@ -97,9 +97,9 @@ public class BookService : IBookService
             {
                 new()
                 {
-                    Id = 4,
+                  //  Id = 4,
                     Name = "Biographies & Memoirs",
-                    Url = "Biographies-Memoirs"
+                  //  Url = "Biographies-Memoirs"
                 }
             }
         }
@@ -153,6 +153,7 @@ public class BookService : IBookService
         }
 
         return response;
+        
     }
 
     //TODO when books come from the third tier add await operator
@@ -205,4 +206,6 @@ public class BookService : IBookService
             Data = result
         };
     }
-} 
+    
+}
+*/ 

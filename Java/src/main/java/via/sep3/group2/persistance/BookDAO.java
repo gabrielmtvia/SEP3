@@ -13,17 +13,26 @@ public class BookDAO {
     private BookRepository bookRepository;
 
     @Autowired
-    public BookDAO(BookRepository bookRepository){
-        this.bookRepository=bookRepository;
+    public BookDAO(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    public void CreateBook(BookDTO bookDTO){
+    public void CreateBook(BookDTO bookDTO) {
 
         bookRepository.save(bookDTO);
     }
 
-    public List<BookDTO> getAllBooks(){
+    public List<BookDTO> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    public BookDTO getBookByIsbn(String isbn) {
+        try {
+            return bookRepository.findByIsbn(isbn);
+        } catch (Exception e) {
+           return  null; // e.printStackTrace();
+        }
+    }
+
 
 }

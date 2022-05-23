@@ -34,7 +34,16 @@ namespace ModelClasses;
           //  Genres = new List<Genre>();
         }
 
-       
+        public Book(string isbn, string title, string author, string edition, string description, string imageUrl, double price)
+        {
+            Isbn = isbn;
+            Title = title;
+            Author = author;
+            Edition = edition;
+            Description = description;
+            ImageUrl = imageUrl;
+            Price = price;
+        }
 
 
         public override string ToString()

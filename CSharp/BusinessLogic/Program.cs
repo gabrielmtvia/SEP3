@@ -37,7 +37,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<IOrderNetworkingExtendingIOrderDao, OrderNetworking>();
 builder.Services.AddScoped<IBookNetworking, BookNetworking>();
 
-builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
+//builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 //builder.Services.AddScoped<IOrdersDao, OrderModel>();
 //builder.Services.AddScoped<IBookService, BusinessLogicServer.Service.BookService.BookService>();
 //builder.Services.AddScoped<IGenreService, GenreService>();

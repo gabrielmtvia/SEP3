@@ -36,8 +36,21 @@ public class BookNetworking : IBookNetworking
 
     public async Task<Book> GetBookByIsbnAsync(string isbn)
     {
-        throw new NotImplementedException();
+
+        var bookProto = await client.getBookByIsbnAsync(new BookIsbnMessage
+        {
+            Isbn = isbn
+        });
+        Book book = new Book(bookProto.Isbn, bookProto.Title, bookProto.Author, bookProto.Edition, bookProto.Description,
+            bookProto.Url, bookProto.Price);
+        
+
+
+
+        return book;
+
     }
+    
 
     public async Task<List<Book>> GetAllBookAsync()
     {

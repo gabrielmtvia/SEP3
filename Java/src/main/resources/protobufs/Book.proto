@@ -20,8 +20,13 @@ message EmptyBookMessage{
 message ListOfBooks{
   repeated BookMessage books = 1;
 }
+message BookIsbnMessage{
+  string isbn = 1 ;
+}
+
 
 service BookService {
   rpc getAllBooks( EmptyBookMessage) returns ( ListOfBooks);
   rpc createBook(BookMessage) returns (EmptyBookMessage);
+  rpc getBookByIsbn(BookIsbnMessage) returns (BookMessage);
 }

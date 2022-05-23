@@ -8,39 +8,39 @@ public class GenreService : IGenreService
     {
         new()
         {
-            Id = 1,
+          //  Id = 1,
             Name = "Science Fiction",
-            Url = "Science-Fiction"
+           // Url = "Science-Fiction"
         },
         new()
         {
-            Id = 2,
+           // Id = 2,
             Name = "Historical Novels",
-            Url = "Historical-Novels"
+         //   Url = "Historical-Novels"
         },
         new()
         {
-            Id = 3,
+           // Id = 3,
             Name = "English Literature",
-            Url = "English-Literature"
+           // Url = "English-Literature"
         },
         new()
         {
-            Id = 4,
+           // Id = 4,
             Name = "Hollywood Novels",
-            Url = "Hollywood-Novels"
+           // Url = "Hollywood-Novels"
         },
         new()
         {
-            Id = 5,
+          //  Id = 5,
             Name = "Poetry Collections",
-            Url = "Poetry"
+           // Url = "Poetry"
         },
         new()
         {
-            Id = 6,
+           // Id = 6,
             Name = "Novels based on comics",
-            Url = "Novels-based-on-comics"
+           // Url = "Novels-based-on-comics"
         }
     };
 
