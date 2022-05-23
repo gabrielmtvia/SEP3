@@ -1,0 +1,53 @@
+﻿@page "/AddGenre"
+<h3>AddGenre</h3>
+
+@inject NavigationManager navMgr
+@inject IBookService bookService
+@inherits AddGenreBase;
+
+
+<div class="container-fluid p-3 shadow-lg">
+    <EditForm Context="myContext" Model="GenreToAdd" OnValidSubmit="@TryAddGenreAsync">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <div class="row w-50 mb-5">
+            <div class="col-lg-6">
+                <InputText @bind-Value="@GenreToAdd.Type" class="w-100" placeholder="Genre Type"/>
+            </div>
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary btn-sm">ADD GENRE</button>
+            </div>
+        </div>
+</EditForm>
+        <hr class="bg-danger border-2 border-top border-primary mb-5">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Genre Type</th>
+                <th scope="col" >Actions</th> 
+            </tr>
+            </thead>
+            <tbody>
+            @if (!genres.Any())
+            {
+                <p>Loading data...</p>
+            }
+            else
+            {
+                @foreach (var genre in genres.Select((value, i) => new {value, i}))
+                {
+                    <tr>
+                        <th scope="row">@(genre.i + 1)</th>
+                        <td>@genre.value.Type</td>
+                        <td>
+                            <button class="oi oi-trash" style="color: red" @onclick="() => DeleteGenreAsync(genre.value.Type)"></button>
+                        </td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+
