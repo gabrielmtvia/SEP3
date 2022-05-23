@@ -1,5 +1,8 @@
 package via.sep3.group2.shared;
 
+import via.sep3.grpc.order.Order;
+import via.sep3.grpc.user.User;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -67,6 +70,14 @@ public class UserDTO  {
 
     }
 
+    public UserDTO(String username, String firstname, String lastname, String address, String phone, String email) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
 
     public String getRole() {
         return role;
@@ -140,5 +151,10 @@ public class UserDTO  {
 
     public void setEmail(String mail) {
         this.email = mail;
+    }
+
+    public User.UserMessage buildUserMessage(){
+       return User.UserMessage.newBuilder().setUsername(username).setPassword(password).setFirstname(firstname).setLastname(lastname)
+                .setAddress(address).setPhone(phone).setEmail(email).setRole(role).build();
     }
 }

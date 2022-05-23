@@ -1,5 +1,7 @@
 package via.sep3.group2.shared;
 
+import via.sep3.grpc.order.Order;
+
 public class JoinDTO {
     private long id;
     private String isbn;
@@ -11,16 +13,17 @@ public class JoinDTO {
     private String url;
     private int qte;
 
-    public JoinDTO(long id, String isbn, String title, String author, String edition, String description, double price, String url, int qte) {
+    public JoinDTO(long id, String isbn, String title, String author, String edition, String description, String url, double price, int qte) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.edition = edition;
         this.description = description;
-        this.price = price;
         this.url = url;
+        this.price = price;
         this.qte = qte;
+
     }
 
     public JoinDTO(long id, String isbn, String title, double price, int qte) {
@@ -101,5 +104,10 @@ public class JoinDTO {
 
     public void setQte(int qte) {
         this.qte = qte;
+    }
+
+    public Order.OrderLineMessage buildOrderLineMessage(){
+        return Order.OrderLineMessage.newBuilder().setId(id).setIsbn(isbn).setTitle(title).setAuthor(author).setEdition(edition)
+                .setDescription(description).setUrl(url).setPrice(price).setQte(qte).build();
     }
 }

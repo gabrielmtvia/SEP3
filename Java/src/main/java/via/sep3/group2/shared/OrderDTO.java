@@ -1,8 +1,16 @@
 package via.sep3.group2.shared;
 
+
+import com.google.protobuf.Message;
+import com.sun.istack.Builder;
+import via.sep3.grpc.order.Order;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import static java.lang.System.currentTimeMillis;
+import static java.nio.file.attribute.FileTime.fromMillis;
 
 @Entity
 @Table (name="orders")
@@ -26,7 +34,7 @@ public class OrderDTO {
             name="username",
             // nullable=false,
             foreignKey = @ForeignKey(
-                    name="userid",
+                    name="username",
                     foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE "
             )
     )
@@ -131,4 +139,22 @@ public class OrderDTO {
     public void setUser(UserDTO user) {
         this.user = user;
     }
+
+
+    public Order.OrderMessage buildOrderMessage(){
+        //Timestamp timestamp = fromMillis(date.getNanos());
+        String s = date.toLocalDateTime().toString();
+        return Order.OrderMessage.newBuilder().setId(id)
+                .setStatus(status).setDate(s).setUsername(user.getUsername())/*.setFirstname(user.getFirstname())/*.setLastname(user.getLastname())
+                .setAddress(user.getAddress()).setPhone(user.getPhone()).setEmail(user.getEmail())*/
+                .build();
+
+        //
+    }
+
+    /*public Order.OrderUserMessage buildOrderUserMessage(){
+        return Order.OrderUserMessage.newBuilder().setUsername(user.getUsername()).setFirstname(user.getFirstname()).setLastname(user.getLastname())
+                .setAddress(user.getAddress()).setPhone(user.getPhone()).setEmail(user.getEmail()).build();
+    }*/
+
 }

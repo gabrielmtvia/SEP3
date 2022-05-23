@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using ModelClasses;
 
+
 namespace BusinessLogicServer.Networking.Books;
 
 public class BookNetworking : IBookNetworking
@@ -37,4 +38,32 @@ public class BookNetworking : IBookNetworking
     {
         throw new NotImplementedException();
     }
+
+    public async Task<List<Book>> GetAllBookAsync()
+    {
+        var  books = new List<Book>();
+        var allBooksAsync = await client.getAllBooksAsync(new EmptyBookMessage());
+        var bookMessage = allBooksAsync.Books;
+        foreach (var bookProto in bookMessage)
+        {
+            var book = new Book
+            {
+                Isbn = bookProto.Isbn,
+                Title = bookProto.Title,
+                Author = bookProto.Author,
+                Description = bookProto.Description,
+                Edition = bookProto.Edition,
+                ImageUrl = bookProto.Url,
+                Price = bookProto.Price
+
+            };
+            books.Add(book);
+
+        }
+
+        
+        return books;
+    }
+
+    
 }

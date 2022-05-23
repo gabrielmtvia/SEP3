@@ -25,9 +25,15 @@ message LoginMessage{
 message RoleMessage{
   string role = 1;
 }
+message TypeOfUsersMessage{
+  string role = 1 ;
+}
+message ListOfUsers{
+  repeated UserMessage userMessage = 1 ;
+}
 
 service UserService{
   rpc createUser(UserMessage) returns(EmptyMessage);
   rpc login(LoginMessage) returns(RoleMessage);
-
+  rpc getUsersByRole(TypeOfUsersMessage) returns (ListOfUsers);
 }

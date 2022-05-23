@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import via.sep3.group2.repository.UserRepository;
 import via.sep3.group2.shared.UserDTO;
 
+import java.util.List;
+
 @Repository
 public class UserDAO {
 
@@ -48,6 +50,10 @@ public class UserDAO {
 
     public UserDTO findUserByUsername(String username){
         return userRepository.findByUsername(username);
+    }
+
+    public List<UserDTO> getUsersByRole(String role){
+        return userRepository.findByRole(role);
     }
     //public List
 

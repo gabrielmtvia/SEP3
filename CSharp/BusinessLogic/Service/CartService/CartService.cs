@@ -103,7 +103,7 @@ public class CartService : ICartService
                         ImageUrl = book.Data.ImageUrl,
                         Isbn = book.Data.Isbn,
                         Price = book.Data.Price,
-                        Quantity = item.Quantity.Value,
+                        Quantity = item.Quantity,
                         Title = book.Data.Title
                     });
             }

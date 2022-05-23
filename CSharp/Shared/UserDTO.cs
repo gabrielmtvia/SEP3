@@ -46,4 +46,20 @@ public class UserDTO
     {
         
     }
+
+    public UserDTO(string userName, string firstName, string lastName,string address,string phone,string email)
+    {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        
+    }
+
+    public UserDTO(string userName)
+    {
+        this.userName = userName;
+    }
 }

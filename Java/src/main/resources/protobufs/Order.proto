@@ -33,7 +33,7 @@ message OrdersByStatusMessage{
   string status = 1 ;
 }
 message OrderLineMessage {
-  int64 id = 1;
+   int64 id = 1;
   string isbn = 2;
   string title = 3;
   string author = 4;

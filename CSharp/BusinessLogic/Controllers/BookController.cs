@@ -1,5 +1,5 @@
 using BusinessLogicServer.Models.Books;
-using BusinessLogicServer.Models.Orders;
+//using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Service.BookService;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
@@ -11,7 +11,7 @@ namespace BusinessLogicServer.Controllers;
 public class BookController : ControllerBase
 {
    
-    /*private IBookModel model;
+    private IBookModel model;
     public BookController(IBookModel model)
     {
         
@@ -19,6 +19,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
+    [Route("/AddBook")]
     public async Task <ActionResult> AddBookAsync (Book book)
     {
         try
@@ -32,7 +33,7 @@ public class BookController : ControllerBase
         }
     }
 
-    [HttpGet]
+ /*   [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Book>>>> GetAllBooksAsync()
     {
         try
@@ -45,7 +46,8 @@ public class BookController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+    */
+  /*  
     [HttpGet]
     [Route("{isbn}")]
     public async Task<ActionResult<ServiceResponse<Book>>> GetBookAsync(string isbn)
@@ -62,11 +64,14 @@ public class BookController : ControllerBase
        
     }*/
     
-    private IBookService _service;
+   /* private IBookService _service;
+    private IBookModel _bookModel;
 
-    public BookController(IBookService service)
+    public BookController(IBookService service ,IBookModel model)
     {
         _service = service;
+        _bookModel = model;
+
     }
 
     [HttpGet]
@@ -107,5 +112,16 @@ public class BookController : ControllerBase
         var result = await _service.GetBookSearchSuggestionsAsync(searchText);
         return Ok(result);
     }
+    */
+    [HttpGet]
+   
+    
+    public async Task<List<Book>> GetBookAsync()
+    {
+        return await model.GetAllBooksAsync();
+      //  var result = await model.GetAllBooksAsync();
+       // return Ok(result);
+    }
+    
 
     }

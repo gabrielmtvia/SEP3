@@ -15,10 +15,8 @@
         <Protobuf Include="../Shared\Protos\Book.proto" OutputDir="../Shared\Protobuf/Book" GrpcServices="Client" />
 
         <Protobuf Include="../Shared\Protos\User.proto" OutputDir="../Shared\Protobuf/User" GrpcServices="Client" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\UserLogin" />
+        <Protobuf Include="../Shared\Protos\Cart.proto" OutputDir="../Shared\Protobuf/Cart" GrpcServices="Client" />
+        <Protobuf Include="../Shared\Protos\Genre.proto" OutputDir="../Shared\Protobuf/Genre" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>

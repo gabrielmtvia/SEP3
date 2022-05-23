@@ -1,4 +1,4 @@
-﻿using BusinessLogicServer.Networking.Orders;
+﻿/*using BusinessLogicServer.Networking.Orders;
 using ModelClasses;
 using ModelClasses.Contracts;
 
@@ -42,3 +42,4 @@ public class OrderModel : IOrderModel, IOrdersDao
         await networking.CreateOrderAsync(order);
     }
 }
+*/

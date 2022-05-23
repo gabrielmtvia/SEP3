@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using ModelClasses;
 using ModelClasses.Contracts;
-
+/*
 namespace BusinessLogicServer.Networking.Orders;
 
 public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrderDao
@@ -89,4 +89,4 @@ public class OrderNetworking : IOrderNetworking, IOrderNetworkingExtendingIOrder
         };
         return orders;
     }
-}
+}*/

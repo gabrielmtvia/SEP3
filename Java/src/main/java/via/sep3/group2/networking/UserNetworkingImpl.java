@@ -10,6 +10,8 @@ import via.sep3.group2.shared.UserDTO;
 import via.sep3.grpc.user.User;
 import via.sep3.grpc.user.UserServiceGrpc;
 
+import java.util.List;
+
 
 @GrpcService
 public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
@@ -45,7 +47,19 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
         roleStreamObserver.onNext(reply);
         roleStreamObserver.onCompleted();
 
+    }
 
+    @Override
+    public void getUsersByRole(User.TypeOfUsersMessage request, StreamObserver<User.ListOfUsers> responseObserver){
+        List<UserDTO> users=userDAO.getUsersByRole(request.getRole());
+        User.ListOfUsers.Builder builder= User.ListOfUsers.newBuilder();
+        for (UserDTO u: users
+             ) {
+            builder.addUserMessage(u.buildUserMessage());
+        }
+        User.ListOfUsers reply= builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
     }
 
 

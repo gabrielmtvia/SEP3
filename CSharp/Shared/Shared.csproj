@@ -13,6 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Protobuf\Cart" />
+      <Folder Include="Protobuf\Genre" />
+      <Folder Include="Protobuf\Order" />
       <Folder Include="Protobuf\User" />
     </ItemGroup>
 

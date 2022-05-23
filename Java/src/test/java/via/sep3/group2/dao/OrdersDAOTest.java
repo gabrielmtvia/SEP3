@@ -31,12 +31,12 @@ class OrdersDAOTest {
         UserDTO userDTO1=new UserDTO("b");
         userRepository.save(userDTO);
 
-        UserDTO userDTO2=new UserDTO("a");
+      //  UserDTO userDTO2=new UserDTO("a");
 
         String str = "1990-03-31";
         Date date = Date.valueOf(str);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO2);
+        OrderDTO ordersDTO=new OrderDTO(timestamp,"NOTCONFIRMED",userDTO);
         ordersRepository.save(ordersDTO);
 
 
@@ -45,6 +45,13 @@ class OrdersDAOTest {
         Assert.isTrue(orders.contains(ordersDTO));
         List<OrderDTO> orders2=ordersRepository.findOrdersDTOByUser("b");
         assertThat(orders2.contains(ordersDTO)).isFalse();
+
+        List<OrderDTO> orders1=ordersRepository.findAll();
+        System.out.println("------------------++++++++*******");
+        for (OrderDTO o:orders1
+             ) {
+            System.out.println(o.getId()+", "+o.getDate()+", "+o.getStatus()+", "+o.getUserDTO().getUsername()+", "+o.getUserDTO().getRole());
+        }
 
 
 

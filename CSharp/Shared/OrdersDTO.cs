@@ -17,7 +17,7 @@ public class OrdersDTO
         this.user = user;
     }
 
-    public OrdersDTO(long id, DateTime date, string status, string username)
+    public OrdersDTO(long id, string status, string username,DateTime date)
     {
         this.id = id;
         this.date = date;
@@ -25,9 +25,12 @@ public class OrdersDTO
         this.username = username;
     }
 
+   
+
     public OrdersDTO()
     {
     }
+    
     
     
 }

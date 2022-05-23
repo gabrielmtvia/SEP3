@@ -1,4 +1,5 @@
-using BusinessLogicServer.Models.Orders;
+using BusinessLogicServer.Models.Order;
+//using BusinessLogicServer.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 using ModelClasses.Contracts;
@@ -10,7 +11,46 @@ namespace BusinessLogicServer.Controllers;
 public class OrderController : ControllerBase
 {
     private IOrderModel model;
-    private IOrdersDao businessLogicDao;
+
+    public OrderController(IOrderModel model)
+    {
+        this.model = model;
+    }
+
+    [HttpGet]
+    [Route("Orders")]
+    public async Task<List<OrdersDTO>> GetAllOrders()
+    {
+        return  await model.GetAllOrdersAsync();
+    }
+
+    [HttpGet]
+    [Route("Customer")]
+    public async Task<UserDTO> GetCustomer(string orderUsername)
+    {
+        return await model.GetCustomer(orderUsername);
+    }
+    [HttpGet]
+    [Route("Orders/Status")]
+    public async Task<List<OrdersDTO>> GetAllOrdersByStatus(string status)
+    {
+        return  await model.GetAllOrdersByStatusAsync(status);
+    }
+    
+    [HttpGet]
+    [Route("Orders/orderLines")]
+    public  async Task<List<JoinDTO>> GetOrderLines(long id)
+    {
+        return await model.GetOrderLines(id);
+    }
+    [HttpGet]
+    [Route("Orders/UpdateStatus")]
+    public async Task UpdateOrderStatus(long id, string status)
+    {
+        await model.UpdateOrderStatus(id, status);
+    }
+    
+    /* private IOrdersDao businessLogicDao;
 
     public OrderController(IOrderModel model, IOrdersDao businessLogicDao)
     {
@@ -81,4 +121,5 @@ public class OrderController : ControllerBase
         await model.CreateOrderAsync(order);
         return Ok();
     }
+    */
 }

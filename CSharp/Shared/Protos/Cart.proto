@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "via.sep3.grpc.Cart";
+
+message CartOrderLine{
+
+  string isbn = 1 ;
+  int32 qte = 2 ;
+
+}
+message CartMessage{
+  string username = 1 ;
+  repeated CartOrderLine cartOrderLine = 2 ;
+}
+
+message EmptyCartMessage{
+
+}
+service CartService{
+
+  rpc confirmedCart(CartMessage) returns (EmptyCartMessage);
+}

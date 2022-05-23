@@ -24,9 +24,9 @@ public class BookModel : IBookModel
         
     }
 
-    public Task<List<Book>> GetAllBooksAsync()
+    public async Task<List<Book>> GetAllBooksAsync()
     {
-        throw new NotImplementedException();
+       return await bookNetworking.GetAllBookAsync();
     }
 
     public async Task<Book> GetBookByIsbn(String isbn)

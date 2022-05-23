@@ -19,7 +19,7 @@ public class BookDAO {
 
     public void CreateBook(BookDTO bookDTO){
 
-        bookRepository.saveAndFlush(bookDTO);
+        bookRepository.save(bookDTO);
     }
 
     public List<BookDTO> getAllBooks(){
