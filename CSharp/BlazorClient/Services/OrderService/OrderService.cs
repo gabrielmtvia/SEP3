@@ -1,11 +1,10 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BlazorClient.Services.OrderService;
 
-public class OrderService : IOrderService, IOrdersDao
+public class OrderService : IOrderService
 {
     private readonly HttpClient httpClient;
 
@@ -21,25 +20,37 @@ public class OrderService : IOrderService, IOrdersDao
 
     public async Task<ICollection<OrdersDTO>> GetAllOrdersAsync()
     {
-        return await httpClient.GetFromJsonAsync<ICollection<OrdersDTO>>("/Orders");
+        var orders = await httpClient.GetFromJsonAsync<ICollection<OrdersDTO>>("/Orders");
+        return orders;
     }
 
-    public async Task<IEnumerable<Order>> GetOrders()
+    public async Task<UserDTO> GetCustomer(string orderUsername)
     {
-        return await httpClient.GetFromJsonAsync<Order[]>("/Order");
+        return await httpClient.GetFromJsonAsync<UserDTO>($"/Orders/Customer/{orderUsername}");
     }
 
-    public async void CreateOrder(Order o)
+    public async Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId)
     {
-        var json = JsonSerializer.Serialize(o);
-        var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-        var byteContent = new ByteArrayContent(buffer);
-        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        await httpClient.PostAsync("/Order", byteContent);
+        return await httpClient.GetFromJsonAsync<ICollection<OrderLineDTO>>($"/Orders/Orderlines/{orderId}");
     }
 
-    public async void DeleteOrder(long orderId)
+    public async Task UpdateOrderStatusAsync(OrdersDTO order)
     {
-        await httpClient.DeleteAsync($"/deleteOrder/{orderId}");
+        await httpClient.PostAsJsonAsync($"/Orders/UpdateStatus/",order);
+    }
+
+    public async Task<OrdersDTO> GetOrderById(long orderId)
+    {
+        OrdersDTO order = new();
+        try
+        {
+            order = await httpClient.GetFromJsonAsync<OrdersDTO>($"/Orders/OrdersById/{orderId}");
+        }
+        catch (Exception e)
+        {
+            // Console.WriteLine(e);
+        }
+
+        return order!;
     }
 }

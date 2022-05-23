@@ -12,7 +12,7 @@ public class CartBase : ComponentBase
     public long serialOrder;
     public string username = string.Empty;
     
-    [Inject] public ICartService _cartService { get; set; }
+    [Inject] public ICartService2 _cartService { get; set; }
     [Inject] public IBookService _bookService { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -20,72 +20,50 @@ public class CartBase : ComponentBase
     {
         username = authenticationStateTask.Result.User.Identity.Name;
         await LoadCart();
+        message = "";
     }
     
     public async Task LoadCart()
     {
-        var response = await _cartService.GetAllOrdersByUsernameAsync(username);
+        ShoppingCartItems = new List<ShoppingCartItem>();
         
-        if (response.Success && response.Data !=null)
+        var orderList = await _cartService.GetCartItems(username);
+
+        foreach (var lineDto in orderList)
         {
-            var currentOrder = response.Data.Find(o => o.Status == OrderStatus.NotConfirmed);
-
-            if (currentOrder != null)
-            {
-                serialOrder = currentOrder.SerialOrder;
-                ShoppingCartItems = _cartService.GetShoppingCart(serialOrder).Result.Data;
-                if (ShoppingCartItems.Count == 0)
+            var book = await _bookService.GetBookByIsbnAsync(lineDto.Isbn);
+            
+            if(book.Data!=null && lineDto.Quantity != null)
+                ShoppingCartItems.Add(new ShoppingCartItem()
                 {
-                    message = "Your cart is empty";
-                }
-
-                else
-                {
-                    message = "";
-                }
-            }
-            else
-            {
-                //message = "You haven't added any product yet. Please review our catalog and add some items to the cart";
-            }
+                    Author = book.Data.Author, 
+                    ImageUrl = book.Data.ImageUrl, 
+                    Isbn = book.Data.Isbn, 
+                    Price = book.Data.Price, 
+                    Quantity = (int) lineDto.Quantity, 
+                    Title = book.Data.Title, 
+                    Edition = book.Data.Edition
+                });
             
         }
+        
 
-        
-        else
-        {
-            ShoppingCartItems = new List<ShoppingCartItem>();
-            message = "You haven't added any product yet. Please review our catalog and add some items to the cart";
-        }
-        
     }
 
     public async Task CheckOut()
     {
-        var response = await _cartService.CheckOut(serialOrder);
-        
-        if (response.Success)
-        {
-            message = response.Message;
-        }
-        else
-        {
-            message = response.Message;
-           
-        }
-
+        await _cartService.CheckOutCart(username);
+        message = "Your order has been confirmed";
         await LoadCart();
     }
 
-    public async Task RemoveProductFromCart(string isbn, int quantity)
+    public async Task RemoveProductFromCart(string isbn)
     {
         OrderLineDTO item = new OrderLineDTO()
         {
-            Isbn = isbn,
-            SerialOrder = serialOrder,
-            Quantity = quantity
+            Isbn = isbn
         };
-        await _cartService.RemoveProductFromCart(item);
+        await _cartService.RemoveBookFromCart(item, username);
         await LoadCart();
     }
 
@@ -101,7 +79,7 @@ public class CartBase : ComponentBase
         
         if (quantity == 0)
         {
-            await RemoveProductFromCart(item.Isbn, item.Quantity);
+            await RemoveProductFromCart(item.Isbn);
         }
 
         else
@@ -111,15 +89,13 @@ public class CartBase : ComponentBase
             OrderLineDTO updateQuantity = new OrderLineDTO()
             {
                 Quantity = quantity,
-                SerialOrder = serialOrder,
                 Isbn = item.Isbn
             };
 
-            await _cartService.AddToCart(updateQuantity);
+            await _cartService.UpdateCart(updateQuantity, username);
 
         }
-
-        Console.WriteLine("Update method");
+        
         await LoadCart();
 
     }
