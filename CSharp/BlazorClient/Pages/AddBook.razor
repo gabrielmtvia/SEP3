@@ -13,12 +13,19 @@
      <ValidationSummary/>
      
    <div class="form-outline mb-4">
-         <select @onchange="SelectedGenreChanged" multiple>
-             @foreach (Genre genre in genres)
-             {
-                 <option value="@genre.Name">@genre.Name</option>
-             }
-         </select>
+       <select @onchange="SelectedGenreChanged" multiple>
+           @if (!genres.Any())
+           {
+               <p>Loading data...</p>
+           }
+           else
+           {
+               @foreach (Genre genre in genres)
+               {
+                   <option value="@genre.Type">@genre.Type</option>
+               }
+           }
+       </select>
     </div>
  
      <div class="form-outline mb-4">

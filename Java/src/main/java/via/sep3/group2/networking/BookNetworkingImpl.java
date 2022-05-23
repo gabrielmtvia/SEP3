@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import via.sep3.group2.persistance.BookDAO;
 import via.sep3.group2.shared.BookDTO;
 import via.sep3.grpc.book.Book;
-import via.sep3.grpc.book.BookServiceGrpc;
-import via.sep3.grpc.order.Order;
+import via.sep3.grpc.book.BookGrpcServiceGrpc;
+import via.sep3.grpc.util.Util;
 
 import java.util.List;
 
 @GrpcService
-public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase
+public class BookNetworkingImpl extends BookGrpcServiceGrpc.BookGrpcServiceImplBase
 {
     private BookDAO dao;
 
@@ -24,7 +24,7 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase
 
     // correct this method
     @Override
-    public void getAllBooks(Order.VoidMessage request, StreamObserver<Book.ListBooksMessage> responseObserver)
+    public void getAllBooks(Util.VoidMessage request, StreamObserver<Book.ListBooksMessage> responseObserver)
     {
         List<BookDTO> allOrders = dao.getAllBooks();
 
@@ -46,10 +46,10 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase
     }
 
     @Override
-    public void addBook(Book.BookMessage request, StreamObserver<Order.VoidMessage> responseObserver)
+    public void addBook(Book.BookMessage request, StreamObserver<Util.VoidMessage> responseObserver)
     {
         dao.addBook(new BookDTO(request));
-        responseObserver.onNext(Order.VoidMessage.newBuilder().build());
+        responseObserver.onNext(Util.VoidMessage.newBuilder().build());
         responseObserver.onCompleted();
     }
 

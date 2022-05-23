@@ -5,6 +5,7 @@ namespace BlazorClient.Services.GenreService;
 public interface IGenreService
 {
     Task AddGenreAsync(Genre genreToAdd);
-    Task <List<Genre>> GetAllGenresAsync();
-   
+    Task<List<Genre>> GetAllGenresAsync();
+    Task DeleteGenreAsync(string type);
+
 }

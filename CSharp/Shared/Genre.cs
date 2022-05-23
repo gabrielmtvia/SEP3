@@ -2,7 +2,7 @@
 
 public class Genre
 {
-    public string Type { get; set; } = string.Empty;
+    public string Type { get; set; }
 
     public Genre()
     {
@@ -11,14 +11,14 @@ public class Genre
     // create Genre object from message
     public Genre(GenreMessage genre)
     {
-        Name = genre.Name;
+        Type = genre.Name;
     }
 
     public GenreMessage BuildGenreMessage()
     {
         return new GenreMessage
         {
-            Name = this.Name,
+            Name = this.Type,
         };
     }
 

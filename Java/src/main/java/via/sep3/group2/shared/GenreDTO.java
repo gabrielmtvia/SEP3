@@ -1,5 +1,6 @@
 package via.sep3.group2.shared;
 
+import via.sep3.grpc.book.Book;
 import via.sep3.grpc.genre.Genre;
 
 import javax.persistence.*;
@@ -48,25 +49,25 @@ public class GenreDTO {
         return Genre.GenreMessage.newBuilder().setType(type).build();
     }
 
-    public static List<GenreDTO> generateGenreListFromListGenreMessage(Book.ListGenreMessage message)
+    public static List<GenreDTO> generateGenreListFromListGenreMessage(Genre.ListGenreMessage message)
     {
         ArrayList<GenreDTO> genreDTOS = new ArrayList<>();
-        for (Book.GenreMessage m : message.getGenresList())
+        for (Genre.GenreMessage m : message.getGenresList())
         {
-            genreDTOS.add(new GenreDTO(m));
+            genreDTOS.add(new GenreDTO(m.getType()));
         }
 
         return genreDTOS;
     }
 
-    public static Book.ListGenreMessage genresToMessage(Iterable<GenreDTO> genres)
+    public static Genre.ListGenreMessage genresToMessage(Iterable<GenreDTO> genres)
     {
-        ArrayList<Book.GenreMessage> genrs= new ArrayList<>();
+        ArrayList<Genre.GenreMessage> genrs= new ArrayList<>();
         for (GenreDTO gnr : genres)
         {
             genrs.add(gnr.buildGenreMessage());
         }
-        Book.ListGenreMessage listGenreMessage = Book.ListGenreMessage.newBuilder().addAllGenres(genrs).build();
+        Genre.ListGenreMessage listGenreMessage = Genre.ListGenreMessage.newBuilder().addAllGenres(genrs).build();
         return listGenreMessage;
     }
 }

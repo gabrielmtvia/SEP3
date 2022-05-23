@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlazorClient.Services.GenreService;
+using BusinessLogicServer.Models.Genres;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 
@@ -9,17 +11,60 @@ namespace BusinessLogicServer.Controllers;
 [Route("[controller]")]
 public class GenreController : ControllerBase
 {
-    // private readonly IGenreService _service;
-    //
-    // public GenreController(IGenreService service)
-    // {
-    //     _service = service;
-    // }
-    //
-    // [HttpGet]
-    // public async Task<ActionResult<ServiceResponse<List<Genre>>>> GetGenresAsync()
-    // {
-    //     var result = await _service.GetGenresAsync();
-    //     return Ok(result);
-    // }
+    private IGenreModel model;
+    
+    public GenreController(IGenreModel model)
+     {
+        this.model = model;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> AddGenreAsync(Genre genre)
+    {
+        try
+        {
+            await model.AddGenreAsync(genre);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+            
+        }
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<Genre>>> GetAllGenreAsync()
+    {
+        try
+        {
+            var result = await model.GetAllGenresAsync();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpDelete]
+    [Route("{type}")]
+    public async Task<ActionResult<Genre>> DeleteGenreAsync(String type)
+    {
+        try
+        { 
+            await model.DeleteGenreAsync(type);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+      
+    }
+
+
+
 }

@@ -1,13 +1,14 @@
 ﻿using System.Text.Json;
+using BlazorClient.Services.BookService;
 
 namespace BusinessLogicServer.Networking.Books;
 
 public class BookNetworking : IBookNetworking
 {
-    private BookService.BookServiceClient client;
+    private BookGrpcService.BookGrpcServiceClient client;
     
     
-    public BookNetworking(BookService.BookServiceClient client)
+    public BookNetworking(BookGrpcService.BookGrpcServiceClient client)
     {
         this.client = client;
     }

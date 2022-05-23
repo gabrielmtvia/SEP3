@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using BlazorClient.Services.GenreService;
 using BlazorClient.Services.ImageService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -9,29 +10,20 @@ namespace BlazorClient.Pages;
 public class AddBookBase : ComponentBase
 {
     [Inject]
-    public IBookService BookService { get; set; }
+    private IBookService BookService { get; set; }
     [Inject]
     private IImageService ImageService { set; get; }
+    [Inject]
+    private IGenreService GenreService { set; get; }
+    
     public Book BookToAdd = new Book();
-    public List<Genre> genres = new()
+    public List<Genre> genres = new();
+
+    protected override async Task OnInitializedAsync()
     {
-        new Genre
-        {
-            Name = "Drama",
-            Url = "something"
-        },
-        new Genre
-        {
-            Name = "Scientific",
-            Url = "something else"
-        },
-        new Genre
-        {
-            Name = "Crime",
-            Url = "no url"
-        }
-        
-    };
+      genres= await GenreService.GetAllGenresAsync();
+    }
+
     public async Task TryAddBookAsync()
     {
         await BookService.AddBookAsync(BookToAdd);
@@ -39,7 +31,7 @@ public class AddBookBase : ComponentBase
 
     public void SelectedGenreChanged(ChangeEventArgs obj)
     {
-        List<Genre> genres = this.genres.FindAll(genre => ((string[]) obj.Value).All(g => g.Equals(genre.Name)));
+        List<Genre> genres = this.genres.FindAll(genre => ((string[]) obj.Value).All(g => g.Equals(genre.Type)));
         BookToAdd.Genres =  genres;
     }
 

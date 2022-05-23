@@ -3,12 +3,9 @@ syntax = "proto3";
 option java_package = "via.sep3.grpc.book";
 // int64 is for long / int32 is for int
 
-import "Order.proto";
+import "Util.proto";
+import "Genre.proto";
 
-message GenreMessage{
-  string name = 2;
-  string url = 3;
-}
 
 
 message BookMessage{
@@ -30,11 +27,7 @@ message ListBooksMessage {
   repeated BookMessage books = 1;
 }
 
-message ListGenreMessage{
-  repeated GenreMessage genres = 1;
-}
-
-service BookService {
+service BookGrpcService {
   rpc getAllBooks(VoidMessage) returns (ListBooksMessage);
   rpc addBook(BookMessage) returns (VoidMessage);
   rpc getBookByIsbn(BookByIsbn) returns (BookMessage);

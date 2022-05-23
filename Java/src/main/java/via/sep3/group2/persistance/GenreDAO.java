@@ -21,5 +21,9 @@ public class GenreDAO {
     public List<GenreDTO> getAllGenre(){
        return genreRepository.findAll();
     }
+    public void deleteGenre(GenreDTO type)
+    {
+        genreRepository.delete(type);
+    }
 
 }
