@@ -34,12 +34,13 @@ public class RegisterServiceIMP : IRegisterService
         // })!;
         //
         // return returned;
-        var json = JsonSerializer.Serialize(userDto);
+     /*   var json = JsonSerializer.Serialize(userDto);
         var buffer = System.Text.Encoding.UTF8.GetBytes(json);
         var byteContent = new ByteArrayContent(buffer);
         byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        await _httpClient.PostAsync("/Register", byteContent);
-      
+        await _httpClient.PostAsync("/Register", byteContent);*/
+        
+        await _httpClient.PostAsJsonAsync("/Register", userDto);
     }
     
     

@@ -29,5 +29,8 @@ public class RegisterModel: IRegisterModel
        return await RegisterNetworking.GetRole(userName, password);
     }
 
-     
+    public async Task<List<UserDTO>> GetUsersByRole(string role)
+    {
+       return await RegisterNetworking.GetUsersByRole(role);
+    }
 }

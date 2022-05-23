@@ -54,7 +54,12 @@ public class RegisterController : ControllerBase
         }
     }
 
-    
+    [HttpGet]
+    [Route("/ListOfUsersByRole")]
+    public async Task<List<UserDTO>> GetUsersByRole(string role)
+    {
+        return await _registerModelmodel.GetUsersByRole(role);
+    }
     
     
 }
