@@ -8,15 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
-      <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Protobuf\Cart" />
-      <Folder Include="Protobuf\Genre" />
-      <Folder Include="Protobuf\Order" />
-      <Folder Include="Protobuf\User" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
+        <Protobuf Include="Protos\Book.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Genre.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Util.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Order.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Cart.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\User.proto" GrpcServices="Client" />
     </ItemGroup>
 
 </Project>

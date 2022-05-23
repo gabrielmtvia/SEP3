@@ -15,14 +15,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (SearchText != null)
-        {
-            await BookService.SearchBooks(SearchText);
-        }
-        else
-        {
-            await BookService.GetBooksAsync(CategoryUrl);
-        }
+     
     }
 
 }

@@ -30,7 +30,7 @@
                         
                             <div class="nav-item px-3">
                                 <NavLink class="nav-link" href="@category.Url">
-                                    @category.Name
+                                    @category.Type
                                 </NavLink>
                             </div>
                         }
@@ -39,10 +39,22 @@
                 
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="AddBook">
-                        <span class="oi oi-home" aria-hidden="true"></span> Add Book
+                        <span class="oi oi-book" aria-hidden="true"></span> Add book
                     </NavLink>
                 </div>
-              
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="AllBooks">
+                        <span class="oi oi-book" aria-hidden="true"></span> All books
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="AddGenre">
+                        <span class="oi oi-book" aria-hidden="true"></span> Add genre
+                    </NavLink>
+                </div>
+
+
                 <AuthorizeView Policy="MustBeAdmin">
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="Register">
@@ -50,13 +62,7 @@
                         </NavLink>
                     </div>
                 </AuthorizeView>
-                <AuthorizeView Policy="MustBeEmployee">
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="EmployeePanel">
-                            <span class="oi oi-browser" aria-hidden="true"></span> Employee Panel
-                        </NavLink>
-                    </div>
-                </AuthorizeView>
+
 
                 <div class="nav-item px-3">
                      <NavLink class="nav-link" href="PolicyExample1">
@@ -78,7 +84,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await GenreService.GetGenresAsync();
+        //await GenreService.GetGenresAsync();
     }
 
 }

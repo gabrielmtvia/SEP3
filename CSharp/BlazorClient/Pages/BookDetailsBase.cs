@@ -61,7 +61,7 @@ public class BookDetailsBase : ComponentBase {
             }
         }
     }
-
+/*
     protected override async Task OnParametersSetAsync()
     {
         Message = "Loading products";
@@ -90,7 +90,7 @@ public class BookDetailsBase : ComponentBase {
 
         await _cartService.AddToCart(orderLine);
         Console.WriteLine("Order ID is " + OrderId);
-    }
+    }  */
 
    
 }

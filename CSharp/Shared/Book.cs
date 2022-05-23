@@ -3,8 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 namespace ModelClasses;
 
-
-   
     public class Book
     {
     
@@ -29,27 +27,40 @@ namespace ModelClasses;
        // [Required]
         public List<Genre> Genres { get; set; }
 
-        public Book()
-        {
-          //  Genres = new List<Genre>();
-        }
-
-       
-
-
-        public override string ToString()
-        {
-            return $"Title - {Title}, Author - {Author}, Price - {Price}, Description - {Description}, Edition - {Edition}, Genres - {Genres}, ISBN - {Isbn}, ImageUrl - {ImageUrl}";
-        }
+    public Book()
+    {
     }
 
+    public Book(BookMessage book)
+    {
+        Isbn = book.Isbn;
+        Title = book.Title;
+        Author = book.Author;
+        Edition = book.Edition;
+        Description = book.Description;
+        ImageUrl = book.ImageUrl;
+        Price = book.Price;
+        Genres = Genre.FromListMessageToGenreList(book.Genres);
+    }
 
- 
-   
- 
-    
-   
-    
-    
+    public BookMessage BuildBookMessage()
+    {
+        return new BookMessage
+        {
+            Isbn = this.Isbn,
+            Author = this.Author,
+            Description = this.Description,
+            Edition = this.Edition,
+            Genres = Genre.BuildListGenreMessage(this.Genres),
+            ImageUrl = this.ImageUrl,
+            Price = this.Price,
+            Title = this.Title
+        };
+    }
 
-   
+    public override string ToString()
+    {
+        return
+            $"Title - {Title}, Author - {Author}, Price - {Price}, Description - {Description}, Edition - {Edition}, Genres - {Genres}, ISBN - {Isbn}, ImageUrl - {ImageUrl}";
+    }
+}

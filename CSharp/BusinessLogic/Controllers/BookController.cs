@@ -19,8 +19,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/AddBook")]
-    public async Task <ActionResult> AddBookAsync (Book book)
+    public async Task<ActionResult> AddBookAsync (Book book)
     {
         try
         {
@@ -33,8 +32,8 @@ public class BookController : ControllerBase
         }
     }
 
- /*   [HttpGet]
-    public async Task<ActionResult<ServiceResponse<List<Book>>>> GetAllBooksAsync()
+    [HttpGet]
+    public async Task<ActionResult<List<Book>>> GetAllBooksAsync()
     {
         try
         {
@@ -46,15 +45,14 @@ public class BookController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    */
-  /*  
+
     [HttpGet]
     [Route("{isbn}")]
-    public async Task<ActionResult<ServiceResponse<Book>>> GetBookAsync(string isbn)
+    public async Task<ActionResult<Book>> GetBookAsync(string isbn)
     {
         try
         {
-            var result = await model.GetBookAsync(isbn);
+            var result = await model.GetBookByIsbnAsync(isbn);
             return Ok(result);
         }
         catch (Exception e)
@@ -64,14 +62,11 @@ public class BookController : ControllerBase
        
     }*/
     
-   /* private IBookService _service;
-    private IBookModel _bookModel;
+    private IBookService _service;
 
-    public BookController(IBookService service ,IBookModel model)
+    public BookController(IBookService service)
     {
         _service = service;
-        _bookModel = model;
-
     }
 
     [HttpGet]
@@ -112,16 +107,5 @@ public class BookController : ControllerBase
         var result = await _service.GetBookSearchSuggestionsAsync(searchText);
         return Ok(result);
     }
-    */
-    [HttpGet]
-   
-    
-    public async Task<List<Book>> GetBookAsync()
-    {
-        return await model.GetAllBooksAsync();
-      //  var result = await model.GetAllBooksAsync();
-       // return Ok(result);
-    }
-    
 
     }

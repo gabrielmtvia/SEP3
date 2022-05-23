@@ -8,20 +8,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+        <PackageReference Include="Google.Protobuf" Version="3.19.2" />
         <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.44.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <Protobuf Include="../Shared\Protos\Order.proto" OutputDir="../Shared\Protobuf/Order" GrpcServices="Client" />
-        <Protobuf Include="../Shared\Protos\Book.proto" OutputDir="../Shared\Protobuf/Book" GrpcServices="Client" />
-
-        <Protobuf Include="../Shared\Protos\User.proto" OutputDir="../Shared\Protobuf/User" GrpcServices="Client" />
-        <Protobuf Include="../Shared\Protos\Cart.proto" OutputDir="../Shared\Protobuf/Cart" GrpcServices="Client" />
-        <Protobuf Include="../Shared\Protos\Genre.proto" OutputDir="../Shared\Protobuf/Genre" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BlazorClient\BlazorClient.csproj" />
-      <ProjectReference Include="..\Shared\Shared.csproj" />
+      <Folder Include="Models\UserLogin" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BlazorClient\BlazorClient.csproj" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -43,9 +45,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
-      <Compile Include="obj\Debug\net6.0\BusinessLogic.AssemblyInfo.cs" />
-      <Compile Include="obj\Debug\net6.0\BusinessLogic.MvcApplicationPartsAssemblyInfo.cs" />
+        <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+        <Compile Include="obj\Debug\net6.0\BusinessLogic.AssemblyInfo.cs" />
+        <Compile Include="obj\Debug\net6.0\BusinessLogic.MvcApplicationPartsAssemblyInfo.cs" />
     </ItemGroup>
 
 </Project>

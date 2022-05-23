@@ -1,24 +1,20 @@
-syntax = "proto3";
+﻿syntax = "proto3";
 
 option java_package = "via.sep3.grpc.genre";
+// int64 is for long / int32 is for int
 
-message GenreMessage {
+import "Protos/Util.proto";
 
-  string type = 1;
-
-}
-message EmptyGenreMessage {
-
+message GenreMessage{
+  string name = 1;
 }
 
-message ListGenreMessage {
-  repeated GenreMessage genreMessage = 1;
+message ListGenreMessage{
+  repeated GenreMessage genres = 1;
 }
 
-
-
-service GenreService {
-  rpc getAllGenres(EmptyGenreMessage) returns (ListGenreMessage);
-  rpc createGenre(GenreMessage) returns (EmptyGenreMessage);
-
+service GenreGrpcService{
+  rpc createGenre(GenreMessage) returns (VoidMessage);
+  rpc getAllGenres(VoidMessage) returns (ListGenreMessage);
+  rpc deleteGenre(GenreMessage) returns (VoidMessage);
 }

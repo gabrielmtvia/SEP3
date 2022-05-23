@@ -19,12 +19,12 @@ public class BookService : IBookService
     public string Message { get; set; } = "Loading books...";
     public event Action BooksChanged;
     public List<Book> Books { get; set; } = new List<Book>();
+    public List<Book> AllBooks { get; set; }
 
     public BookService(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
-  
     
     
 
@@ -33,30 +33,41 @@ public class BookService : IBookService
         await _httpClient.PostAsJsonAsync("/Book", book);
     }
 
-    public async Task GetBooksAsync(string? genreUrl = null)
+
+    public async Task<List<Book>>GetAllBooksAsync()
     {
-        var result = genreUrl == null ? 
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>("/Book") :
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/genre/{genreUrl}");
-        if(result!=null && result.Data !=null) 
-            Books = result.Data;
-        
-        BooksChanged.Invoke();
+        var result = await _httpClient.GetAsync("/Book");
+        if (result.IsSuccessStatusCode)
+        {
+            var readAsStringAsync = await result.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Book>>(readAsStringAsync);
+        }
+        return null;
     }
     
-    public async Task<ServiceResponse<Book>> GetBookByIsbnAsync(string isbn)
+    
+    // public async Task GetBooksAsync(string? genreUrl = null)
+    // {
+    //     var result = genreUrl == null ? 
+    //         await _httpClient.GetFromJsonAsync<ActionResult<List<Book>>>("/Book") :
+    //         await _httpClient.GetFromJsonAsync<ActionResult<List<Book>>>($"/Book/genre/{genreUrl}");
+    //     if(result!=null && result.Data !=null) 
+    //         Books = result.Data;
+    //     
+    //     BooksChanged.Invoke();
+    // }
+    
+    public async Task<Book> GetBookByIsbnAsync(string isbn)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/Book/{isbn}");
+        var result = await _httpClient.GetFromJsonAsync<Book>($"/Book/{isbn}");
         return result;
     }
-
-    
 
     public async Task SearchBooks(string searchText)
     {
         var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
 
-        if (result != null && result.Data != null)
+        if (result is {Data: { }})
         {
             Books = result.Data;
         }

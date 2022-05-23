@@ -2,12 +2,11 @@
 global using BlazorClient.authentication;
 global using BlazorClient.Services.BookService;
 global using BlazorClient.Services.UserService;
+using BlazorClient.Services.ImageService;
 using BlazorClient.Services.CartService;
 using BlazorClient.Services.GenreService;
-using BlazorClient.Services.OrderService;
 using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components.Authorization;
-using ModelClasses.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,25 +15,15 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddSingleton(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
-// builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
-// {
-//     client.BaseAddress = new Uri("https://localhost:7031");
-// });
+
 builder.Services.AddScoped<IAuthService, AuthServiceIMP>();
 builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
-builder.Services.AddSingleton<IBookService, BlazorClient.Services.BookService.BookService>();
+builder.Services.AddSingleton<IBookService, BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>(); 
+builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddSingleton<ICartService, CartService>();
-//builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
 builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
-// builder.Services.AddHttpClient<IBookService, BookService>(client =>
-// {
-//     client.BaseAddress = new Uri("https://localhost:7031");
-// });
-builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
-builder.Services.AddScoped<IOrdersDao, BlazorClient.Services.OrderService.OrderService>();
 
 builder.Services.AddAuthorization(options =>
 {

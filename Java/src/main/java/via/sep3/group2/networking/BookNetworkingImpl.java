@@ -6,47 +6,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import via.sep3.group2.persistance.BookDAO;
 import via.sep3.group2.shared.BookDTO;
 import via.sep3.grpc.book.Book;
-import via.sep3.grpc.book.BookServiceGrpc;
+import via.sep3.grpc.book.BookGrpcServiceGrpc;
+import via.sep3.grpc.util.Util;
 
 import java.util.List;
 
 @GrpcService
-public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
-
-    private BookDAO bookDAO;
+public class BookNetworkingImpl extends BookGrpcServiceGrpc.BookGrpcServiceImplBase
+{
+    private BookDAO dao;
 
     @Autowired
-    public BookNetworkingImpl(BookDAO bookDAO) {
-        this.bookDAO = bookDAO;
+    public BookNetworkingImpl(BookDAO dao)
+    {
+        this.dao = dao;
     }
 
+    // correct this method
     @Override
-    public void createBook(Book.BookMessage request, StreamObserver<Book.EmptyBookMessage> responseObserver){
+    public void getAllBooks(Util.VoidMessage request, StreamObserver<Book.ListBooksMessage> responseObserver)
+    {
+        List<BookDTO> allOrders = dao.getAllBooks();
 
-        BookDTO bookDTO= new BookDTO(request.getIsbn(),request.getTitle(),request.getAuthor(),request.getEdition(),request.getDescription()
-                                    ,request.getPrice(),request.getUrl());
-        bookDAO.CreateBook(bookDTO);
-        Book.EmptyBookMessage reply = Book.EmptyBookMessage.newBuilder().build();
-        responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
 
+    // first create the buildBookMessage() in the BookDTO class
     @Override
-    public void getAllBooks(Book.EmptyBookMessage request, StreamObserver<Book.ListOfBooks> responseObserver){
-
-        List<BookDTO> books= bookDAO.getAllBooks();
-        Book.ListOfBooks.Builder builder =  Book.ListOfBooks.newBuilder();
-
-        for (BookDTO book:books
-             ) {
-            builder.addBooks(book.buildBookMessage());
+    public void getBookByIsbn(Book.BookByIsbn request, StreamObserver<Book.BookMessage> responseObserver)
+    {
+        BookDTO bookToReturn = dao.getBookByIsbn(request.getIsbn());
+        Book.BookMessage bookMessage = null;
+        if (bookToReturn != null)
+        {
+            bookMessage = bookToReturn.buildBookMessage();
         }
-        Book.ListOfBooks reply = builder.build();
-        responseObserver.onNext(reply);
+        responseObserver.onNext(bookMessage);
         responseObserver.onCompleted();
-
-
     }
 
+    @Override
+    public void addBook(Book.BookMessage request, StreamObserver<Util.VoidMessage> responseObserver)
+    {
+        dao.addBook(new BookDTO(request));
+        responseObserver.onNext(Util.VoidMessage.newBuilder().build());
+        responseObserver.onCompleted();
+    }
 
 }

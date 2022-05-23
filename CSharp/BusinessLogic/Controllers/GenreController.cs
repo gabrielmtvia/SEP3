@@ -1,63 +1,67 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BusinessLogicServer.Models.Genre;
-using BusinessLogicServer.Service.GenreService;
+using BusinessLogicServer.Models.Genres;
 using Microsoft.AspNetCore.Mvc;
-using ModelClasses;
-
 namespace BusinessLogicServer.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class GenreController : ControllerBase
 {
-  /*  private readonly IGenreService _service;
+    private IGenreModel model;
+    
+    public GenreController(IGenreModel model)
+     {
+        this.model = model;
+    }
 
-    public GenreController(IGenreService service)
+    [HttpPost]
+    public async Task<ActionResult> AddGenreAsync(Genre genre)
     {
-        _service = service;
+        try
+        {
+            await model.AddGenreAsync(genre);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+            
+        }
     }
 
     [HttpGet]
-    public async Task<ActionResult<ServiceResponse<List<Genre>>>> GetGenresAsync()
+    public async Task<ActionResult<List<Genre>>> GetAllGenreAsync()
     {
-        var result = await _service.GetGenresAsync();
-        return Ok(result);
-    }*/
+        try
+        {
+            var result = await model.GetAllGenresAsync();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
 
-  private IGenreModel _genreModel;
-
-  public GenreController(IGenreModel genreModel)
-  {
-      _genreModel = genreModel;
-  }
-  
-  
-  
-  [HttpPost]
-  public async Task<ActionResult> AddGenre(Genre genre)
-  {
-      try
-      {
-          await _genreModel.AddGenre(genre);
-
-          return Ok();
-      }
-      catch (Exception e)
-      {
-          return StatusCode(500, e.Message);
-      }
-  }
-  
-  [HttpGet]
-  public async Task<List<Genre>> getAllGenre()
-  {
-     
-         return await _genreModel.GetAllGenre();
-
-         
+    [HttpDelete]
+    [Route("{type}")]
+    public async Task<ActionResult<Genre>> DeleteGenreAsync(String type)
+    {
+        try
+        { 
+            await model.DeleteGenreAsync(type);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
       
-      
-  }
-  
+    }
+
+
+
 }

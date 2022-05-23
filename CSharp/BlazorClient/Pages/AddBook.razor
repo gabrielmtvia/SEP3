@@ -13,25 +13,26 @@
      <ValidationSummary/>
      
    <div class="form-outline mb-4">
-         <select @onchange="SelectedGenreChanged" multiple>
-             @foreach (string genre in genres)
-             {
-                 <option value="@genre">@genre</option>
-             }
-         </select>
+       <select @onchange="SelectedGenreChanged" multiple>
+           @if (!genres.Any())
+           {
+               <p>Loading data...</p>
+           }
+           else
+           {
+               @foreach (Genre genre in genres)
+               {
+                   <option value="@genre.Type">@genre.Type</option>
+               }
+           }
+       </select>
     </div>
-
-     @* <div class="form-outline mb-4"> *@
-     @*     <InputFile class="form-control" OnChange="SaveImageAsync" *@
-     @*                accept="image/jpeg, image/png, image/gif" id="inputFile"/> *@
-     @*     <label class="form-label" for="inputFile">Choose file</label> *@
-     @* </div> *@
-     
+ 
      <div class="form-outline mb-4">
-         <InputText type="text" id="bookIsbn" class="form-control"@bind-Value="BookToAdd.Isbn"/>
-         <label class="form-label" for="bookIsbn">Book Isbn</label>
+         <InputFile class="form-control" OnChange="SaveImageAsync"
+                    accept="image/*" id="inputFile"/>
+         <label class="form-label" for="inputFile">Choose file</label>
      </div>
-     
      <div class="form-outline mb-4">
          <InputText type="text" id="bookTitle" class="form-control"@bind-Value="BookToAdd.Title"/>
          <label class="form-label" for="bookTitle">Book Title</label>
@@ -47,7 +48,10 @@
          <label class="form-label" for="bookEdition">Book Edition</label>
      </div>
      
-    
+     <div class="form-outline mb-4">
+         <InputText type="text" id="bookIsbn" class="form-control"@bind-Value="BookToAdd.Isbn"/>
+         <label class="form-label" for="bookIsbn">Book Isbn</label>
+     </div>
      
      <div class="form-outline mb-4">
          <InputNumber type="number" id="bookPrice" class="form-control"@bind-Value="BookToAdd.Price"/>
@@ -58,11 +62,6 @@
          <InputTextArea type="text" id="bookDescription" class="form-control"@bind-Value="BookToAdd.Description"/>
          <label class="form-label" for="bookDescription">Book Description</label>
      </div>
-     
-      <div class="form-outline mb-4">
-              <InputText type="text" id="bookTitle" class="form-control"@bind-Value="BookToAdd.ImageUrl"/>
-              <label class="form-label" for="bookTitle">Book URL</label>
-          </div>
      
      <button type="submit" class="btn btn-primary btn-block mb-4">ADD BOOK</button>
      

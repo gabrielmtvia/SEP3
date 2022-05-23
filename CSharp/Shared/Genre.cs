@@ -1,17 +1,53 @@
-﻿namespace ModelClasses;
+﻿using System.Collections;
 
 public class Genre
 {
-    public int Id { get; set; }
-    public string Name { get; set; }  // = string.Empty;
-    public string Url { get; set; } // = string.Empty;
+    public string Type { get; set; }
 
     public Genre()
     {
     }
 
-    public Genre(string name)
+    // create Genre object from message
+    public Genre(GenreMessage genre)
     {
-        Name = name;
+        Type = genre.Name;
+    }
+
+    public GenreMessage BuildGenreMessage()
+    {
+        return new GenreMessage
+        {
+            Name = this.Type,
+        };
+    }
+
+    public static ListGenreMessage BuildListGenreMessage(List<Genre> genres)
+    {
+        List<GenreMessage> messages = new List<GenreMessage>();
+        foreach (var genre in genres)
+        {
+            messages.Add(genre.BuildGenreMessage());
+        }
+
+        return new ListGenreMessage
+        {
+            Genres =
+            {
+                messages
+            }
+        };
+    }
+
+    public static List<Genre> FromListMessageToGenreList(ListGenreMessage genres)
+    {
+        List<Genre> genrs = new List<Genre>();
+
+        foreach (var g in genres.Genres)
+        {
+            genrs.Add(new Genre(g));
+        }
+
+        return genrs;
     }
 }

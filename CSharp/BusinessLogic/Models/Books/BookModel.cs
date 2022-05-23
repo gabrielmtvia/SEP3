@@ -19,9 +19,12 @@ public class BookModel : IBookModel
     // validation for: if ISBN already exists in the Database first
     public async Task AddBookAsync(Book book)
     {
-        
-        await bookNetworking.AddBookAsync(book);
-        
+        var bookByIsbnAsync = await GetBookByIsbnAsync(book.Isbn);
+        if (bookByIsbnAsync == null)
+        {
+            await bookNetworking.AddBookAsync(book); 
+        }
+
     }
 
     public async Task<List<Book>> GetAllBooksAsync()
@@ -29,9 +32,9 @@ public class BookModel : IBookModel
        return await bookNetworking.GetAllBookAsync();
     }
 
-    public async Task<Book> GetBookByIsbn(String isbn)
+    public async Task<Book> GetBookByIsbnAsync(String isbn)
     {
         var result = await bookNetworking.GetBookByIsbnAsync(isbn);
-      return result;
+        return result;
     }
 }

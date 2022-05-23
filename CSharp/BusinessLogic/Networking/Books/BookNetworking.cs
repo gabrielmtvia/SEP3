@@ -1,42 +1,40 @@
 ﻿using System.Text.Json;
-using ModelClasses;
+using BlazorClient.Services.BookService;
 
 
 namespace BusinessLogicServer.Networking.Books;
 
 public class BookNetworking : IBookNetworking
 {
-    private BookService.BookServiceClient client;
+    private BookGrpcService.BookGrpcServiceClient client;
     
     
-      public BookNetworking(BookService.BookServiceClient client)
+    public BookNetworking(BookGrpcService.BookGrpcServiceClient client)
     {
         this.client = client;
     }
 
-    
-    
     public async Task AddBookAsync(Book book)
     {
-      /*  var serialize = JsonSerializer.Serialize(book);
-        var bookMessage = new BookMessage
-        {
-            Book = serialize
-        };
-
-        var addBook = client.addBook(bookMessage);
-
-        Console.WriteLine(addBook.Book);*/
-      await client.createBookAsync(new BookMessage
-      {
-          Isbn = book.Isbn,Author = book.Author,Description = book.Description,Edition = book.Edition
-          ,Price = book.Price,Title = book.Title,Url = book.ImageUrl
-      });
+        var buildBookMessage = book.BuildBookMessage();
+        var addBook = await client.addBookAsync(buildBookMessage);
     }
 
     public async Task<Book> GetBookByIsbnAsync(string isbn)
     {
-        throw new NotImplementedException();
+        var requestMessage = new BookByIsbn()
+        {
+            Isbn = isbn
+        };
+
+        // make the response message and give the request message as param to the rpc call
+        var response = client.getBookByIsbn(requestMessage);
+        if (String.IsNullOrEmpty(response.Isbn))
+        {
+            return null;
+        }
+
+        return new Book(response);
     }
 
     public async Task<List<Book>> GetAllBookAsync()
