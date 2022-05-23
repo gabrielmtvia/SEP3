@@ -1,7 +1,8 @@
 
 global using BlazorClient.authentication;
-global using BlazorClient.Services.BookService;
+ 
 global using BlazorClient.Services.UserService;
+using BlazorClient.Services.BookService;
 using BlazorClient.Services.CartService;
 using BlazorClient.Services.GenreService;
 using BlazorClient.Services.OrderService;
