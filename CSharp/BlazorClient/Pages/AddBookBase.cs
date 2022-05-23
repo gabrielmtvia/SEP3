@@ -6,58 +6,69 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using ModelClasses;
+using SixLabors.ImageSharp.Processing.Processors.Filters;
 
 namespace BlazorClient.Pages;
 
 public class AddBookBase : ComponentBase
 {
-    [Inject]
-    private IBookService BookService { get; set; }
-    [Inject]
-    private IImageService ImageService { set; get; }
-    [Inject]
-    private IGenreService GenreService { set; get; }
-    
+    [Inject] private IBookService BookService { get; set; }
+    [Inject] private IImageService ImageService { set; get; }
+    [Inject] private IGenreService GenreService { set; get; }
+
     public Book BookToAdd = new Book();
     public List<Genre> genres = new();
-    public List<String> Khaled = new List<string>();
+    public string[] selectedGenre { get; set; } = new string[]{};
 
     protected override async Task OnInitializedAsync()
     {
-      genres= await GenreService.GetAllGenresAsync();
+        genres = await GenreService.GetAllGenresAsync();
+        
+        
     }
 
     public async Task TryAddBookAsync()
-    {  
-        Genre genre = new Genre()
-        {
-            //Id=0,
-            Name="Drama",
-          //  Url =""
-        };
+    {
         BookToAdd.Genres = new List<Genre>();
-        BookToAdd.Genres.Add(genre);
-       
+        foreach (string s in selectedGenre)
+        {
+            Console.WriteLine(s);
+
+            Genre genre = new Genre()
+            {
+                //Id=0,
+                Name = s
+                //  Url =""
+            };
+            BookToAdd.Genres.Add(genre); 
+        }
+
+      //  BookToAdd.Genres = new List<Genre>();
+      //  BookToAdd.Genres.Add(genre);
+      
         await BookService.AddBookAsync(BookToAdd);
     }
-
-    public void SelectedGenreChanged(ChangeEventArgs obj)
+    
+    public void SelectedGenreChanged(ChangeEventArgs e)
     {
-        List<Genre> genres = this.genres.FindAll(genre => ((string[]) obj.Value).All(g => g.Equals(genre.Name)));
-      
-       
-      
-        
-        BookToAdd.Genres =  genres;
+        selectedGenre = (String[]) e.Value;
     }
     
+   /* public void SelectedGenreChanged(ChangeEventArgs obj)
+    {
+        
+        List<Genre> genres = this.genres.FindAll(genre => ((string[]) obj.Value).All(g => g.Equals(genre.Name)));
+        BookToAdd.Genres = genres;
+    }*/
+
 
     public async Task SaveImageAsync(InputFileChangeEventArgs arg)
     {
         var uploadImageAsync = await ImageService.UploadImageAsync(arg.File);
         BookToAdd.ImageUrl = uploadImageAsync;
-       // BookToAdd.ImageUrl = "dsafafda";
+        // BookToAdd.ImageUrl = "dsafafda";
     }
-    
+
    
-}
+} 
+

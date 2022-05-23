@@ -18,15 +18,10 @@ public class BookNetworking : IBookNetworking
     
     public async Task AddBookAsync(Book book)
     {
-      /*  var serialize = JsonSerializer.Serialize(book);
-        var bookMessage = new BookMessage
+        foreach (ModelClasses.Genre g in book.Genres)
         {
-            Book = serialize
-        };
-
-        var addBook = client.addBook(bookMessage);
-
-        Console.WriteLine(addBook.Book);*/
+           Console.WriteLine(g.Name); 
+        }
       await client.createBookAsync(new BookMessage
       {
           Isbn = book.Isbn,Author = book.Author,Description = book.Description,Edition = book.Edition
