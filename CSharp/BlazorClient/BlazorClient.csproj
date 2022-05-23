@@ -30,6 +30,9 @@
       <Compile Update="Pages\EmployeeList.cs">
         <DependentUpon>ListOfEmployee.razor</DependentUpon>
       </Compile>
+      <Compile Update="Pages\AddGenreBase.cs">
+        <DependentUpon>AddGenre.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
