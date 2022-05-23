@@ -92,6 +92,26 @@ public class BookService : IBookService
                     Type = "Biographies & Memoirs",
                 }
             }
+        },
+
+        new Book
+        {
+            Isbn = "9781451648539",
+            Title = "Steve Jobs: The Exclusive Biography",
+            Author = "Walter Isaacson",
+            Description =
+                "Walter Isaacson’s “enthralling” (The New Yorker) worldwide bestselling biography of Apple cofounder Steve Jobs.",
+            ImageUrl = "https://upload.wikimedia.org/wikipedia/en/e/e4/Steve_Jobs_by_Walter_Isaacson.jpg",
+            Price = 19.89,
+            Genres = new()
+            {
+                new()
+                {
+                    Id = 4,
+                    Name = "Biographies & Memoirs",
+                    Url = "Biographies-Memoirs"
+                }
+            }
         }
     };
 

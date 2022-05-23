@@ -47,7 +47,7 @@ else
         }
         @if (OrderList.Count != 0)
         {
-            <div class="orderList">
+            <div class="orderCartList">
                 <h4>Order number</h4>
                 <h4>Status</h4>
                 <h4>Order date</h4>
@@ -57,7 +57,7 @@ else
         }
         @foreach (var order in OrderList)
         {
-            <div class="orderList">
+            <div class="orderCartList">
                 <h4>@order.SerialOrder</h4>
                 <h4>@order.Status</h4>
                 <h4>@order.Date</h4>

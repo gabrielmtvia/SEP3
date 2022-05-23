@@ -1,0 +1,336 @@
+@page "/EmployeePanel"
+@using ModelClasses
+@using UIElements
+@inject NavigationManager navMgr
+@inject IBookService _bookService
+@inject IOrderService orderService
+
+<div clss="container">
+    <div class="row">
+    <div class="col-2"><h3>Employee Panel</h3></div>
+        <div class="col-3">
+            <div class="input-group">
+                <input @bind-value="searchText"
+                       @bind-value:event="oninput"
+                       @onkeydown="@Enter"
+                       type="number"
+                       list="books"
+                       class="form-control"
+                       placeholder="Search for an order by its ID..."
+                       @ref="searchInput"/>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" @onclick="SearchForAnOrderByID">
+                        <span class="oi oi-magnifying-glass"></span>
+                    </button>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="col-7">
+            &nbsp;
+        </div>
+  </div>
+</div>
+
+<div class="filterbar">
+    <div class="filterscontainer">
+        <img src="img/@(doShowFilters?"clear_" : "")funnel.png" 
+             class="icon" 
+             @onclick="OpenCloseFilters"/>
+        
+        @if (doShowFilters)
+        {
+            <div class="filter">
+                <div>
+                    <label style="text-align: center">Is dispatched?</label>
+                </div>
+                <div>
+                    <select class="orderstatus" 
+                            @onchange="async args => await UpdateOrderStatusFilter(args)">
+                        <option value="ALL">All</option>
+                        <option value="DISPATCHED">Dispatched</option>
+                        <option value="CONFIRMED">Not dispatched</option>
+                    </select>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<p>
+    <em>@info</em>
+</p>
+
+@if (ordersToShow == null)
+{
+    info = "Loading...";
+}
+else if (!ordersToShow.Any())
+{
+    info = "No orders to show. Please change the filter and/or wait for new orders.";
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Order ID</th> <th>Order date and time</th> <th>Dispatched?</th> <th>Username</th> <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ordersToShow)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.date</td>
+                <td>
+                    <Toggle IsDispatched="@ConvertStatusToBoolean(item.status)" Callback="@(b => ToggleStatus(b, item))"/>
+                </td>
+                <td>
+                    @item.username
+                </td>                
+                <td>
+                    <img src="img/document.png" class="icon" @onclick="@(() => ShowOrderDetails(item))"/>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
+@if (showModalWithOrderDetails)
+{
+    <Modal>
+        <h3>Order details</h3>
+        <hr/>
+
+        @if (orderlinesToView == null)
+        {
+            <p>
+                <em>Loading...</em>
+            </p>
+        }
+        else if (!orderlinesToView.Any())
+        {
+            <p>
+                <em>The order is mt.</em>
+            </p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Quantity</th> <th>ISBN</th> <th>Author</th> <th>Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in orderlinesToView)
+                {
+                    <tr>
+                        <td>@item.Quantity</td>
+                        <td>@item.Isbn</td>
+                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Author</td>
+                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Title</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <p>Customer's detials:</p>
+            <table class="table">
+                <tr>
+                    <th>E-mail</th>
+                    <td>@customerToView.email</td>
+                </tr>
+                <tr>
+                    <th>Phone number</th>
+                    <td>@customerToView.phone</td>
+                </tr>
+                <tr>
+                    <th>Firstname</th>
+                    <td>@customerToView.firstName</td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>@customerToView.lastName</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>@customerToView.address</td>
+                </tr>
+            </table>
+        }
+
+        @if (!string.IsNullOrEmpty(editErrorLabel))
+        {
+            <div>
+                <label style="color:red">@editErrorLabel</label>
+            </div>
+        }
+        <div style="margin-top: 15px; text-align: center;">
+            <button @onclick="@(() => HideOrderDetails())">OK</button>
+        </div>
+    </Modal>
+}
+
+@if (showModalGeneralInfo)
+{
+    <Modal>
+        <h3>This feature will be implemented with another user story.</h3>
+        <div style="margin-top: 15px">
+            <button style="margin: auto" @onclick="@(() => showModalGeneralInfo = false)">OK</button>
+        </div>
+    </Modal>
+}
+
+<br/>
+<a href="https://www.flaticon.com/free-icons/document" title="document icons">Document icons created by Freepik - Flaticon</a>
+@code {
+    private string info = String.Empty;
+    private string searchText = string.Empty;
+    protected ElementReference searchInput;
+    private string errorLabel = "";
+    private string editErrorLabel = string.Empty;
+    private string? orderStatusFilter;
+    private ICollection<OrdersDTO> ordersToShow;
+    private bool doShowFilters;
+    private bool showModalWithOrderDetails;
+    private bool showModalGeneralInfo = false;
+    private UserDTO customerToView = new();
+    private ICollection<OrderLineDTO> orderlinesToView = new List<OrderLineDTO>();
+    private ICollection<Book> booksToView = new List<Book>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        OpenCloseFilters();
+        orderStatusFilter = "ALL";
+        await ApplyFilters();
+    }
+    
+    private bool ConvertStatusToBoolean(string status)
+    {
+        if (status.Equals("DISPATCHED")) return true;
+        return false;
+    }
+    
+    private async Task ToggleStatus(bool toggleBoolean, OrdersDTO order)
+    {
+        errorLabel = "";
+        
+        // switching the Toggle status to "True" changes the order status to "DISPATCHED". "False" changes to "CONFIRMED" 
+        if (toggleBoolean) order.status = "DISPATCHED";
+        else order.status = "CONFIRMED";
+        
+        try
+        {
+            await orderService.UpdateOrderStatusAsync(order);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+        await ApplyFilters();
+    }
+
+    private async Task OpenCloseFilters()
+    {
+        doShowFilters = !doShowFilters;
+        if (!doShowFilters)
+        {
+            orderStatusFilter = "ALL";
+            await ApplyFilters();
+        }
+    }
+    
+    private async Task UpdateOrderStatusFilter(ChangeEventArgs args)
+    {
+        orderStatusFilter = (string) args.Value;
+        await ApplyFilters();
+    }
+    
+    private async Task ApplyFilters()
+    {
+        try
+        {
+            if (orderStatusFilter!.Equals("ALL"))
+            {
+                ordersToShow = await orderService.GetAllOrdersAsync();
+            }
+            else
+            {
+                ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);    
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    private async Task HideOrderDetails()
+    {
+        customerToView = new UserDTO();
+        orderlinesToView = new List<OrderLineDTO>();
+        booksToView = new List<Book>();
+        showModalWithOrderDetails = false;
+    }
+
+    private async Task ShowOrderDetails(OrdersDTO order)
+    {
+        customerToView = await orderService.GetCustomer(order.username);
+        orderlinesToView = await orderService.GetOrderLines(order.id);
+        await GatherBooksToView();
+        showModalWithOrderDetails = true;
+    }
+
+    private async Task GatherBooksToView()
+    {
+        foreach (var orderline in orderlinesToView)
+        {
+            var book = new Book {Author = " ", Edition = " ", Isbn = " ", Title = " "};
+            var result = await _bookService.GetBookByIsbnAsync(orderline.Isbn);
+            if (result.Success)
+            {
+                book = result.Data;
+            }
+            booksToView.Add(book);
+        }
+    }
+
+    private async Task SearchForAnOrderByID()
+    {
+        ordersToShow = new List<OrdersDTO>();
+        long orderId = 0;
+        try
+        {
+            orderId = Int64.Parse(searchText);
+        }
+        catch (Exception e)
+        {
+            errorLabel = "The order number is wrong.";
+            Console.WriteLine(e);
+        }
+
+        var order = await orderService.GetOrderById(orderId);
+        if (order == null || order.status == null)
+        {
+            info = "No order with the ID: " + searchText;
+        }
+        else
+        {
+            ordersToShow.Add(order);    
+        }
+    }
+    private async void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            await SearchForAnOrderByID();
+        }
+    }
+}

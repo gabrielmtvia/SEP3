@@ -22,7 +22,7 @@ public class AuthServiceIMP : IAuthService
 
     public async Task LoginAsync(string username, string password)
     {
-        string s = await IuserService.GetUserAsync2(username, password);
+        string s = await IuserService.GetUserAsync(username, password);
         User? myuser = new User(username, password, s);
         
        // string? user1 = await IuserService.GetUserAsync(username, password); // Get user from database

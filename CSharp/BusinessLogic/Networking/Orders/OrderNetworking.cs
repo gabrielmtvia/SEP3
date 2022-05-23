@@ -1,7 +1,8 @@
 using System.ComponentModel;
+using BusinessLogicServer.Networking.Order;
 using ModelClasses;
 
-namespace BusinessLogicServer.Networking.Order;
+namespace BusinessLogicServer.Networking.Orders;
 
 public class OrderNetworking:IOrderNetworking
 {
