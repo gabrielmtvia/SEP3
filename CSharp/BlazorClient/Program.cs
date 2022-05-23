@@ -22,7 +22,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStat
 builder.Services.AddSingleton<IBookService, BookService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IImageService, ImageService>();
-builder.Services.AddSingleton<ICartService, CartService>();
+builder.Services.AddSingleton<ICartService, BlazorClient.Services.CartService.CartService>();
 builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 
 builder.Services.AddAuthorization(options =>

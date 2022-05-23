@@ -15,8 +15,7 @@ public class BookDAO {
         this.bookRepository=bookRepository;
     }
 
-    public void CreateBook(BookDTO bookDTO){
-
+    public void createBook(BookDTO bookDTO){
         bookRepository.save(bookDTO);
     }
 

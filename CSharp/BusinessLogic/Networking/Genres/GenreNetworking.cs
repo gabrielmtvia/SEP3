@@ -13,14 +13,14 @@ public class GenreNetworking : IGenreNetworking
     public async Task AddGenreAsync(Genre genre)
     {
         var buildGenreMessage = genre.BuildGenreMessage();
-        var addGenre = await client.addGenreAsync(buildGenreMessage);
+        var addGenre = await client.createGenreAsync(buildGenreMessage);
     }
     
   
     public async Task<List<Genre>> GetAllGenreAsync()
     {
         var requestVoidMessage = new VoidMessage();
-        var responseAllGenreAsync = await client.getAllGenreAsync(requestVoidMessage);
+        var responseAllGenreAsync = await client.getAllGenresAsync(requestVoidMessage);
         var genres = new List<Genre>();
 
         foreach (var genreMessage in responseAllGenreAsync.Genres)

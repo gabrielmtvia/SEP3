@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using BlazorClient.Services.BookService;
+using ModelClasses;
 
 
 namespace BusinessLogicServer.Networking.Books;
@@ -28,7 +29,7 @@ public class BookNetworking : IBookNetworking
         };
 
         // make the response message and give the request message as param to the rpc call
-        var response = client.getBookByIsbn(requestMessage);
+        var response = await client.getBookByIsbnAsync(requestMessage);
         if (String.IsNullOrEmpty(response.Isbn))
         {
             return null;
@@ -40,7 +41,7 @@ public class BookNetworking : IBookNetworking
     public async Task<List<Book>> GetAllBookAsync()
     {
         var  books = new List<Book>();
-        var allBooksAsync = await client.getAllBooksAsync(new EmptyBookMessage());
+        var allBooksAsync = await client.getAllBooksAsync(new VoidMessage());
         var bookMessage = allBooksAsync.Books;
         foreach (var bookProto in bookMessage)
         {
@@ -51,15 +52,13 @@ public class BookNetworking : IBookNetworking
                 Author = bookProto.Author,
                 Description = bookProto.Description,
                 Edition = bookProto.Edition,
-                ImageUrl = bookProto.Url,
-                Price = bookProto.Price
-
+                ImageUrl = bookProto.ImageUrl,
+                Price = bookProto.Price,
+                Genres = Genre.FromListMessageToGenreList(bookProto.Genres)
             };
             books.Add(book);
-
         }
 
-        
         return books;
     }
 

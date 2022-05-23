@@ -1,8 +1,7 @@
-using BusinessLogicServer.Models.Order;
+using BusinessLogicServer.Models.Orders;
 //using BusinessLogicServer.Models.Orders;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BusinessLogicServer.Controllers;
 
