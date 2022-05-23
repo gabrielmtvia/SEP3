@@ -1,6 +1,14 @@
 ﻿@inject NavigationManager _navMgr
 @inject IBookService _bookService
+
 <div class="input-group">
+<input type="search"
+       list="books"
+       class="form-control"
+       placeholder="Search..."
+       />
+</div>
+@*<div class="input-group">
     <input @bind-value="searchText"
            @bind-value:event="oninput"
            type="search"
@@ -9,6 +17,7 @@
            class="form-control"
            placeholder="Search..."
            @ref="searchInput"/>
+    
     
     <datalist id="books">
         @foreach (var suggestion in suggestions)
@@ -52,4 +61,4 @@
             suggestions = await _bookService.GetBookSearchSuggestionsAsync(searchText);
         }
     }
-}
+}*@
