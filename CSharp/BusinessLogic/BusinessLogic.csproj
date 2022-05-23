@@ -50,4 +50,10 @@
         <Compile Include="obj\Debug\net6.0\BusinessLogic.MvcApplicationPartsAssemblyInfo.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>bin\Debug\net6.0\Shared.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

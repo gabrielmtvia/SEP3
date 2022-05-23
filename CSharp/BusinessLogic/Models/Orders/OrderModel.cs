@@ -1,45 +1,40 @@
-﻿/*using BusinessLogicServer.Networking.Orders;
+using BusinessLogicServer.Networking.Order;
 using ModelClasses;
-using ModelClasses.Contracts;
 
 namespace BusinessLogicServer.Models.Orders;
 
-public class OrderModel : IOrderModel, IOrdersDao
+public class OrderModel:IOrderModel
 {
-    private IOrderNetworking networking;
-    private IOrderNetworkingExtendingIOrderDao orderNetworkingDao;
+    private IOrderNetworking _orderNetworking;
 
-    public OrderModel(IOrderNetworking networking, IOrderNetworkingExtendingIOrderDao orderNetworkingDao)
+    public OrderModel(IOrderNetworking orderNetworking)
     {
-        this.networking = networking;
-        this.orderNetworkingDao = orderNetworkingDao;
+        _orderNetworking = orderNetworking;
     }
 
-    public async Task<ICollection<OrdersDTO>> GetOrdersByStatusAsync(string status)
+
+    public  async Task<List<OrdersDTO>> GetAllOrdersAsync()
     {
-        return await orderNetworkingDao.GetOrdersByStatusAsync(status);
+       return  await _orderNetworking.GetAllOrdersAsync();
     }
 
-    public async Task<ICollection<OrdersDTO>> GetAllOrdersAsync()
+    public async Task<UserDTO> GetCustomer(string orderUsername)
     {
-        return await orderNetworkingDao.GetAllOrdersAsync();
+        return await _orderNetworking.GetCustomer(orderUsername);
     }
-    
-    // I commented the lines below out, because I needed this method to be implemented differently, and I didn't see
-    // any usage of it on the day of 19th May 2021. It looks like it was used for the proof of concept only.
-    // Anyway, now, a different implementation of it is necessary for Employee's Panel (generating list of orders).
-    // If any problems, please reach out to me. Tomasz G.
-    // @Eliza and @Gabriel - if you guys think it's OK, then you can safely remove the comment together with the commented code.
-    // see affected 2 other files: OrderController.cs, and IOrderModel.cs 
 
-    // public async Task<List<Order>> GetAllOrdersAsync()
-    // {
-    //    return await networking.GetAllOrdersAsync();
-    // }
-
-    public async Task CreateOrderAsync(Order order)
+    public async Task<List<OrdersDTO>> GetAllOrdersByStatusAsync(string status)
     {
-        await networking.CreateOrderAsync(order);
+        return await _orderNetworking.GetAllOrdersByStatusAsync(status);
+    }
+
+    public  async Task<List<JoinDTO>> GetOrderLines(long id)
+    {
+        return await _orderNetworking.GetOrderLines(id);
+    }
+
+    public async Task UpdateOrderStatus(long id, string status)
+    {
+        await _orderNetworking.UpdateOrderStatus(id, status);
     }
 }
-*/

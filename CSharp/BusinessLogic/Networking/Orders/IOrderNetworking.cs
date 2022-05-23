@@ -1,12 +1,15 @@
-﻿/*using ModelClasses;
+using ModelClasses;
 
-namespace BusinessLogicServer.Networking.Orders;
+namespace BusinessLogicServer.Networking.Order;
 
 public interface IOrderNetworking
 {
-    // commented, as there is no longer use of Order.cs object within the project. Instead of it, there is OrdersDTO.cs,
-    // which has been implemented in another Interface.
-    // public Task<List<Order>> GetAllOrdersAsync();
-    public Task CreateOrderAsync(Order order);
+    public Task<List<OrdersDTO>> GetAllOrdersAsync();
+    public Task<UserDTO> GetCustomer(string orderUsername);
+    public Task<List<OrdersDTO>> GetAllOrdersByStatusAsync(string status);
+
+    public Task<List<JoinDTO>> GetOrderLines(long id);
+
+    public Task UpdateOrderStatus(long id, string status);
+
 }
-*/
