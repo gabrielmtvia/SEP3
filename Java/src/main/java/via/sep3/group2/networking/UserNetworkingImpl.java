@@ -44,6 +44,7 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
         // else role=userDAO.getRole(request.getUsername(), request.getPassword()
 
         User.RoleMessage reply= User.RoleMessage.newBuilder().setRole(role).build();
+
         roleStreamObserver.onNext(reply);
         roleStreamObserver.onCompleted();
 
@@ -51,8 +52,11 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void getUsersByRole(User.TypeOfUsersMessage request, StreamObserver<User.ListOfUsers> responseObserver){
+
         List<UserDTO> users=userDAO.getUsersByRole(request.getRole());
+
         User.ListOfUsers.Builder builder= User.ListOfUsers.newBuilder();
+
         for (UserDTO u: users
              ) {
             builder.addUserMessage(u.buildUserMessage());

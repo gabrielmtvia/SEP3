@@ -5,6 +5,7 @@ global using BlazorClient.Services.UserService;
 using BlazorClient.Services.BookService;
 using BlazorClient.Services.CartService;
 using BlazorClient.Services.GenreService;
+using BlazorClient.Services.ImageService;
 using BlazorClient.Services.OrderService;
 using BlazorClient.Services.RegisterService;
 using Blazored.LocalStorage;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<ICartService2, CartService2>();
 //builder.Services.AddSingleton<ICartService, CartService>();
 //builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
 builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
+builder.Services.AddScoped<IImageService, ImageService>();
 // builder.Services.AddHttpClient<IBookService, BookService>(client =>
 // {
 //     client.BaseAddress = new Uri("https://localhost:7031");

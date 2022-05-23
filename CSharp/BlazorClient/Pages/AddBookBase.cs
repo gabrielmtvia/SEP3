@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using BlazorClient.Services.BookService;
 using BlazorClient.Services.GenreService;
 using BlazorClient.Services.ImageService;
 using Microsoft.AspNetCore.Components;

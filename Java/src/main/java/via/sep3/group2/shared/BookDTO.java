@@ -1,4 +1,5 @@
 package via.sep3.group2.shared;
+import org.w3c.dom.Text;
 import via.sep3.grpc.book.Book;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class BookDTO {
     private String title;
     private String author;
     private String edition;
+    @Column(columnDefinition="TEXT")
     private String description;
     private double price;
     private String url;
