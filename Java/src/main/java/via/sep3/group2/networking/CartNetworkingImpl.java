@@ -15,22 +15,24 @@ import java.util.List;
 import java.util.Set;
 
 @GrpcService
-public class CartNetworkingImpl extends CartServiceGrpc.CartServiceImplBase {
-private UserDAO userDAO;
-private OrderDAO ordersDAO;
-private OrderLineDAO orderLineDAO;
-private GenreDAO genreDAO;
-private BookDAO bookDAO;
+public class CartNetworkingImpl extends CartServiceGrpc.CartServiceImplBase
+{
+    private UserDAO userDAO;
+    private OrderDAO ordersDAO;
+    private OrderLineDAO orderLineDAO;
+    private GenreDAO genreDAO;
+    private BookDAO bookDAO;
 
-@Autowired
 
-  /*  public CartNetworkingImpl(OrdersDAO ordersDAO, OrderLineDAO orderLineDAO, UserDAO userDAO) {
-        this.ordersDAO = ordersDAO;
-        this.orderLineDAO = orderLineDAO;
-        this.userDAO=userDAO;
-    }*/
-
-    public CartNetworkingImpl(UserDAO userDAO, OrderDAO ordersDAO, OrderLineDAO orderLineDAO, GenreDAO genreDAO, BookDAO bookDAO) {
+    /*  public CartNetworkingImpl(OrdersDAO ordersDAO, OrderLineDAO orderLineDAO, UserDAO userDAO) {
+          this.ordersDAO = ordersDAO;
+          this.orderLineDAO = orderLineDAO;
+          this.userDAO=userDAO;
+      }*/
+    @Autowired
+    public CartNetworkingImpl(UserDAO userDAO, OrderDAO ordersDAO, OrderLineDAO orderLineDAO, GenreDAO genreDAO,
+                              BookDAO bookDAO)
+    {
         this.userDAO = userDAO;
         this.ordersDAO = ordersDAO;
         this.orderLineDAO = orderLineDAO;
@@ -39,21 +41,22 @@ private BookDAO bookDAO;
     }
 
     @Override
-    public void confirmedCart(Cart.CartMessage request, StreamObserver<Cart.EmptyCartMessage> responseObserver){
+    public void confirmedCart(Cart.CartMessage request, StreamObserver<Cart.EmptyCartMessage> responseObserver)
+    {
 
-        String username=request.getUsername();
+        String username = request.getUsername();
         System.out.println("***********************");
         System.out.println(username);
         System.out.println("***********************");
 
         List<OrderLineDTO> cartOrderLine = new ArrayList<>();
-        int i=0;
-        for (Cart.CartOrderLine cartOrderLineProto:request.getCartOrderLineList()
-             ) {
+        int i = 0;
+        for (Cart.CartOrderLine cartOrderLineProto : request.getCartOrderLineList())
+        {
             System.out.println("++++++++++++++++++++++++++++++++++++");
 
-            cartOrderLine.add(new OrderLineDTO(cartOrderLineProto.getIsbn(),cartOrderLineProto.getQte()));
-            System.out.println( cartOrderLine.get(i).getIsbn()+", "+cartOrderLine.get(i).getQte());
+            cartOrderLine.add(new OrderLineDTO(cartOrderLineProto.getIsbn(), cartOrderLineProto.getQte()));
+            System.out.println(cartOrderLine.get(i).getIsbn() + ", " + cartOrderLine.get(i).getQte());
             i++;
             System.out.println("++++++++++++++++++++++++++++++++++++");
         }
@@ -62,22 +65,21 @@ private BookDAO bookDAO;
         System.out.println("+++++++++++++TimesStamp+++++++++++");
         System.out.println(timestamp);
         System.out.println("+++++++++++++TimesStamp+++++++++++");
-        UserDTO userDTO= userDAO.findUserByUsername(username);
+        UserDTO userDTO = userDAO.findUserByUsername(username);
 
-        OrderDTO order= new OrderDTO(timestamp,"Notconfirmed",userDTO);
+        OrderDTO order = new OrderDTO(timestamp, "Notconfirmed", userDTO);
         ordersDAO.createOrder(order);
 
-        long id= ordersDAO.getSerialOrderByUsernameAndStatus(username,"Notconfirmed");
+        long id = ordersDAO.getSerialOrderByUsernameAndStatus(username, "Notconfirmed");
         System.out.println("+++++ ID+++++++++++++++++");
         System.out.println(id);
 
-        for (OrderLineDTO orderline:cartOrderLine
-             ) {
-            orderLineDAO.createOrderLine(new OrderLineDTO(id,orderline.getIsbn(),orderline.getQte()));
+        for (OrderLineDTO orderline : cartOrderLine)
+        {
+            orderLineDAO.createOrderLine(new OrderLineDTO(id, orderline.getIsbn(), orderline.getQte()));
         }
 
-       ordersDAO.updateStatusOfOrder(id,"Confirmed");
-
+        ordersDAO.updateStatusOfOrder(id, "Confirmed");
 
 
         Cart.EmptyCartMessage reply = Cart.EmptyCartMessage.newBuilder().build();
@@ -87,11 +89,12 @@ private BookDAO bookDAO;
         ///////////////////////////////////////
 
         Set<GenreDTO> genres = new HashSet<>();
-        GenreDTO genreDTO1=new GenreDTO("Science");
-        GenreDTO genreDTO2= new GenreDTO("Drama");
+        GenreDTO genreDTO1 = new GenreDTO("Science");
+        GenreDTO genreDTO2 = new GenreDTO("Drama");
         genres.add(genreDTO1);
         genres.add(genreDTO2);
-        BookDTO bookDTO= new BookDTO("5","kkkkk","khaled","5 th edition","compiler for biginners",12.5,"url book",genres);
-        bookDAO.CreateBook(bookDTO);
+        BookDTO bookDTO =
+                new BookDTO("5", "kkkkk", "khaled", "5 th edition", "compiler for biginners", "url book", 12.5, genres);
+        bookDAO.createBook(bookDTO);
     }
 }

@@ -27,7 +27,7 @@ public class GenreNetworkingImpl extends GenreGrpcServiceGrpc.GenreGrpcServiceIm
     {
         GenreDTO genreDTO=new GenreDTO(request.getType());
         genreDAO.createGenre(genreDTO);
-        Util.VoidMessage response = new Util.VoidMessage();
+        Util.VoidMessage response = Util.VoidMessage.newBuilder().build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public class OrderLineDAO {
    private OrderLineRepository orderLineWithCompositeKeyRepository;
-    @Autowired
 
+   @Autowired
     public OrderLineDAO(OrderLineRepository orderLineWithCompositeKeyRepository) {
         this.orderLineWithCompositeKeyRepository = orderLineWithCompositeKeyRepository;
     }

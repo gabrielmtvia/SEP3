@@ -48,7 +48,7 @@ public class BookNetworkingImpl extends BookGrpcServiceGrpc.BookGrpcServiceImplB
     @Override
     public void addBook(Book.BookMessage request, StreamObserver<Util.VoidMessage> responseObserver)
     {
-        dao.addBook(new BookDTO(request));
+        dao.createBook(new BookDTO(request));
         responseObserver.onNext(Util.VoidMessage.newBuilder().build());
         responseObserver.onCompleted();
     }
