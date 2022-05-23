@@ -1,4 +1,6 @@
-using BusinessLogicServer.Models.Orders;
+//using BusinessLogicServer.Models.Orders;
+
+using BusinessLogicServer.Models.Order;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 
@@ -20,7 +22,7 @@ public class OrderController : ControllerBase
     {
         try
         {
-            ICollection<OrdersDTO> items = await model.GetOrdersByStatusAsync(status);
+            ICollection<OrdersDTO> items = await model.GetAllOrdersByStatusAsync(status);
             return Ok(items);
         }
         catch (Exception e)
@@ -58,11 +60,11 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet("/Orders/Orderlines/{orderId}")]
-    public async Task<ActionResult<ICollection<OrderLineDTO>>> GetOrderLines(long orderId)
+    public async Task<ActionResult<ICollection<JoinDTO>>> GetOrderLines(long orderId)
     {
         try
         {
-            ICollection<OrderLineDTO> items = await model.GetOrderLines(orderId);
+            ICollection<JoinDTO> items = await model.GetOrderLines(orderId);
             return Ok(items);
         }
         catch (Exception e)
@@ -77,7 +79,7 @@ public class OrderController : ControllerBase
         {
             try
             {
-                await model.UpdateOrderStatusAsync(order.id, order.status);
+                await model.UpdateOrderStatus(order.id, order.status);
                 return Ok();
             }
             catch (Exception e)
@@ -86,13 +88,13 @@ public class OrderController : ControllerBase
             }
         }
     }
-    
+    /*
     [HttpGet("/Orders/OrdersById/{orderId}")]
-    public async Task<ActionResult<OrdersDTO>> getOrderById(long orderId)
+    public async Task<ActionResult<JoinDTO>> getOrderById(long orderId)
     {
         try
         {
-            OrdersDTO order = await model.GetOrderById(orderId);
+            JoinDTO order = await model.GetOrderLines(orderId);
             return Ok(order);
         }
         catch (Exception e)
@@ -100,4 +102,5 @@ public class OrderController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    */
 }

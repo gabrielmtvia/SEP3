@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
 using System.Text.Json;
-using System.Threading.Tasks;
-using BlazorClient.Shared;
-using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.Net.Http.Headers;
 using ModelClasses;
+
 
 namespace BlazorClient.Services.BookService;
 
@@ -30,7 +27,9 @@ public class BookService : IBookService
 
     public async Task AddBookAsync(Book book)
     {
-        await _httpClient.PostAsJsonAsync("/Book", book);
+        Console.WriteLine("khale   " +book.Isbn);
+        await _httpClient.PostAsJsonAsync("/AddBook", book);
+    
     }
 
     public async Task GetBooksAsync(string? genreUrl = null)
@@ -77,4 +76,5 @@ public class BookService : IBookService
         Console.WriteLine(result.Message);
         return result.Data;
     }
+    
 }

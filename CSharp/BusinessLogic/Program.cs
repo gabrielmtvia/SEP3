@@ -13,7 +13,7 @@ using BusinessLogicServer.Service.CartService;
 using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
 using IBookService = BusinessLogicServer.Service.BookService.IBookService;
-using ModelClasses.Contracts;
+
 using OrderService = BlazorClient.Services.OrderService.OrderService;
 
 //using OrderService = BlazorClient.Services.OrderService.OrderService;
