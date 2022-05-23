@@ -1,4 +1,4 @@
-using BusinessLogicServer.Networking.Order;
+using BusinessLogicServer.Networking.Orders;
 using ModelClasses;
 
 namespace BusinessLogicServer.Models.Orders;
@@ -13,7 +13,7 @@ public class OrderModel:IOrderModel
     }
 
 
-    public  async Task<List<OrdersDTO>> GetAllOrdersAsync()
+    public  async Task<IList<OrdersDTO>> GetAllOrdersAsync()
     {
        return  await _orderNetworking.GetAllOrdersAsync();
     }
@@ -23,17 +23,17 @@ public class OrderModel:IOrderModel
         return await _orderNetworking.GetCustomer(orderUsername);
     }
 
-    public async Task<List<OrdersDTO>> GetAllOrdersByStatusAsync(string status)
+    public async Task<IList<OrdersDTO>> GetOrdersByStatusAsync(string status)
     {
         return await _orderNetworking.GetAllOrdersByStatusAsync(status);
     }
 
-    public  async Task<List<JoinDTO>> GetOrderLines(long id)
+    public  async Task<IList<JoinDTO>> GetOrderLines(long id)
     {
         return await _orderNetworking.GetOrderLines(id);
     }
 
-    public async Task UpdateOrderStatus(long id, string status)
+    public async Task UpdateOrderStatusAsync(long id, string status)
     {
         await _orderNetworking.UpdateOrderStatus(id, status);
     }

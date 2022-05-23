@@ -107,9 +107,7 @@ public class BookService : IBookService
             {
                 new()
                 {
-                    Id = 4,
-                    Name = "Biographies & Memoirs",
-                    Url = "Biographies-Memoirs"
+                    Type = "Biographies & Memoirs",
                 }
             }
         }

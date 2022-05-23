@@ -4,9 +4,9 @@ using BusinessLogicServer.Models.Register;
 using BusinessLogicServer.Models.Genres;
 using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Networking.Books;
-using BusinessLogicServer.Networking.Order;
 using BusinessLogicServer.Networking.Register;
 using BusinessLogicServer.Networking.Genres;
+using BusinessLogicServer.Networking.Orders;
 using Grpc.Net.Client;
 
 //using OrderService = BlazorClient.Services.OrderService.OrderService;

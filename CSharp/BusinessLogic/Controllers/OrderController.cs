@@ -63,7 +63,7 @@ public class OrderController : ControllerBase
     {
         try
         {
-            ICollection<OrderLineDTO> items = await model.GetOrderLines(orderId);
+            var items = await model.GetOrderLines(orderId);
             return Ok(items);
         }
         catch (Exception e)
@@ -88,17 +88,17 @@ public class OrderController : ControllerBase
         }
     }
     
-    [HttpGet("/Orders/OrdersById/{orderId}")]
-    public async Task<ActionResult<OrdersDTO>> getOrderById(long orderId)
-    {
-        try
-        {
-            OrdersDTO order = await model.GetOrderById(orderId);
-            return Ok(order);
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, e.Message);
-        }
-    }
+    // [HttpGet("/Orders/OrdersById/{orderId}")]
+    // public async Task<ActionResult<OrdersDTO>> getOrderById(long orderId)
+    // {
+    //     try
+    //     {
+    //         OrdersDTO order = await model.GetOrderById(orderId);
+    //         return Ok(order);
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return StatusCode(500, e.Message);
+    //     }
+    // }
 }
