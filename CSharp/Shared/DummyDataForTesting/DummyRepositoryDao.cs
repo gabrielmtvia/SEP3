@@ -35,17 +35,18 @@ public class DummyRepositoryDao
         return repo.orderlines.Where(orderline => orderline.SerialOrder == orderId).ToArray();
     }
 
-    public async Task<ServiceResponse<Book>> GetBookByIsbnAsync(string orderlineIsbn)
+    public async Task<Book> GetBookByIsbnAsync(string orderlineIsbn)
     {
-        ServiceResponse<Book> serviceResponse = new ServiceResponse<Book>()
-        {
-            Data = repo.books.FirstOrDefault(b => b.Isbn.Equals(orderlineIsbn))
-        };
-        return serviceResponse;
+        return repo.books.FirstOrDefault(b => b.Isbn.Equals(orderlineIsbn));
     }
 
     public async Task UpdateOrderStatusAsync(long orderId, string orderStatus)
     {
         repo.orders.FirstOrDefault(o => o.id == orderId)!.status = orderStatus;
+    }
+
+    public async Task<List<Book>> getAllBooksAsync()
+    {
+        return repo.books.ToList();
     }
 }

@@ -86,4 +86,18 @@ public class OrderController : ControllerBase
             }
         }
     }
+    
+    [HttpGet("/Orders/OrdersById/{orderId}")]
+    public async Task<ActionResult<OrdersDTO>> getOrderById(long orderId)
+    {
+        try
+        {
+            OrdersDTO order = await model.GetOrderById(orderId);
+            return Ok(order);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
 }
