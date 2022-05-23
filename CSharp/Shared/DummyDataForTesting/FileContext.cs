@@ -29,6 +29,7 @@ public class FileContext
     OrdersDTO order3 = new OrdersDTO(3, DateTime.Now.AddDays(-2), "CONFIRMED", "customer3");
     OrdersDTO order4 = new OrdersDTO(4, DateTime.Now.AddDays(-3), "DISPATCHED", "customer4");
     OrdersDTO order5 = new OrdersDTO(5, DateTime.Now.AddDays(-4), "DISPATCHED", "customer5");
+    dummyRepo.orders = new [] { order1, order2,order3, order4, order5 };
 
     UserDTO customer1 = new ("customer1", "a", "a", "a@a.a", "a", "a", "Customer", "a");
     UserDTO customer2 = new ("customer2", "b", "b", "b@b", "b", "b", "Customer", "b");
@@ -42,14 +43,13 @@ public class FileContext
     OrderLineDTO orderline4 = new OrderLineDTO(2,3,"900000000000003");
     OrderLineDTO orderline5 = new OrderLineDTO(3,4,"9781451648539");
 
-    Book book1 = new() {Author = "Elon Musk", Edition = "1", Isbn = "11223344", Title = "A programmer becomes a billionaire."};
-    Book book2 = new() {Author = "Steve Jobs", Edition = "2", Isbn = "55667788", Title = "Biography."};
-    Book book3 = new() {Author = "Rudyard Kipling", Edition = "3", Isbn = "99101112", Title = "Jungle Book."};
-    Book book4 = new() {Author = "George Orwell", Edition = "4", Isbn = "13141516", Title = "Animal Farm."};
-    Book book5 = new() {Author = "Joseph Heller", Edition = "5", Isbn = "17181920", Title = "Catch-22."};
+    Book book1 = new() {Author = "Elon Musk", Edition = "1", Isbn = "9780345303257", Title = "A programmer becomes a billionaire.", Description = "Descr1",Price = 10.99, ImageUrl = "https://upload.wikimedia.org/wikipedia/en/4/43/CensoredRabbit.jpg"};
+    Book book2 = new() {Author = "Steve Jobs", Edition = "2", Isbn = "9780330491198", Title = "Biography.", Description = "Descr2",Price = 11.99, ImageUrl = "https://upload.wikimedia.org/wikipedia/en/b/bd/H2G2_UK_front_cover.jpg"};
+    Book book3 = new() {Author = "Rudyard Kipling", Edition = "3", Isbn = "9780606264129", Title = "Jungle Book.", Description = "Descr3",Price = 12.99, ImageUrl = "https://upload.wikimedia.org/wikipedia/en/a/a4/Ready_Player_One_cover.jpg"};
+    Book book4 = new() {Author = "George Orwell", Edition = "4", Isbn = "900000000000003", Title = "Animal Farm.", Description = "Descr4",Price = 13.99, ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/c/c3/1984first.jpg"};
+    Book book5 = new() {Author = "Joseph Heller", Edition = "5", Isbn = "9781451648539", Title = "Catch-22.", Description = "Descr5",Price = 14.99, ImageUrl = "https://upload.wikimedia.org/wikipedia/en/e/e4/Steve_Jobs_by_Walter_Isaacson.jpg"};
     
     dummyRepo.users = new[] { customer1, customer2, customer3, customer4, customer5};
-    dummyRepo.orders = new [] { order1, order2,order3, order4, order5 };
     dummyRepo.orderlines = new[] {orderline1, orderline2, orderline3, orderline4, orderline5};
     dummyRepo.books = new[] {book1, book2, book3, book4, book5};
     SaveChangesAsync();

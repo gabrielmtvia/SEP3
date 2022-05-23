@@ -5,13 +5,39 @@
 @inject IBookService _bookService
 @inject IOrderService orderService
 
-<h3>Employee Panel</h3>
+<div clss="container">
+    <div class="row">
+    <div class="col-2"><h3>Employee Panel</h3></div>
+        <div class="col-3">
+            <div class="input-group">
+                <input @bind-value="searchText"
+                       @bind-value:event="oninput"
+                       @onkeydown="@Enter"
+                       type="number"
+                       list="books"
+                       class="form-control"
+                       placeholder="Search for an order by its ID..."
+                       @ref="searchInput"/>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" @onclick="SearchForAnOrderByID">
+                        <span class="oi oi-magnifying-glass"></span>
+                    </button>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="col-7">
+            &nbsp;
+        </div>
+  </div>
+</div>
 
 <div class="filterbar">
     <div class="filterscontainer">
         <img src="img/@(doShowFilters?"clear_" : "")funnel.png" 
-        class="icon" 
-        @onclick="OpenCloseFilters"/>
+             class="icon" 
+             @onclick="OpenCloseFilters"/>
         
         @if (doShowFilters)
         {
@@ -21,7 +47,7 @@
                 </div>
                 <div>
                     <select class="orderstatus" 
-                    @onchange="async args => await UpdateOrderStatusFilter(args)">
+                            @onchange="async args => await UpdateOrderStatusFilter(args)">
                         <option value="ALL">All</option>
                         <option value="DISPATCHED">Dispatched</option>
                         <option value="CONFIRMED">Not dispatched</option>
@@ -32,17 +58,17 @@
     </div>
 </div>
 
+<p>
+    <em>@info</em>
+</p>
+
 @if (ordersToShow == null)
 {
-    <p>
-        <em>Loading...</em>
-    </p>
+    info = "Loading...";
 }
 else if (!ordersToShow.Any())
 {
-    <p>
-        <em>No orders to show. Please change the filter and/or wait for new orders.</em>
-    </p>
+    info = "No orders to show. Please change the filter and/or wait for new orders.";
 }
 else
 {
@@ -161,8 +187,12 @@ else
     </Modal>
 }
 
+<br/>
 <a href="https://www.flaticon.com/free-icons/document" title="document icons">Document icons created by Freepik - Flaticon</a>
 @code {
+    private string info = String.Empty;
+    private string searchText = string.Empty;
+    protected ElementReference searchInput;
     private string errorLabel = "";
     private string editErrorLabel = string.Empty;
     private string? orderStatusFilter;
@@ -269,6 +299,38 @@ else
                 book = result.Data;
             }
             booksToView.Add(book);
+        }
+    }
+
+    private async Task SearchForAnOrderByID()
+    {
+        ordersToShow = new List<OrdersDTO>();
+        long orderId = 0;
+        try
+        {
+            orderId = Int64.Parse(searchText);
+        }
+        catch (Exception e)
+        {
+            errorLabel = "The order number is wrong.";
+            Console.WriteLine(e);
+        }
+
+        var order = await orderService.GetOrderById(orderId);
+        if (order == null || order.status == null)
+        {
+            info = "No order with the ID: " + searchText;
+        }
+        else
+        {
+            ordersToShow.Add(order);    
+        }
+    }
+    private async void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            await SearchForAnOrderByID();
         }
     }
 }

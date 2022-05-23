@@ -9,4 +9,5 @@ public interface IOrderModel
     public Task<UserDTO> GetCustomer(string orderUsername);
     public Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId);
     public Task UpdateOrderStatusAsync(long orderId, string orderStatus);
+    public Task<OrdersDTO> GetOrderById(long orderId);
 }

@@ -36,4 +36,11 @@ public class OrderModel : IOrderModel
     {
         await networking.UpdateOrderStatusAsync(orderId, orderStatus);
     }
+
+    public async Task<OrdersDTO> GetOrderById(long orderId)
+    {
+        // TODO: It would be good to fetch only the needed order from the database, instead of all of them. Try to do it if there's a bit more time.
+        var allOrders = await networking.GetAllOrdersAsync();
+        return allOrders.FirstOrDefault(o => o.id == orderId)!;
+    }
 }
