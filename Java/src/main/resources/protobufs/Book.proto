@@ -12,6 +12,13 @@ message BookMessage{
   string url = 7;
 
 }
+message GenreBookMessage{
+  string type = 1;
+}
+message BookGenreMessage{
+  BookMessage book = 1;
+  repeated GenreBookMessage genres = 2;
+}
 
 message EmptyBookMessage{
 
@@ -29,4 +36,5 @@ service BookService {
   rpc getAllBooks( EmptyBookMessage) returns ( ListOfBooks);
   rpc createBook(BookMessage) returns (EmptyBookMessage);
   rpc getBookByIsbn(BookIsbnMessage) returns (BookMessage);
+  rpc createBookWithGenres(BookGenreMessage) returns (EmptyBookMessage);
 }

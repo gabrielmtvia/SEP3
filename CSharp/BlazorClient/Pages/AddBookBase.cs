@@ -30,21 +30,31 @@ public class AddBookBase : ComponentBase
     public async Task TryAddBookAsync()
     {
         BookToAdd.Genres = new List<Genre>();
-        foreach (string s in selectedGenre)
+        if (selectedGenre.Length!=0)
         {
-            Console.WriteLine(s);
+            foreach (string s in selectedGenre)
+            {
+                Console.WriteLine(s);
 
+                Genre genre = new Genre()
+                {
+                    Name = s
+                };
+                BookToAdd.Genres.Add(genre);
+            }
+
+            
+        }
+        else
+        {
             Genre genre = new Genre()
             {
-                //Id=0,
-                Name = s
-                //  Url =""
+                Name = "NoGenre"
             };
-            BookToAdd.Genres.Add(genre); 
+            BookToAdd.Genres.Add(genre);
+            
         }
-
-      //  BookToAdd.Genres = new List<Genre>();
-      //  BookToAdd.Genres.Add(genre);
+        
       
         await BookService.AddBookAsync(BookToAdd);
     }

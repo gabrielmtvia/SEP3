@@ -5,10 +5,14 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import via.sep3.group2.persistance.BookDAO;
 import via.sep3.group2.shared.BookDTO;
+import via.sep3.group2.shared.GenreDTO;
 import via.sep3.grpc.book.Book;
 import via.sep3.grpc.book.BookServiceGrpc;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @GrpcService
 public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
@@ -56,8 +60,22 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
             Book.BookMessage reply = Book.BookMessage.newBuilder().setIsbn(book.getIsbn()).setTitle(book.getTitle()).setAuthor(book.getAuthor())
                     .setEdition(book.getEdition()).setDescription(book.getDescription()).setPrice(book.getPrice()).setUrl(book.getUrl()).build();
 
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
 
+    }
 
+    @Override
+    public void createBookWithGenres(Book.BookGenreMessage request, StreamObserver<Book.EmptyBookMessage> responseObserver){
+        Set<GenreDTO> genres= new HashSet<>();
+        for (Book.GenreBookMessage g:request.getGenresList()
+             ) {
+            genres.add(new GenreDTO(g.getType()));
+        }
+        BookDTO book= new BookDTO(request.getBook().getIsbn(),request.getBook().getTitle(),request.getBook().getAuthor(),request.getBook().getEdition()
+        ,request.getBook().getDescription(),request.getBook().getPrice(),request.getBook().getUrl(),genres);
+        bookDAO.CreateBook(book);
+        Book.EmptyBookMessage reply = Book.EmptyBookMessage.newBuilder().build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
 
