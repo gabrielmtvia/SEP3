@@ -1,0 +1,103 @@
+@page "/ViewListOfEmployee/{userName}"
+@using ModelClasses
+@using BlazorClient.Services.RegisterService
+<h3 class="hh">Employee's Information</h3>
+
+
+ @if (UserDtoToView != null) 
+ { 
+
+   <table align="center" id="customers"> 
+         <tr>
+             <th>UserName:</th>
+             <td>@UserDtoToView.userName</td>
+              
+         </tr>
+         <tr>
+             <th>FirstName:</th>
+             <td >@UserDtoToView.firstName</td>
+         </tr>
+         <tr>
+             <th>LastName:</th>
+               <td>@UserDtoToView.lastName</td>
+         </tr>
+         <tr>
+             <th>Address:</th>
+             <td>@UserDtoToView.address</td>
+         </tr>
+         <tr>
+             <th>Email:</th>
+               <td>@UserDtoToView.email</td>
+         </tr>
+         <tr>
+             <th>Phone:</th>
+             <td>@UserDtoToView.phone</td>  
+         </tr>
+       
+         
+          
+     </table>
+ }
+ 
+
+
+
+
+
+
+@code {
+    
+   
+   
+    
+    
+    public UserDTO UserDtoToView;
+
+    [Inject]
+    public IRegisterService IRegisterService { get; set; }
+    private string role = "Employee";
+    
+  
+    
+    [Parameter]
+    public string? userName { get; set; }
+    
+    
+    
+    public List<UserDTO> Employees { get; set; }
+    
+    public UserDTO GetUserAsync(string userName)
+    {
+        return Employees.Find(user => user.userName.Equals(userName));
+        
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        try
+        {
+
+            if (Employees == null)
+            {
+              
+            }
+            Employees = await IRegisterService.GetUsersByRole(role);
+            UserDtoToView = GetUserAsync(userName);
+
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+
+        }
+
+
+    }
+
+    
+
+
+}
