@@ -42,6 +42,18 @@ public class RegisterServiceIMP : IRegisterService
         
         await _httpClient.PostAsJsonAsync("/Register", userDto);
     }
-    
-    
+
+    public async Task<List<UserDTO>?> GetUsersByRole(string role)
+    {
+        https://localhost:7031/ListOfUsersByRole?role=Customer
+     return  await _httpClient.GetFromJsonAsync<List<UserDTO>>($"https://localhost:7031/ListOfUsersByRole?role={role}");
+     
+ 
+       
+    }
+
+    public async Task<UserDTO?> GetO(string role)
+    {
+        return  await _httpClient.GetFromJsonAsync<UserDTO>($"https://localhost:7031/ListOfUsersByRole?role={role}");
+    }
 }

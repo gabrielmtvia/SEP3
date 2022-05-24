@@ -50,10 +50,4 @@
       </Compile>
     </ItemGroup>
 
-    <ItemGroup>
-      <None Update="Pages\EmployeeCss.css">
-        <DependentUpon>ListOfEmployee.razor</DependentUpon>
-      </None>
-    </ItemGroup>
-
 </Project>

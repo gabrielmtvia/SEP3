@@ -2,7 +2,7 @@
 @inherits EmployeeList
 
 
-<h3>ListOfEmployee</h3>
+<h3 class="hh">Employee Who Are Registered</h3>
 
 @if (Employees != null)
 {
@@ -13,15 +13,17 @@
     {
         <div class="card m-3" style="min-width: 10rem; max-width: 24.5%;">
             <div class="card-header">
-                <h1>@employee.userName @employee.lastName</h1>
-               
+                <p>UserName: @employee.userName </p>
+                <p>LastName: @employee.lastName</p>
+                @* <h1></h1> *@
+
             </div>
             <img class = "card-img-top" src="img/employeeimg.png"/>
             
-            
+            @* @onclick="View" *@
             <div class="card-footer text-center">
-                <a href="#" class="btn btn-primary m-1">View</a>
-                <a href="#" class="btn btn-primary m-1">Edit</a>
+                <a href="ViewListOfEmployee/@employee.userName"  class="btn btn-primary m-1">View</a>
+              
                  <a href="#" class="btn btn-danger m-1">Delete</a>
 
             </div>
