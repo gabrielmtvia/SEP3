@@ -11,9 +11,9 @@
 #customers {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-     
 
-    
+
+
 }
 .changeSize{
     width: 50%;
@@ -21,7 +21,7 @@
 }
 
 #customers td, #customers th {
-  
+
     padding: 8px;
     border-radius: 15px;
     margin: 2px;
@@ -42,8 +42,8 @@
     background-color: #0a53be;
     color: white;
     width: 150px;
-  
-    
+
+
 }
 #customers td{
     width: 300px;

@@ -52,8 +52,9 @@ public class RegisterServiceIMP : IRegisterService
        
     }
 
-    public async Task<UserDTO?> GetO(string role)
+    public  Task update(UserDTO userDto, string userName)
     {
-        return  await _httpClient.GetFromJsonAsync<UserDTO>($"https://localhost:7031/ListOfUsersByRole?role={role}");
+         Console.WriteLine(userDto.userName, "," + userName);
+         return null;
     }
 }
