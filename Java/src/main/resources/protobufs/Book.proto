@@ -31,10 +31,12 @@ message BookIsbnMessage{
   string isbn = 1 ;
 }
 
-
 service BookService {
   rpc getAllBooks( EmptyBookMessage) returns ( ListOfBooks);
   rpc createBook(BookMessage) returns (EmptyBookMessage);
   rpc getBookByIsbn(BookIsbnMessage) returns (BookMessage);
   rpc createBookWithGenres(BookGenreMessage) returns (EmptyBookMessage);
+  rpc getAllBooksByGenre(GenreBookMessage) returns (ListOfBooks);
+  rpc getAllBooksByTitle(GenreBookMessage) returns (ListOfBooks);
+  rpc getAllBooksByAuthor(GenreBookMessage) returns (ListOfBooks);
 }

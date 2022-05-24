@@ -22,8 +22,8 @@ UserDTO findByUsernameAndPassword (@Param("username")String username, @Param("pa
      UserDTO findByUsername(@Param("username")String username);
 
      List<UserDTO> findByRole(@Param("role")String role);
-
-
+    @Transactional
+     void deleteByUsername(@Param("username")String username);
 
 
 

@@ -65,6 +65,12 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
-
+    @Override
+    public void deleteUser(User.UserNameMessage request, StreamObserver<User.EmptyMessage> responseObserver){
+        userDAO.deleteUser(request.getUsername());
+        User.EmptyMessage build =  User.EmptyMessage.newBuilder().build();
+        responseObserver.onNext(build);
+        responseObserver.onCompleted();
+    }
 
 }

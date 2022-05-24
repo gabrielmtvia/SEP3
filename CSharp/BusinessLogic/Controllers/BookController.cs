@@ -61,6 +61,51 @@ public class BookController : ControllerBase
         }
        
     }
+    [HttpGet]
+    [Route("genre/{genre}")]
+    public async Task<ActionResult<List<Book>>> GetAllBooksByGenreAsync(string genre)
+    {
+        try
+        {
+            var result = await model.GetBookByGenreAsync(genre);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("title/{title}")]
+    public async Task<ActionResult<List<Book>>> GetAllBooksByTitleAsync(string title)
+    {
+        try
+        {
+            var result = await model.GetBookByTitleAsync(title);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("author/{author}")]
+    public async Task<ActionResult<List<Book>>> GetAllBooksByAuthorAsync(string author)
+    {
+        try
+        {
+            var result = await model.GetBookByAuthorAsync(author);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
     
     /*
     private IBookService _service;
