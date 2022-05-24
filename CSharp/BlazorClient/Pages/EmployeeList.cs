@@ -33,9 +33,9 @@ public class EmployeeList : ComponentBase
 
    
     
-    public void Delete()
+    public async Task Delete(string username)
     {
-        
+      await IRegisterService.DeleteUser(username);
     }
 
 }
