@@ -55,14 +55,10 @@ public class UserDAO {
     public List<UserDTO> getUsersByRole(String role){
         return userRepository.findByRole(role);
     }
-    //public List
 
-
-   /* public List<OrdersDTO> getAllOrders(UserDTO userDTO)
-    {
-        return userDTO.getOrders();
-    }*/
-
+    public void deleteUser(String username){
+        userRepository.deleteByUsername(username);
+    }
 
 
 }

@@ -78,6 +78,47 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
         Book.EmptyBookMessage reply = Book.EmptyBookMessage.newBuilder().build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getAllBooksByGenre(Book.GenreBookMessage request, StreamObserver<Book.ListOfBooks> responseObserver){
+        GenreDTO genre=new GenreDTO(request.getType());
+        List<BookDTO> books= bookDAO.getAllBooksByGenre(genre);
+        Book.ListOfBooks.Builder builder =  Book.ListOfBooks.newBuilder();
+
+        for (BookDTO book:books
+        ) {
+            builder.addBooks(book.buildBookMessage());
+        }
+        Book.ListOfBooks reply = builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+    }
+    @Override
+    public void getAllBooksByTitle(Book.GenreBookMessage request, StreamObserver<Book.ListOfBooks> responseObserver){
+        List<BookDTO> books= bookDAO.getAllBooksByTitle(request.getType());
+        Book.ListOfBooks.Builder builder =  Book.ListOfBooks.newBuilder();
+
+        for (BookDTO book:books
+        ) {
+            builder.addBooks(book.buildBookMessage());
+        }
+        Book.ListOfBooks reply = builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+    }
+    @Override
+    public void getAllBooksByAuthor(Book.GenreBookMessage request, StreamObserver<Book.ListOfBooks> responseObserver){
+        List<BookDTO> books= bookDAO.getAllBooksByAuthor(request.getType());
+        Book.ListOfBooks.Builder builder =  Book.ListOfBooks.newBuilder();
+
+        for (BookDTO book:books
+        ) {
+            builder.addBooks(book.buildBookMessage());
+        }
+        Book.ListOfBooks reply = builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
 
     }
 

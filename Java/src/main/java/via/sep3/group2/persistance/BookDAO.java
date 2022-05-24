@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 //import via.sep3.group2.models.BookDTO;
 import via.sep3.group2.repository.BookRepository;
 import via.sep3.group2.shared.BookDTO;
+import via.sep3.group2.shared.GenreDTO;
 
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class BookDAO {
         } catch (Exception e) {
            return  null; // e.printStackTrace();
         }
+    }
+
+    public List<BookDTO> getAllBooksByGenre(GenreDTO genre){
+        return bookRepository.findAllByGenresIsContaining(genre);
+    }
+    public List<BookDTO> getAllBooksByTitle(String title){
+        return bookRepository.findByTitle(title);
+    }
+    public List<BookDTO> getAllBooksByAuthor(String author){
+        return bookRepository.findByAuthor(author);
     }
 
 

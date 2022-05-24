@@ -34,4 +34,19 @@ public class BookModel : IBookModel
         var result = await bookNetworking.GetBookByIsbnAsync(isbn);
       return result;
     }
+
+    public async Task<List<Book>> GetBookByGenreAsync(string genre)
+    {
+        return await  bookNetworking.GetBookByGenreAsync(genre);
+    }
+
+    public async Task<List<Book>> GetBookByTitleAsync(string title)
+    {
+        return await bookNetworking.GetBookByTitleAsync(title);
+    }
+
+    public async Task<List<Book>> GetBookByAuthorAsync(string author)
+    {
+        return await bookNetworking.GetBookByAuthorAsync(author);
+    }
 }

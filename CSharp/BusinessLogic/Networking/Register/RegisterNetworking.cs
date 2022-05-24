@@ -109,4 +109,12 @@ public class RegisterNetworking: IRegisterNetworking
         return users;
 
     }
+
+    public async Task DeleteUser(string username)
+    {
+        await userClient.deleteUserAsync(new UserNameMessage
+        {
+            Username = username
+        });
+    }
 }

@@ -32,9 +32,13 @@ message TypeOfUsersMessage{
 message ListOfUsers{
   repeated UserMessage userMessage = 1 ;
 }
+message UserNameMessage{
+  string username = 1;
+}
 
 service UserService{
   rpc createUser(UserMessage) returns(EmptyMessage);
   rpc login(LoginMessage) returns(RoleMessage);
   rpc getUsersByRole(TypeOfUsersMessage) returns (ListOfUsers);
+  rpc deleteUser(UserNameMessage) returns(EmptyMessage);
 }

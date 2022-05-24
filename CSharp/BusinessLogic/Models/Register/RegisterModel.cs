@@ -33,4 +33,9 @@ public class RegisterModel: IRegisterModel
     {
        return await RegisterNetworking.GetUsersByRole(role);
     }
+
+    public async Task DeleteUser(string username)
+    {
+        await RegisterNetworking.DeleteUser(username);
+    }
 }

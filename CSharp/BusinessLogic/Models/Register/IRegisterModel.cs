@@ -10,4 +10,5 @@ public interface IRegisterModel
     public Task<string> GetRole(string userName, string password);
     
     public Task<List<UserDTO>> GetUsersByRole(string role);
+    public Task DeleteUser(string username);
 }

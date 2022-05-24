@@ -60,6 +60,12 @@ public class RegisterController : ControllerBase
     {
         return await _registerModelmodel.GetUsersByRole(role);
     }
-    
+
+    [HttpDelete]
+    [Route("{username}")]
+    public async Task DeleteUser(string username)
+    {
+        await _registerModelmodel.DeleteUser(username);
+    }
     
 }
