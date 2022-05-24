@@ -27,7 +27,7 @@ public class BookNetworking : IBookNetworking
 
         
         if (hasGenre==false)
-        { Console.WriteLine("2332232223");
+        { 
             await client.createBookAsync(new BookMessage
             {
                 Isbn = book.Isbn, Author = book.Author, Description = book.Description, Edition = book.Edition,
@@ -105,5 +105,90 @@ public class BookNetworking : IBookNetworking
         return books;
     }
 
-    
+    public async Task<List<Book>> GetBookByGenreAsync(string genre)
+    {
+        var  books = new List<Book>();
+        var allBooksAsync = await client.getAllBooksByGenreAsync(new GenreBookMessage
+        {
+            Type = genre
+        });
+        var bookMessage = allBooksAsync.Books;
+        foreach (var bookProto in bookMessage)
+        {
+            var book = new Book
+            {
+                Isbn = bookProto.Isbn,
+                Title = bookProto.Title,
+                Author = bookProto.Author,
+                Description = bookProto.Description,
+                Edition = bookProto.Edition,
+                ImageUrl = bookProto.Url,
+                Price = bookProto.Price
+
+            };
+            books.Add(book);
+
+        }
+
+        
+        return books;
+    }
+
+    public async Task<List<Book>> GetBookByTitleAsync(string title)
+    {
+        var  books = new List<Book>();
+        var allBooksAsync = await client.getAllBooksByTitleAsync(new GenreBookMessage
+        {
+            Type = title
+        });
+        var bookMessage = allBooksAsync.Books;
+        foreach (var bookProto in bookMessage)
+        {
+            var book = new Book
+            {
+                Isbn = bookProto.Isbn,
+                Title = bookProto.Title,
+                Author = bookProto.Author,
+                Description = bookProto.Description,
+                Edition = bookProto.Edition,
+                ImageUrl = bookProto.Url,
+                Price = bookProto.Price
+
+            };
+            books.Add(book);
+
+        }
+
+        
+        return books;
+    }
+
+    public async Task<List<Book>> GetBookByAuthorAsync(string author)
+    {
+        var  books = new List<Book>();
+        var allBooksAsync = await client.getAllBooksByAuthorAsync(new GenreBookMessage
+        {
+            Type = author
+        });
+        var bookMessage = allBooksAsync.Books;
+        foreach (var bookProto in bookMessage)
+        {
+            var book = new Book
+            {
+                Isbn = bookProto.Isbn,
+                Title = bookProto.Title,
+                Author = bookProto.Author,
+                Description = bookProto.Description,
+                Edition = bookProto.Edition,
+                ImageUrl = bookProto.Url,
+                Price = bookProto.Price
+
+            };
+            books.Add(book);
+
+        }
+
+        
+        return books;
+    }
 }

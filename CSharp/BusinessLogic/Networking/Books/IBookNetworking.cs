@@ -8,4 +8,10 @@ public interface IBookNetworking
      Task <Book>GetBookByIsbnAsync(string isbn);
 
      Task<List<Book>> GetAllBookAsync();
+     
+     Task<List<Book>> GetBookByGenreAsync(string genre);
+     
+     Task<List<Book>> GetBookByTitleAsync(string title);
+     
+     Task<List<Book>> GetBookByAuthorAsync(string author);
 }
