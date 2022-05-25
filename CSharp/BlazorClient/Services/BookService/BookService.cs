@@ -45,9 +45,9 @@ public class BookService : IBookService
         BooksChanged.Invoke();
     }
     
-    public async Task<ServiceResponse<Book>> GetBookByIsbnAsync(string isbn)
+    public async Task<Book> GetBookByIsbnAsync(string isbn)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Book>>($"/Book/{isbn}");
+        var result = await _httpClient.GetFromJsonAsync<Book>($"/Book/{isbn}");
         return result;
     }
 

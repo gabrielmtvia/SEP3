@@ -13,7 +13,7 @@ public class CartBase : ComponentBase
     public long serialOrder;
     public string username = string.Empty;
     
-    [Inject] public ICartService2 _cartService { get; set; }
+    [Inject] public ICartService _cartService { get; set; }
     [Inject] public IBookService _bookService { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -34,16 +34,15 @@ public class CartBase : ComponentBase
         {
             var book = await _bookService.GetBookByIsbnAsync(lineDto.Isbn);
             
-            if(book.Data!=null && lineDto.Quantity != null)
                 ShoppingCartItems.Add(new ShoppingCartItem()
                 {
-                    Author = book.Data.Author, 
-                    ImageUrl = book.Data.ImageUrl, 
-                    Isbn = book.Data.Isbn, 
-                    Price = book.Data.Price, 
-                    Quantity = (int) lineDto.Quantity, 
-                    Title = book.Data.Title, 
-                    Edition = book.Data.Edition
+                    Author = book.Author, 
+                    ImageUrl = book.ImageUrl, 
+                    Isbn = book.Isbn, 
+                    Price = book.Price, 
+                    Quantity = lineDto.Quantity, 
+                    Title = book.Title, 
+                    Edition = book.Edition
                 });
             
         }

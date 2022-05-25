@@ -294,10 +294,9 @@ else
         {
             var book = new Book {Author = " ", Edition = " ", Isbn = " ", Title = " "};
             var result = await _bookService.GetBookByIsbnAsync(orderline.Isbn);
-            if (result.Success)
-            {
-                book = result.Data;
-            }
+
+            book = result;
+            
             booksToView.Add(book);
         }
     }
