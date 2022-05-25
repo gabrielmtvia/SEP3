@@ -1,0 +1,55 @@
+﻿@page "/AllBooks"
+<h3>Search book</h3>
+@inject NavigationManager navMgr
+@inject IBookService bookService
+@inherits AllBooksBase
+
+<div class="container-fluid p-3 shadow-lg">
+    <EditForm Context="myContext" Model="AllBooks" OnValidSubmit="@FilterBooksAsync">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <div class="row w-50 mb-5">
+            <div class="col-lg-6">
+                <InputText @bind-Value="@SearchName" class="w-100" placeholder="Book name"/>
+            </div>
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary btn-sm">SEARCH</button>
+            </div>
+        </div>
+    </EditForm>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ISBN</th>
+            <th scope="col">Book title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Edition</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (!DisplayBooks.Any())
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            @foreach (var book in DisplayBooks)
+            {
+                <tr>
+                    <th scope="row">@book.Isbn</th>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Edition</td>
+                    <td>
+                        <button class="oi oi-trash" style="color: red" @onclick="() => DeleteBookAsync(book.Isbn)"></button>
+                        <button class="oi oi-pencil" style="color: #0b5ed7" @onclick="() => EditBookAsync(book.Isbn)"></button>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+
+</div>
