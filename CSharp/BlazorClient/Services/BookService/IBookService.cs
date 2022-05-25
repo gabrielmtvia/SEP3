@@ -16,7 +16,7 @@ public interface IBookService
     Task SearchBooks(string searchText);
     Task<List<string>> GetBookSearchSuggestionsAsync(string searchText);
     
-    Task <ServiceResponse<Book>> GetBookByIsbnAsync(string isbn);
+    Task <Book> GetBookByIsbnAsync(string isbn);
 
     Task AddBookAsync(Book book);
 }

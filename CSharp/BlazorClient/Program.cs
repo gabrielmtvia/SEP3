@@ -26,11 +26,10 @@ builder.Services.AddSingleton(sp => new HttpClient {BaseAddress = new Uri("https
 builder.Services.AddScoped<IAuthService, AuthServiceIMP>();
 builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
-builder.Services.AddSingleton<IBookService, BlazorClient.Services.BookService.BookService>();
+builder.Services.AddScoped<IBookService, BlazorClient.Services.BookService.BookService>();
 builder.Services.AddScoped<IGenreService, BlazorClient.Services.GenreService.GenreService>();
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
-builder.Services.AddScoped<ICartService2, CartService2>();
-//builder.Services.AddSingleton<ICartService, CartService>();
+builder.Services.AddScoped<ICartService, BlazorClient.Services.CartService.CartService>();
 //builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
 builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 builder.Services.AddScoped<IImageService, ImageService>();

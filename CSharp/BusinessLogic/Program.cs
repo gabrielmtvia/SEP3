@@ -1,10 +1,12 @@
 
 using BusinessLogicServer.Models.Books;
+using BusinessLogicServer.Models.Cart;
 using BusinessLogicServer.Models.Genre;
 using BusinessLogicServer.Models.Order;
 //using BusinessLogicServer.Models.Orders;
 using BusinessLogicServer.Models.Register;
 using BusinessLogicServer.Networking.Books;
+using BusinessLogicServer.Networking.Cart;
 using BusinessLogicServer.Networking.Genre;
 using BusinessLogicServer.Networking.Order;
 //using BusinessLogicServer.Networking.Orders;
@@ -44,10 +46,10 @@ builder.Services.AddScoped<IBookNetworking, BookNetworking>();
 builder.Services.AddScoped<IBookModel, BookModel>();
 builder.Services.AddScoped<IGenreModel, GenreModel>();
 builder.Services.AddScoped<IgenreNetworking, GenreNetworking>();
-//builder.Services.AddSingleton<ICartService, CartService>();
+builder.Services.AddScoped<ICartModel, CartModel>();
 builder.Services.AddScoped<IRegisterModel, RegisterModel>();
 builder.Services.AddScoped<IRegisterNetworking, RegisterNetworking>();
-
+builder.Services.AddScoped<ICartNetworking, CartNetworking>();
 builder.Services.AddScoped<IOrderModel, OrderModel>();
 builder.Services.AddScoped<IOrderNetworking, OrderNetworking>();
 

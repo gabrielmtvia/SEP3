@@ -48,7 +48,7 @@ public class BookController : ControllerBase
     
     [HttpGet]
     [Route("{isbn}")]
-    public async Task<ActionResult<ServiceResponse<Book>>> GetBookAsync(string isbn)
+    public async Task<ActionResult<Book>> GetBookAsync(string isbn)
     {
         try
         {

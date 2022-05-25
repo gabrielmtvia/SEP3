@@ -1,8 +1,10 @@
 ﻿using BlazorClient.Services.BookService;
 using BlazorClient.Services.CartService;
+using BlazorClient.Services.OrderService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using ModelClasses;
+using SixLabors.ImageSharp.Processing;
 
 namespace BlazorClient.Pages;
 
@@ -11,12 +13,13 @@ public class CustomerOrderHistoryBase : ComponentBase
     public string Message = string.Empty;
     public string Username = string.Empty;
     public List<ShoppingCartItem> CurrentOrder = new List<ShoppingCartItem>();
-    public List<OrderDTO> OrderList = new List<OrderDTO>();
+    public List<OrdersDTO> OrderList = new List<OrdersDTO>();
     public long CurrentSerialOrder;
-    public OrderStatus CurrentOrderStatus;
+    public string CurrentOrderStatus;
 
     [Inject] private ICartService _cartService { get; set; }
     [Inject] private IBookService _bookService { get; set; }
+    [Inject] private IOrderService _orderService { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
     
     protected override async Task OnInitializedAsync()
@@ -28,30 +31,45 @@ public class CustomerOrderHistoryBase : ComponentBase
     {
         Username = authenticationStateTask.Result.User.Identity.Name;
 
-        var response = await _cartService.GetAllOrdersByUsernameAsync(Username);
+        var response = await _orderService.GetAllOrdersAsync();
 
-        if(response.Success && response.Data != null)
-            OrderList = response.Data;
-        else
+        foreach (var order in response)
         {
-            Message = response.Message;
+            if (order.username.Equals(Username))
+            {
+                OrderList.Add(order);
+            }
         }
     }
 
-    public async Task LoadOrder(long serialOrder)
+    public async Task LoadOrder(long id)
     {
-        CurrentSerialOrder = serialOrder;
-        var order = OrderList.Find(o => o.SerialOrder == serialOrder);
+        CurrentSerialOrder = id;
+        var order = OrderList.Find(o => o.id == CurrentSerialOrder);
         
         if (order != null)
         {
-            CurrentOrderStatus = order.Status;
+            CurrentOrderStatus = order.status;
         }
 
-        var result = await _cartService.GetShoppingCart(serialOrder);
+        var response = await _orderService.GetOrderLines(id);
+
+        CurrentOrder = new List<ShoppingCartItem>();
         
-        if (result.Success && result.Data != null)
-            CurrentOrder = result.Data;
-        else Message = result.Message;
+        foreach (var orderLine in response)
+        {
+            var book = await _bookService.GetBookByIsbnAsync(orderLine.Isbn);
+            CurrentOrder.Add(new ShoppingCartItem()
+            {
+                Title = book.Title,
+                Author = book.Author,
+                Edition = book.Edition,
+                ImageUrl = book.ImageUrl,
+                Isbn = book.Isbn,
+                Price = book.Price,
+                Quantity = orderLine.Quantity
+            });
+        }
+        
     }
 }

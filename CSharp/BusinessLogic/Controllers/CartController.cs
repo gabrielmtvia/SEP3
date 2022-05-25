@@ -1,4 +1,5 @@
-﻿using BusinessLogicServer.Service.CartService;
+﻿using BusinessLogicServer.Models.Cart;
+using BusinessLogicServer.Service.CartService;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 
@@ -8,14 +9,28 @@ namespace BusinessLogicServer.Controllers;
 [Route("[controller]")]
 public class CartController : ControllerBase
 {
-    private readonly ICartService _service;
+    private readonly ICartModel _model;
 
-    public CartController(ICartService service)
+    public CartController(ICartModel model)
     {
-        _service = service;
+        _model = model;
     }
 
-    [HttpGet]
+    [HttpPost]
+    public async Task<ActionResult> AddCartAsync(CartLineDTO cartLineDto)
+    {
+        try
+        {
+            await _model.AddCartAsync(cartLineDto);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    /*[HttpGet]
     [Route("{orderId}")]
     public async Task<ActionResult<ServiceResponse<List<OrderLineDTO>>>> GetCartItemsAsync(long orderId)
     {
@@ -80,6 +95,6 @@ public class CartController : ControllerBase
         Console.WriteLine("Controller received serial order" + serialOrder);
         var result = await _service.CheckOut(serialOrder);
         return Ok(result);
-    }
+    }*/
 
 }

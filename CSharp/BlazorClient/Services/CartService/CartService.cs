@@ -1,88 +1,93 @@
-﻿using ModelClasses;
+using Blazored.LocalStorage;
+using ModelClasses;
 
 namespace BlazorClient.Services.CartService;
 
 public class CartService : ICartService
 {
-    public event Action? OnChange;
-
-    private readonly HttpClient _httpClient;
-
-    public CartService(HttpClient httpClient)
+    private readonly ILocalStorageService _localStorage;
+    private HttpClient _httpClient;
+    
+    public CartService(ILocalStorageService localStorage, HttpClient httpClient)
     {
+        _localStorage = localStorage;
         _httpClient = httpClient;
     }
 
-    public async Task AddToCart(OrderLineDTO item)
+    public async Task AddToCart(OrderLineDTO orderLineDto, string username)
     {
-        // var result = await _httpClient.GetFromJsonAsync<ServiceResponse<CartList<OrderLineDTO>>>($"/Cart/{item.SerialOrder}");
-        // if (result != null && result.Data != null)
-        // {
-        //     var orderLine = result.Data.Find(o => o.Isbn == item.Isbn);
-        //     if (orderLine != null)
-        //     {
-        //         item.Quantity += orderLine.Quantity;
-        //     }
-        // }
+        var cart = await RetrieveCart(username);
 
-        await _httpClient.PostAsJsonAsync("/addToCart", item);
-        OnChange?.Invoke();
+        cart.CartOrderLineDtos.Add(orderLineDto);
 
+        await _localStorage.SetItemAsync("cart", cart);
     }
 
-    public Task<ServiceResponse<List<OrderLineDTO>>> GetCartItems(long orderId)
+    private async Task<CartLineDTO> RetrieveCart(string _username)
     {
-        var result = _httpClient.GetFromJsonAsync<ServiceResponse<List<OrderLineDTO>>>($"/Cart/{orderId}");
-        return result;
-    }
-
-    public async Task<ServiceResponse<long>> CreateOrder(OrderDTO order)
-    {
-        var response = await _httpClient.PostAsJsonAsync("/createOrder", order);
-        var contents = await response.Content.ReadFromJsonAsync<ServiceResponse<long>>();
-        return contents;
-    }
-
-    public Task<ServiceResponse<List<ShoppingCartItem>>> GetShoppingCart(long serialOrder)
-    {
-        var result =
-            _httpClient.GetFromJsonAsync<ServiceResponse<List<ShoppingCartItem>>>($"/getShoppingCart/{serialOrder}");
-        return result;
-    }
-
-    public async Task<ServiceResponse<long>> GetSerialOrder(UsernameDateStatus usernameDateStatus)
-    {
-        var result = await _httpClient.PostAsJsonAsync("/getSerialOrder", usernameDateStatus);
-
-        var response = result.Content.ReadFromJsonAsync<ServiceResponse<long>>().Result;
-
-        return response;
-    }
-
-    public async Task<ServiceResponse<long>> CheckOut(long serialOrder)
-    {
-        var result = await _httpClient.PostAsJsonAsync("/checkOut", serialOrder);
-        var response = result.Content.ReadFromJsonAsync<ServiceResponse<long>>().Result;
-        OnChange?.Invoke();
-        return response;
-    }
-
-    public async Task RemoveProductFromCart(OrderLineDTO item)
-    {
-       await _httpClient.PostAsJsonAsync("/removeProductFromCart", item);
-       OnChange?.Invoke();
-    }
-
-    public async Task<ServiceResponse<List<OrderDTO>>> GetAllOrdersByUsernameAsync(string username)
-    {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<OrderDTO>>>($"/getAllOrders/{username}");
-        if(result != null)
-            return result;
-        
-        return new ServiceResponse<List<OrderDTO>>()
+        var cart = await _localStorage.GetItemAsync<CartLineDTO>("cart");
+        if (cart == null)
         {
-            Success = false,
-            Message = "Network error"
+            cart = new CartLineDTO()
+            {
+                username = _username,
+                CartOrderLineDtos = new List<OrderLineDTO>()
+            };
+        }
+        else if (!cart.username.Equals(_username))
+        {
+            cart = new CartLineDTO()
+            {
+                username = _username,
+                CartOrderLineDtos = new List<OrderLineDTO>()
+            };
+        }
+
+        return cart;
+    }
+
+    public async Task<List<OrderLineDTO>> GetCartItems(string username)
+    {
+        var cart = await RetrieveCart(username);
+
+        return cart.CartOrderLineDtos;
+    }
+
+    public async Task RemoveBookFromCart(OrderLineDTO orderLineDto, string username)
+    {
+        var cart = await RetrieveCart(username);
+        var index = cart.CartOrderLineDtos.FindIndex(o => o.Isbn.Equals(orderLineDto.Isbn));
+        cart.CartOrderLineDtos.RemoveAt(index);
+        
+        await _localStorage.SetItemAsync("cart", cart);
+    }
+
+    public async Task UpdateCart(OrderLineDTO orderLineDto, string username)
+    {
+        var cart = await RetrieveCart(username);
+        var orderLine = cart.CartOrderLineDtos.Find(o => o.Isbn.Equals(orderLineDto.Isbn));
+        if (orderLine != null) orderLine.Quantity = orderLineDto.Quantity;
+        
+        await _localStorage.SetItemAsync("cart", cart);
+    }
+
+    public async Task CheckOutCart(string _username)
+    {
+        var cart = await RetrieveCart(_username);
+        
+        //send the cart to the database
+        
+        var responseMessage = await _httpClient.PostAsJsonAsync("/Cart", cart);
+        
+        Console.WriteLine(responseMessage.ToString());
+        
+        //clear the shopping cart, initialize to the current user and add it to the local storage
+        cart = new CartLineDTO()
+        {
+            username = _username,
+            CartOrderLineDtos = new List<OrderLineDTO>()
         };
+        
+        await _localStorage.SetItemAsync("cart", cart);
     }
 }
