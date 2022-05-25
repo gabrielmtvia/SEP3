@@ -15,7 +15,9 @@ public class OrderModel:IOrderModel
 
     public  async Task<List<OrdersDTO>> GetAllOrdersAsync()
     {
-       return  await _orderNetworking.GetAllOrdersAsync();
+        var orders = await _orderNetworking.GetAllOrdersAsync();
+        orders = (from order in orders orderby order.id select order).ToList();
+        return orders;
     }
 
     public async Task<UserDTO> GetCustomer(string orderUsername)
@@ -25,7 +27,9 @@ public class OrderModel:IOrderModel
 
     public async Task<List<OrdersDTO>> GetAllOrdersByStatusAsync(string status)
     {
-        return await _orderNetworking.GetAllOrdersByStatusAsync(status);
+        var orders = await _orderNetworking.GetAllOrdersByStatusAsync(status);
+        orders = (from order in orders orderby order.id select order).ToList();
+        return orders;
     }
 
     public  async Task<List<OrderLineDTO>> GetOrderLines(long id)

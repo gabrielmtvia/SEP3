@@ -6,7 +6,7 @@ public class OrderLineDTO
     public string Isbn { get; set; } 
     public int Quantity { get; set; }
 
-    public Book book { get; set; }
+    public Book? book { get; set; }
 
     public OrderLineDTO(string isbn, int quantity)
     {

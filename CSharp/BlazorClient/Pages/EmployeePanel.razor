@@ -1,10 +1,7 @@
-
-   
 @page "/EmployeePanel"
 @using ModelClasses
 @using UIElements
 @inject NavigationManager navMgr
-@inject IBookService _bookService
 @inject IOrderService orderService
 
 <div clss="container">
@@ -14,7 +11,6 @@
             <div class="input-group">
                 <input @bind-value="searchText"
                        @bind-value:event="oninput"
-                       @onkeydown="@Enter"
                        type="number"
                        list="books"
                        class="form-control"
@@ -127,7 +123,8 @@ else
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Quantity</th> <th>ISBN</th> <th>Author</th> <th>Title</th>
+
+                    <th>Quantity</th> <th>ISBN</th> <th>Title</th> <th>Edition</th><th>Author</th><th>Price</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -136,8 +133,10 @@ else
                     <tr>
                         <td>@item.Quantity</td>
                         <td>@item.Isbn</td>
-                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Author</td>
-                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Title</td>
+                        <td>@item.book.Title</td>
+                        <td>@item.book.Edition</td>
+                        <td>@item.book.Author</td>
+                        <td>@item.book.Price</td>
                     </tr>
                 }
                 </tbody>
@@ -204,7 +203,6 @@ else
     private bool showModalGeneralInfo = false;
     private UserDTO customerToView = new();
     private ICollection<OrderLineDTO> orderlinesToView = new List<OrderLineDTO>();
-    private ICollection<Book> booksToView = new List<Book>();
 
 
     protected override async Task OnInitializedAsync()
@@ -251,6 +249,7 @@ else
     
     private async Task UpdateOrderStatusFilter(ChangeEventArgs args)
     {
+        searchText = "";
         orderStatusFilter = (string) args.Value;
         await ApplyFilters();
     }
@@ -262,12 +261,10 @@ else
             if (orderStatusFilter!.Equals("All"))
             {
                 ordersToShow = await orderService.GetAllOrdersAsync();
-                ordersToShow = (from order in ordersToShow orderby order.id select order).ToList();
             }
             else
             {
                 ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);
-                ordersToShow = (from order in ordersToShow orderby order.id select order).ToList();
             }
         }
         catch (Exception e)
@@ -280,29 +277,14 @@ else
     {
         customerToView = new UserDTO();
         orderlinesToView = new List<OrderLineDTO>();
-        booksToView = new List<Book>();
         showModalWithOrderDetails = false;
     }
 
     private async Task ShowOrderDetails(OrdersDTO order)
     {
-        customerToView = await orderService.GetCustomer(order.username);
+        customerToView = order.user;
         orderlinesToView = await orderService.GetOrderLines(order.id);
-        await GatherBooksToView();
         showModalWithOrderDetails = true;
-    }
-
-    private async Task GatherBooksToView()
-    {
-        foreach (var orderline in orderlinesToView)
-        {
-            var book = new Book {Author = " ", Edition = " ", Isbn = " ", Title = " "};
-            var result = await _bookService.GetBookByIsbnAsync(orderline.Isbn);
-
-            book = result;
-            
-            booksToView.Add(book);
-        }
     }
 
     private async Task SearchForAnOrderByID()
@@ -327,13 +309,6 @@ else
         else
         {
             ordersToShow.Add(order);    
-        }
-    }
-    private async void Enter(KeyboardEventArgs e)
-    {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter")
-        {
-            await SearchForAnOrderByID();
         }
     }
 }
