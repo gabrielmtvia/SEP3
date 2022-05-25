@@ -2,72 +2,185 @@
 @using ModelClasses
 @inherits CustomerOrderHistoryBase
 @inject NavigationManager _navigationManager
+@inject IOrderService orderService
 
-<h3>Customer Order History</h3>
+<div clss="container">
+    <div class="row">
+    <div class="col-2"><h3>Order History</h3></div>
+        <div class="col-3">
+            <div class="input-group">
+                <input @bind-value="searchText"
+                       @bind-value:event="oninput"
+                       type="number"
+                       list="books"
+                       class="form-control"
+                       placeholder="Search for an order by its ID..."
+                       @ref="searchInput"/>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" @onclick="SearchForAnOrderByID">
+                        <span class="oi oi-magnifying-glass"></span>
+                    </button>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="col-7">
+            &nbsp;
+        </div>
+  </div>
+</div>
 
-@if (OrderList == null || OrderList.Count == 0)
+<div class="filterbar">
+    <div class="filterscontainer">
+        <img src="img/@(doShowFilters?"clear_" : "")funnel.png" 
+             class="icon" 
+             @onclick="OpenCloseFilters"/>
+        
+        @if (doShowFilters)
+        {
+            <div class="filter">
+                <div>
+                    <label style="text-align: center">Is dispatched?</label>
+                </div>
+                <div>
+                    <select class="orderstatus" 
+                            @onchange="async args => await UpdateOrderStatusFilter(args)">
+                        <option value="All">All</option>
+                        <option value="Dispatched">Dispatched</option>
+                        <option value="Confirmed">Not dispatched</option>
+                    </select>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<p>
+    <em>@info</em>
+</p>
+
+@if (ordersToShow == null)
 {
-    <span>@Message</span>
+    info = "Loading...";
+}
+else if (!ordersToShow.Any())
+{
+    info = "No orders to show. Please change the filter and/or wait for new orders.";
 }
 else
 {
-    <span>@Message</span>
-    <div>
-        @if (CurrentOrder.Count != 0)
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Order ID</th> <th>Order date and time</th> <th>Status</th> <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ordersToShow)
         {
-          <span>Displaying order number [@CurrentSerialOrder]</span>  
+            <tr>
+                <td>@item.id</td>
+                <td>@item.date</td>
+                <td>@item.status</td>
+                <td>
+                    <img src="img/document.png" class="icon" @onclick="@(() => ShowOrderDetails(item))"/>
+                </td>
+            </tr>
         }
-        
-        @foreach (var product in CurrentOrder)
-        {
-            <div class="container">
-                <div class="image-wrapper">
-                    <img src="@product.ImageUrl" class="image"/>
-                </div>
-                <div class="name">
-                    <h5><a href="/BookDetails/@product.Isbn">@product.Title</a></h5>
-                </div>
-                <div class="cart-product-price">$@product.Price</div>
-                <div class="cart-product-quantity">Quantity: @product.Quantity</div>
-            </div>
-        }
-        @if (CurrentOrder.Count != 0)
-        {
-            <div class="cart-product-price">
-                Total (@CurrentOrder.Count): $@CurrentOrder.Sum(items => @items.Price * @items.Quantity)
-            </div>
-        }
-        @if (CurrentOrder.Count != 0 && CurrentOrderStatus.Equals(OrderStatus.NotConfirmed.ToString()))
-        {
-            <div class="button">
-                <button class="btn btn-primary" onclick="@((()=> _navigationManager.NavigateTo($"/Cart")))">
-                    <i class="oi oi-basket">Edit cart</i>
-                </button>
-            </div>
-        }
-        @if (OrderList.Count != 0)
-        {
-            <div class="orderCartList">
-                <h4>Order number</h4>
-                <h4>Status</h4>
-                <h4>Order date</h4>
-                <h4>Review Order</h4>
-
-            </div>
-        }
-        @foreach (var order in OrderList)
-        {
-            <div class="orderCartList">
-                <h4>@order.id</h4>
-                <h4>@order.status</h4>
-                <h4>@order.date</h4>
-                <button class="btn btn-primary" @onclick="@(() => LoadOrder(order.id))">
-                    <i class="oi oi-basket">Review order</i>
-                </button>
-            </div>
-
-        }
-
-    </div>
+        </tbody>
+    </table>
 }
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
+@if (showModalWithOrderDetails)
+{
+    <Modal>
+        <h3>Order details</h3>
+        <hr/>
+
+        @if (orderlinesToView == null)
+        {
+            <p>
+                <em>Loading...</em>
+            </p>
+        }
+        else if (!orderlinesToView.Any())
+        {
+            <p>
+                <em>The order is mt.</em>
+            </p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                <tr>
+
+                    <th>Quantity</th> <th>ISBN</th> <th>Title</th> <th>Edition</th><th>Author</th><th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in orderlinesToView)
+                {
+                    <tr>
+                        <td>@item.Quantity</td>
+                        <td>@item.Isbn</td>
+                        <td>@item.book.Title</td>
+                        <td>@item.book.Edition</td>
+                        <td>@item.book.Author</td>
+                        <td>@item.book.Price</td>
+                    </tr>
+                }
+                <tr><td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total (@orderlinesToView.Count): $@orderlinesToView.Sum(items => @items.book.Price * @items.Quantity)</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Customer's detials:</p>
+            <table class="table">
+                <tr>
+                    <th>E-mail</th>
+                    <td>@customerToView.email</td>
+                </tr>
+                <tr>
+                    <th>Phone number</th>
+                    <td>@customerToView.phone</td>
+                </tr>
+                <tr>
+                    <th>Firstname</th>
+                    <td>@customerToView.firstName</td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>@customerToView.lastName</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>@customerToView.address</td>
+                </tr>
+            </table>
+        }
+
+        @if (!string.IsNullOrEmpty(editErrorLabel))
+        {
+            <div>
+                <label style="color:red">@editErrorLabel</label>
+            </div>
+        }
+        <div style="margin-top: 15px; text-align: center;">
+            <button @onclick="@(() => HideOrderDetails())">OK</button>
+        </div>
+    </Modal>
+}
+
+
+
+
 
