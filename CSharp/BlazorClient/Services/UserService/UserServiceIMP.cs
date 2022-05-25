@@ -99,15 +99,15 @@ public class UserServiceIMP : IUserService
     // }
 
     
-
-     // User user= new User(username,password,role);
-          //   
-          //   User? find = users.Find(user => user.userName.Equals(username));
-          //   return find;
-    private List<User> users = new()
-    {
-        new User("Troels", "Troels1234", "Admin"),
-        new User("Maria", "oneTwo3FOUR", "Customer"),
-        new User("Anne", "password", "Employee")        
-    };
+    //
+    //  User user= new User(username,password,role);
+    //         
+    //         User? find = users.Find(user => user.userName.Equals(username));
+    //         return find;
+    // private List<User> users = new()
+    // {
+    //     new User("Troels", "Troels1234", "Admin"),
+    //     new User("Maria", "oneTwo3FOUR", "Customer"),
+    //     new User("Anne", "password", "Employee")        
+    // };
 }
