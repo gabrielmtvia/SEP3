@@ -1,7 +1,8 @@
 ﻿@inject IGenreService GenreService
 
 
-        <div class="top-row ps-3 navbar navbar-dark">
+
+<div class="top-row ps-3 navbar navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="">BlazorClient</a>
                 <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -55,14 +56,22 @@
                 <AuthorizeView Policy="MustBeAdmin">
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="Register">
-                            <span class="oi oi-cartList-rich" aria-hidden="true"></span> Register An Employee
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 20 18">
+                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                            
+                                </svg>
+                                 Register An Employee
+                            </span>
+                            @* <span class="bi bi-person-plus-fill" aria-hidden="true">Register An Employee</span> *@
                         </NavLink>
                     </div>
                 </AuthorizeView> 
                 
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="ListOfEmployee">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Employee
+                            <span class="oi oi-person" aria-hidden="true"></span> Employee
                         </NavLink>
                     </div>
                 

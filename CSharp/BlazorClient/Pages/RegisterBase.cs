@@ -55,9 +55,16 @@ public class RegisterBase : ComponentBase
         if (userDto.userName !=null && userDto.firstName !=null && userDto.lastName !=null && userDto.phone !=null && userDto.email !=null && userDto.address !=null && userDto.password !=null)
         {
             Thread.Sleep(500);
-            Alert("You have created account Successfully \n Go to log in please ");
-            NavigationManager.NavigateTo("/Login");
-
+            Alert("You have created account Successfully");
+            if (user.Identity == null)
+            {
+                NavigationManager.NavigateTo("/Login");
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/ListOfEmployee");
+            }
+        
         }
       
     }
