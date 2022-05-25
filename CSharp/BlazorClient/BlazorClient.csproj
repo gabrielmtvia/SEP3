@@ -17,9 +17,6 @@
       <Compile Update="Pages\RegisterBase.cs">
         <DependentUpon>Register.razor</DependentUpon>
       </Compile>
-      <Compile Update="Shared\BookListBase.cs">
-        <DependentUpon>BookList.razor</DependentUpon>
-      </Compile>
       <Compile Update="Pages\AllBooksBase.cs">
         <DependentUpon>AllBooks.razor</DependentUpon>
       </Compile>

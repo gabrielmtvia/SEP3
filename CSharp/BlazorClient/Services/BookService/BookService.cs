@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BlazorClient.Shared;
@@ -13,18 +14,12 @@ namespace BlazorClient.Services.BookService;
 public class BookService : IBookService
 {
     private readonly HttpClient _httpClient;
-    
-    
-
-    public string Message { get; set; } = "Loading books...";
-    public event Action BooksChanged;
-    public List<Book> Books { get; set; } = new List<Book>();
-    public List<Book> AllBooks { get; set; }
 
     public BookService(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
+    
     
     
 
@@ -33,6 +28,15 @@ public class BookService : IBookService
         await _httpClient.PostAsJsonAsync("/Book", book);
     }
 
+    public async Task DeleteBookAsync(string isbn)
+    {
+        await _httpClient.DeleteAsync($"/Book/{isbn}");
+    }
+
+    public async Task EditBook(Book bookToEdit)
+    {
+        await _httpClient.PutAsJsonAsync("/Book", bookToEdit);
+    }
 
     public async Task<List<Book>>GetAllBooksAsync()
     {
@@ -40,51 +44,40 @@ public class BookService : IBookService
         if (result.IsSuccessStatusCode)
         {
             var readAsStringAsync = await result.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<Book>>(readAsStringAsync);
+            return JsonSerializer.Deserialize<List<Book>>(readAsStringAsync, new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
         }
         return null;
     }
-    
-    
-    // public async Task GetBooksAsync(string? genreUrl = null)
-    // {
-    //     var result = genreUrl == null ? 
-    //         await _httpClient.GetFromJsonAsync<ActionResult<List<Book>>>("/Book") :
-    //         await _httpClient.GetFromJsonAsync<ActionResult<List<Book>>>($"/Book/genre/{genreUrl}");
-    //     if(result!=null && result.Data !=null) 
-    //         Books = result.Data;
-    //     
-    //     BooksChanged.Invoke();
-    // }
-    
+
     public async Task<Book> GetBookByIsbnAsync(string isbn)
     {
         var result = await _httpClient.GetFromJsonAsync<Book>($"/Book/{isbn}");
         return result;
     }
 
-    public async Task SearchBooks(string searchText)
+    public async Task<List<Book>> GetBooksByNameAsync(string searchName)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
+        var result = await _httpClient.GetAsync($"/Book/search/{searchName}");
 
-        if (result is {Data: { }})
+        if (result.IsSuccessStatusCode)
         {
-            Books = result.Data;
+            var readAsStringAsync = await result.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Book>>(readAsStringAsync);
         }
 
-        if (Books.Count == 0)
-        {
-            Message = "No books found";
-        }
-        
-        BooksChanged.Invoke();
+        return null;
     }
+    
 
+    /*
     public async Task<List<string>> GetBookSearchSuggestionsAsync(string searchText)
     {
         var result =
             await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/Book/searchSuggestions/{searchText}");
         Console.WriteLine(result.Message);
         return result.Data;
-    }
+    } */
 }

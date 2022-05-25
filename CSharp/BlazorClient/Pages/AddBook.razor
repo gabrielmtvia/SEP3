@@ -1,4 +1,5 @@
 ﻿@page "/AddBook"
+@page "/AddBook/{Isbn}"
 <h3>AddBookToAdd</h3>
 
 @inject NavigationManager navMgr
@@ -30,7 +31,7 @@
  
      <div class="form-outline mb-4">
          <InputFile class="form-control" OnChange="SaveImageAsync"
-                    accept="image/*" id="inputFile"/>
+                    accept=".jpg, .jpeg, .png" id="inputFile"/>
          <label class="form-label" for="inputFile">Choose file</label>
      </div>
      <div class="form-outline mb-4">
@@ -49,7 +50,7 @@
      </div>
      
      <div class="form-outline mb-4">
-         <InputText type="text" id="bookIsbn" class="form-control"@bind-Value="BookToAdd.Isbn"/>
+         <InputText type="text" id="bookIsbn" disabled="@isDisabled" class="form-control"@bind-Value="BookToAdd.Isbn"/>
          <label class="form-label" for="bookIsbn">Book Isbn</label>
      </div>
      

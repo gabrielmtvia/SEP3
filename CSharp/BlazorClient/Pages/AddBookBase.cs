@@ -15,6 +15,13 @@ public class AddBookBase : ComponentBase
     private IImageService ImageService { set; get; }
     [Inject]
     private IGenreService GenreService { set; get; }
+    [Inject]
+    private NavigationManager navigationManager { set; get; }
+
+    public bool isDisabled = false;
+    
+    [Parameter]
+    public String Isbn { set; get; }
     
     public Book BookToAdd = new Book();
     public List<Genre> genres = new();
@@ -22,11 +29,25 @@ public class AddBookBase : ComponentBase
     protected override async Task OnInitializedAsync()
     {
       genres= await GenreService.GetAllGenresAsync();
+      if (Isbn != null)
+      {
+          BookToAdd = await BookService.GetBookByIsbnAsync(Isbn);
+          isDisabled = true;
+      }
     }
 
     public async Task TryAddBookAsync()
     {
-        await BookService.AddBookAsync(BookToAdd);
+        if (Isbn == null)
+        {
+            await BookService.AddBookAsync(BookToAdd);
+        }
+        else
+        {
+            await BookService.EditBook(BookToAdd);
+        }
+        
+        navigationManager.NavigateTo("/AllBooks");
     }
 
     public void SelectedGenreChanged(ChangeEventArgs obj)
