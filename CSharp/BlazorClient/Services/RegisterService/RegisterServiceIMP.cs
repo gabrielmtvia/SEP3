@@ -52,8 +52,22 @@ public class RegisterServiceIMP : IRegisterService
        
     }
 
-    public async Task<UserDTO?> GetO(string role)
+    public  Task update(UserDTO userDto, string userName)
     {
-        return  await _httpClient.GetFromJsonAsync<UserDTO>($"https://localhost:7031/ListOfUsersByRole?role={role}");
+         Console.WriteLine(userDto.userName, "," + userName);
+         return null;
+    }
+
+    public async Task DeleteUser(string username)
+    {
+        //https://localhost:7031/Register/sher
+
+
+        HttpResponseMessage response = await _httpClient.DeleteAsync($"https://localhost:7031/Register/{username}");
+        string content =   await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
     }
 }

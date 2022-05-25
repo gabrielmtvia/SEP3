@@ -12,7 +12,7 @@ public class BookDetailsBase : ComponentBase {
     public string Message = string.Empty;
     public long OrderId { get; set; } 
     public string Username = string.Empty;
-    [Inject] private ICartService2 _cartService { get; set; }
+    [Inject] private ICartService _cartService { get; set; }
     [Inject] private IBookService _bookService { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -23,15 +23,7 @@ public class BookDetailsBase : ComponentBase {
     protected override async Task OnParametersSetAsync()
     {
         Message = "Loading products";
-        var result = await _bookService.GetBookByIsbnAsync(Isbn);
-        if (!result.Success)
-        {
-            Message = result.Message;
-        }
-        else
-        {
-            Book = result.Data;
-        }
+        Book = await _bookService.GetBookByIsbnAsync(Isbn);
         
         var user = await authenticationStateTask;
         if (user.User.Identity != null && !user.Equals(null) && !user.User.Identity.Equals(null))
