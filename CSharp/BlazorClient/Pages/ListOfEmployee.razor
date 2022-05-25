@@ -1,6 +1,6 @@
 @page "/ListOfEmployee"
 @inherits EmployeeList
-
+@using UIElements
 
 <h3 class="hh">Employee Who Are Registered</h3>
 
@@ -24,17 +24,87 @@
             <div class="card-footer text-center">
                 <a href="ViewListOfEmployee/@employee.userName"  class="btn btn-primary m-1">View</a>
                 <a href="EditEmployee/@employee.userName" class="btn btn-primary m-1">Edit</a>
-                 @* <button class="btn btn-danger m-1" @onclick="@(() => Delete( employee.userName))"> Delete </button> *@
-                 <a href="#" class="btn btn-danger m-1" @onclick="@(() => Delete( employee.userName))"> Delete</a> 
+                @* <button class="btn btn-danger m-1" @onclick="@(() => Delete( employee.userName))"> Delete </button> *@
+                <a @onclick="@(() => Delete(employee.userName))" class="btn btn-danger m-1" >Delete</a>
+              
+                
+                
+
             </div>
             
         </div>
+        
     }
+   
     
 </div>
-
-
-
+    
 }
 
- 
+
+
+
+
+
+@* <button onclick="document.getElementById('id01').style.display='block'">Open Modal</button> *@
+@* *@
+@* <div id="id01" class="modal"> *@
+@*   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> *@
+@*   <form class="modal-content" action="/action_page.php"> *@
+@*     <div class="container"> *@
+@*       <h1>Delete Account</h1> *@
+@*       <p>Are you sure you want to delete your account?</p> *@
+@*      *@
+@*       <div class="clearfix"> *@
+@*         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> *@
+@*         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button> *@
+@*       </div> *@
+@*     </div> *@
+@*   </form> *@
+@* </div> *@
+@* *@
+@* *@
+
+
+
+
+
+@* *@
+@*    *@
+@* @if (!string.IsNullOrEmpty(errorLabel)) *@
+@*                                      *@
+@* { *@
+@*     <label>@errorLabel</label> *@
+@* } *@
+@* @if (showModal) *@
+@* { *@
+@*     <Modal> *@
+@*         <p>Are YOU Sure that you want to delete this employee</p> *@
+@*         <button @onclick="@(() => Yees(employee.userName))" >Yes</button> *@
+@*         <button @onclick="@Proceed">No</button> *@
+@*     </Modal> *@
+@* } *@
+
+
+  
+@*                                *@
+@*                                *@
+@* <button onclick="document.getElementById('id01').style.display='block'">Delete</button> *@
+@* *@
+@* <div id="id01" class="modal"> *@
+@*     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> *@
+@*     <form class="modal-content" action="/action_page.php"> *@
+@*         <div class="container"> *@
+@*             <h1>Delete Account</h1> *@
+@*             <p>Are you sure you want to delete your account?</p> *@
+@*                      *@
+@*             <div class="clearfix"> *@
+@*                 <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> *@
+@*                 <button type="button" onclick="document.getElementById('id01').style.display='none'"    class="deletebtn">   *@
+@*                     @(() => Delete(employee.userName)) *@
+@*                 </button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </form> *@
+@* </div> *@
+@* *@

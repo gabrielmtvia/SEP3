@@ -1,3 +1,4 @@
+
 using BlazorClient.Services.RegisterService;
 using Microsoft.AspNetCore.Components;
 using ModelClasses;
@@ -13,6 +14,9 @@ public class EmployeeList : ComponentBase
     public IRegisterService IRegisterService{ get; set; }
 
     private string role = "Employee";
+    public string errorLabel = String.Empty;
+    public bool showModal;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,11 +35,45 @@ public class EmployeeList : ComponentBase
      
     }
 
-   
+    
     
     public async Task Delete(string username)
     {
-      await IRegisterService.DeleteUser(username);
+        errorLabel = "";
+        try
+        { 
+           
+            await IRegisterService.DeleteUser(username);
+            Employees = await IRegisterService.GetUsersByRole(role);
+            NavigationManager.NavigateTo("/ListOfEmployee");
+        } catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
     }
+    
+    // public void Delete()
+    // {
+    //    
+    //     
+    //         // await IRegisterService.DeleteUser(username);
+    //         showModal = true;
+    //      
+    //    
+    // }
+    //
+    // public async Task Yees(string username)
+    // {
+    //    
+    //     await IRegisterService.DeleteUser(username);
+    //     NavigationManager.NavigateTo("/ListOfEmployee");
+    //     showModal = false;
+    // }
+    //
+    // public void Proceed()
+    // {
+    //     showModal = false;
+    //    //NavigationManager.NavigateTo("/ListOfEmployee");
+    // }
 
 }
