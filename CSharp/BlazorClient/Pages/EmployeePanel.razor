@@ -50,9 +50,9 @@
                 <div>
                     <select class="orderstatus" 
                             @onchange="async args => await UpdateOrderStatusFilter(args)">
-                        <option value="ALL">All</option>
-                        <option value="DISPATCHED">Dispatched</option>
-                        <option value="CONFIRMED">Not dispatched</option>
+                        <option value="All">All</option>
+                        <option value="Dispatched">Dispatched</option>
+                        <option value="Confirmed">Not dispatched</option>
                     </select>
                 </div>
             </div>
@@ -210,13 +210,13 @@ else
     protected override async Task OnInitializedAsync()
     {
         OpenCloseFilters();
-        orderStatusFilter = "ALL";
+        orderStatusFilter = "All";
         await ApplyFilters();
     }
     
     private bool ConvertStatusToBoolean(string status)
     {
-        if (status.Equals("DISPATCHED")) return true;
+        if (status.Equals("Dispatched")) return true;
         return false;
     }
     
@@ -224,9 +224,9 @@ else
     {
         errorLabel = "";
         
-        // switching the Toggle status to "True" changes the order status to "DISPATCHED". "False" changes to "CONFIRMED" 
-        if (toggleBoolean) order.status = "DISPATCHED";
-        else order.status = "CONFIRMED";
+        // switching the Toggle status to "True" changes the order status to "Dispatched". "False" changes to "Confirmed" 
+        if (toggleBoolean) order.status = "Dispatched";
+        else order.status = "Confirmed";
         
         try
         {
@@ -244,7 +244,7 @@ else
         doShowFilters = !doShowFilters;
         if (!doShowFilters)
         {
-            orderStatusFilter = "ALL";
+            orderStatusFilter = "All";
             await ApplyFilters();
         }
     }
@@ -259,13 +259,15 @@ else
     {
         try
         {
-            if (orderStatusFilter!.Equals("ALL"))
+            if (orderStatusFilter!.Equals("All"))
             {
                 ordersToShow = await orderService.GetAllOrdersAsync();
+                ordersToShow = (from order in ordersToShow orderby order.id select order).ToList();
             }
             else
             {
-                ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);    
+                ordersToShow = await orderService.GetOrdersByStatusAsync(orderStatusFilter);
+                ordersToShow = (from order in ordersToShow orderby order.id select order).ToList();
             }
         }
         catch (Exception e)

@@ -88,13 +88,14 @@ public class OrderController : ControllerBase
             }
         }
     }
-    /*
-    [HttpGet("/Orders/OrdersById/{orderId}")]
-    public async Task<ActionResult<JoinDTO>> getOrderById(long orderId)
+    
+    [HttpGet("/Orders/OrderById/{orderId}")]
+    public async Task<ActionResult<OrdersDTO>> getOrderById(long orderId)
     {
         try
         {
-            JoinDTO order = await model.GetOrderLines(orderId);
+            var allOrders = await model.GetAllOrdersAsync();
+            OrdersDTO order = allOrders.FirstOrDefault(o => o.id == orderId)!;
             return Ok(order);
         }
         catch (Exception e)
@@ -102,5 +103,4 @@ public class OrderController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    */
 }
