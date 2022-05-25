@@ -20,6 +20,12 @@ message OrderMessage{
   string date = 3;
 
   string username = 4;
+  ///
+  string firstname = 5;
+  string lastname = 6;
+  string address = 7;
+  string phone = 8;
+  string email = 9;
 
 }
 message OrderIDMessage{

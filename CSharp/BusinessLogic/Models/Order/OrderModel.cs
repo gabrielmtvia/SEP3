@@ -28,7 +28,7 @@ public class OrderModel:IOrderModel
         return await _orderNetworking.GetAllOrdersByStatusAsync(status);
     }
 
-    public  async Task<List<JoinDTO>> GetOrderLines(long id)
+    public  async Task<List<OrderLineDTO>> GetOrderLines(long id)
     {
         return await _orderNetworking.GetOrderLines(id);
     }

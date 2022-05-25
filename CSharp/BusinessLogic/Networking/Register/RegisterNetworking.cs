@@ -30,7 +30,7 @@ public class RegisterNetworking: IRegisterNetworking
 
     public async Task<string> GetRole(string userName, string password)
     {
-        /*
+    /*    
         //////////////////////////////////////////////
      //   OrderLineDTO orderLineDto1 = new OrderLineDTO("1", 12);
         OrderLineDTO orderLineDto2 = new OrderLineDTO("1", 3);
@@ -52,6 +52,7 @@ public class RegisterNetworking: IRegisterNetworking
        //var c = new CartOrderLine();
         CartOrderLine c1 = new CartOrderLine();
       //  c.Isbn=o
+      
         var cs = new List<CartOrderLine>();
 
 
@@ -75,8 +76,8 @@ public class RegisterNetworking: IRegisterNetworking
         }
 
         });
-
-        */
+*/
+        
         /////////////////////////////////////////////////////////
         string  role = "";
      var answer=  await userClient.loginAsync(new LoginMessage{Password = password,Username = userName});

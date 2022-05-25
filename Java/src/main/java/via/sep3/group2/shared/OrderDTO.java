@@ -6,6 +6,7 @@ import com.sun.istack.Builder;
 import via.sep3.grpc.order.Order;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import static java.nio.file.attribute.FileTime.fromMillis;
 @Table (name="orders")
 
 
-public class OrderDTO {
+public class OrderDTO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -145,8 +146,8 @@ public class OrderDTO {
         //Timestamp timestamp = fromMillis(date.getNanos());
         String s = date.toLocalDateTime().toString();
         return Order.OrderMessage.newBuilder().setId(id)
-                .setStatus(status).setDate(s).setUsername(user.getUsername())/*.setFirstname(user.getFirstname())/*.setLastname(user.getLastname())
-                .setAddress(user.getAddress()).setPhone(user.getPhone()).setEmail(user.getEmail())*/
+                .setStatus(status).setDate(s).setUsername(user.getUsername()).setFirstname(user.getFirstname()).setLastname(user.getLastname())
+                .setAddress(user.getAddress()).setPhone(user.getPhone()).setEmail(user.getEmail())
                 .build();
 
         //

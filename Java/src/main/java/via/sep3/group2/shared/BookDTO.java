@@ -3,12 +3,13 @@ import org.w3c.dom.Text;
 import via.sep3.grpc.book.Book;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table (name="book")
-public class BookDTO {
+public class BookDTO implements Serializable {
     @Id
     private String isbn;
     private String title;
@@ -20,7 +21,7 @@ public class BookDTO {
     private String url;
 
 
-    @OneToMany(
+    @OneToMany(//fetch = FetchType.LAZY,
             mappedBy = "isbn",fetch = FetchType.LAZY)
     //  @MapsId("isbn")
 
@@ -89,6 +90,16 @@ public class BookDTO {
         this.genres = genres;
     }
 
+ /*   public BookDTO(String isbn, String title, String author, String edition, String description, double price, String url, Set<OrderLineDTO> orderlines) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.edition = edition;
+        this.description = description;
+        this.price = price;
+        this.url = url;
+        this.orderlines = orderlines;
+    }*/
 
     public BookDTO() {
 
@@ -175,4 +186,16 @@ public class BookDTO {
                 .setPrice(price).setUrl(url).build();
     }
 
+    @Override
+    public String toString() {
+        return "BookDTO{" +
+                "isbn='" + isbn + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", edition='" + edition + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

@@ -85,7 +85,7 @@ private BookDAO bookDAO;
         responseObserver.onCompleted();
 
         ///////////////////////////////////////
-
+/*
         Set<GenreDTO> genres = new HashSet<>();
         GenreDTO genreDTO1=new GenreDTO("Science");
         GenreDTO genreDTO2= new GenreDTO("Drama");
@@ -93,5 +93,8 @@ private BookDAO bookDAO;
         genres.add(genreDTO2);
         BookDTO bookDTO= new BookDTO("5","kkkkk","khaled","5 th edition","compiler for biginners",12.5,"url book",genres);
         bookDAO.CreateBook(bookDTO);
+
+ */
+
     }
 }

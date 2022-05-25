@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 //import via.sep3.group2.models.JoinDTO;
 //import via.sep3.group2.models.OrderLineWithCompositeKeyDTO;
 import via.sep3.group2.repository.OrderLineRepository;
+import via.sep3.group2.shared.BookDTO;
 import via.sep3.group2.shared.JoinDTO;
 import via.sep3.group2.shared.OrderLineDTO;
 
@@ -29,5 +30,8 @@ public class OrderLineDAO {
 
     public List<JoinDTO> getAllTheBooksOfAnOrder(long id){
         return orderLineWithCompositeKeyRepository.getAllTheBooksOfAnOrder(id);
+    }
+    public List<OrderLineDTO> getAllBooksByIdWithoutJoin(long id){
+        return orderLineWithCompositeKeyRepository.getAllById(id);
     }
 }

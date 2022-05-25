@@ -50,6 +50,12 @@ public class OrderLineDTO implements Serializable {
         this.qte = qte;
     }
 
+    public OrderLineDTO(Long id, String isbn, int qte, BookDTO bookDTO) {
+        this.id = id;
+        this.isbn = isbn;
+        this.qte = qte;
+        this.bookDTO = bookDTO;
+    }
 
     public int getQte() {
         return qte;

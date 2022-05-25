@@ -6,6 +6,8 @@ public class OrderLineDTO
     public string Isbn { get; set; } 
     public int Quantity { get; set; }
 
+    public Book book { get; set; }
+
     public OrderLineDTO(string isbn, int quantity)
     {
         Isbn = isbn;
@@ -21,5 +23,13 @@ public class OrderLineDTO
 
     public OrderLineDTO()
     {
+    }
+
+    public OrderLineDTO(Book book, long? serialOrder, string isbn, int quantity)
+    {
+        this.book = book;
+        SerialOrder = serialOrder;
+        Isbn = isbn;
+        Quantity = quantity;
     }
 }

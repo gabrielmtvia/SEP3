@@ -4,11 +4,12 @@ import via.sep3.grpc.order.Order;
 import via.sep3.grpc.user.User;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="users")
-public class UserDTO  {
+public class UserDTO  implements Serializable {
     @Id
     // @Column(name = "userid")
     private String username;

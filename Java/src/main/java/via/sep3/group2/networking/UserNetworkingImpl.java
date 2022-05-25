@@ -5,22 +5,29 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import via.sep3.group2.persistance.OrderLineDAO;
 import via.sep3.group2.persistance.UserDAO;
+import via.sep3.group2.shared.BookDTO;
+import via.sep3.group2.shared.OrderLineDTO;
 import via.sep3.group2.shared.UserDTO;
 import via.sep3.grpc.user.User;
 import via.sep3.grpc.user.UserServiceGrpc;
 
+import java.sql.SQLOutput;
 import java.util.List;
+import java.util.Set;
 
 
 @GrpcService
 public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
 
     private UserDAO userDAO;
+    private OrderLineDAO orderLineDAO;
 
     @Autowired
-    public UserNetworkingImpl(UserDAO userDAO) {
+    public UserNetworkingImpl(UserDAO userDAO,OrderLineDAO orderLineDAO) {
         this.userDAO = userDAO;
+        this.orderLineDAO=orderLineDAO;
     }
     @Override
     public void createUser(User.UserMessage request, StreamObserver<User.EmptyMessage> responseObserver){
@@ -48,6 +55,17 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
         roleStreamObserver.onNext(reply);
         roleStreamObserver.onCompleted();
 
+
+        System.out.println("**********---------No Join----**********************");
+        long i=4;
+        List<OrderLineDTO> ordelines=orderLineDAO.getAllBooksByIdWithoutJoin(i);
+        for (OrderLineDTO o:ordelines
+        ) {
+            System.out.println(o.getId()+", "+o.getIsbn()+", "+o.getQte()+", "+o.getBookDTO().toString());
+
+        }
+        System.out.println("**********---------No Join----**********************");
+
     }
 
     @Override
@@ -62,8 +80,11 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
             builder.addUserMessage(u.buildUserMessage());
         }
         User.ListOfUsers reply= builder.build();
+
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
+
+
     }
     @Override
     public void deleteUser(User.UserNameMessage request, StreamObserver<User.EmptyMessage> responseObserver){

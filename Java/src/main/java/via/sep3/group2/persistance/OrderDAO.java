@@ -40,7 +40,7 @@ public class OrderDAO {
      //ordersRepository.save()
     }
     public List<OrderDTO> getAllOrders(){
-        return ordersRepository.findAll();
+        return ordersRepository.findOrderDTOBy();
     }
 
     public List<OrderDTO> getAllOrdersByStatus(String status){

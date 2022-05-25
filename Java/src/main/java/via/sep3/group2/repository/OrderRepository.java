@@ -30,8 +30,10 @@ public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
    void setOrderStatus( @Param("status1")String status ,@Param("id1")long id);
 
 
-    @Query("select o from OrderDTO o where o.status = :status ")
+    @Query("select o from OrderDTO o JOIN FETCH o.user where o.status = :status ")
     List<OrderDTO> findOrdersDTOByStatus(@Param("status") String status);
 
+    @Query("select o from OrderDTO o JOIN FETCH o.user")
+    List<OrderDTO> findOrderDTOBy();
 
 }

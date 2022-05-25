@@ -27,7 +27,7 @@ public class OrderNetworking:IOrderNetworking
                id = orderProto.Id,
                date = Convert.ToDateTime(orderProto.Date),
                status = orderProto.Status,
-               user = new UserDTO(orderProto.Username/*,orderProto.Firstname,orderProto.Lastname,orderProto.Address,orderProto.Phone,orderProto.Email*/)
+               user = new UserDTO(orderProto.Username,orderProto.Firstname,orderProto.Lastname,orderProto.Address,orderProto.Phone,orderProto.Email)
                //,
                //UserDto = new UserDTO(orderProto.Username,orderProto.Firstname,orderProto.Lastname,orderProto.Email
               // ,orderProto.Address,orderProto.Phone) 
@@ -73,7 +73,7 @@ public class OrderNetworking:IOrderNetworking
                 id = orderProto.Id,
                 date = Convert.ToDateTime(orderProto.Date),
                 status = orderProto.Status,
-                user = new UserDTO(orderProto.Username/*,orderProto.Firstname,orderProto.Lastname,orderProto.Address,orderProto.Phone,orderProto.Email*/)
+                user = new UserDTO(orderProto.Username,orderProto.Firstname,orderProto.Lastname,orderProto.Address,orderProto.Phone,orderProto.Email)
                 //,
                 //UserDto = new UserDTO(orderProto.Username,orderProto.Firstname,orderProto.Lastname,orderProto.Email
                 // ,orderProto.Address,orderProto.Phone) 
@@ -88,10 +88,10 @@ public class OrderNetworking:IOrderNetworking
         return orders;
     }
 
-    public async  Task<List<JoinDTO>> GetOrderLines(long id)
+    public async  Task<List<OrderLineDTO>> GetOrderLines(long id)
     {
          
-        var  orderLines = new List<JoinDTO>();
+        var  orderLines = new List<OrderLineDTO>();
         var allOrderLinesAsync =  await  OrderServiceClient.getOrderLineAsync(new OrderIDMessage
         {
             Id= id
@@ -99,10 +99,11 @@ public class OrderNetworking:IOrderNetworking
         var orderLineMessage = allOrderLinesAsync.OrderLineMessage;
         foreach (var orderLineProto in orderLineMessage)
         {  
-            var orderline1 = new JoinDTO
-            {
-               id=orderLineProto.Id,author = orderLineProto.Author, edition = orderLineProto.Edition,isbn=orderLineProto.Isbn
-               ,description = orderLineProto.Description,price = orderLineProto.Price,qte = orderLineProto.Qte,title = orderLineProto.Title,url = orderLineProto.Url
+            var orderline1 = new OrderLineDTO
+            {  book = new Book(orderLineProto.Isbn,orderLineProto.Title,orderLineProto.Author,orderLineProto.Edition,orderLineProto.Description,orderLineProto.Url,orderLineProto.Price),SerialOrder = orderLineProto.Id,
+                Isbn=orderLineProto.Isbn,Quantity = orderLineProto.Qte
+             //  id=orderLineProto.Id,author = orderLineProto.Author, edition = orderLineProto.Edition,isbn=orderLineProto.Isbn
+            //   ,description = orderLineProto.Description,price = orderLineProto.Price,qte = orderLineProto.Qte,title = orderLineProto.Title,url = orderLineProto.Url
                
                
 

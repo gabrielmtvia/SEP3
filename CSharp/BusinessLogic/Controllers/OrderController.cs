@@ -60,11 +60,11 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet("/Orders/Orderlines/{orderId}")]
-    public async Task<ActionResult<ICollection<JoinDTO>>> GetOrderLines(long orderId)
+    public async Task<ActionResult<ICollection<OrderLineDTO>>> GetOrderLines(long orderId)
     {
         try
         {
-            ICollection<JoinDTO> items = await model.GetOrderLines(orderId);
+            ICollection<OrderLineDTO> items = await model.GetOrderLines(orderId);
             return Ok(items);
         }
         catch (Exception e)
