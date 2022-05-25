@@ -57,4 +57,17 @@ public class RegisterServiceIMP : IRegisterService
          Console.WriteLine(userDto.userName, "," + userName);
          return null;
     }
+
+    public async Task DeleteUser(string username)
+    {
+        //https://localhost:7031/Register/sher
+
+
+        HttpResponseMessage response = await _httpClient.DeleteAsync($"https://localhost:7031/Register/{username}");
+        string content =   await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error: {response.StatusCode}, {content}");
+        }
+    }
 }

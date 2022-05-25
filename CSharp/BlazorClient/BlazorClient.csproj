@@ -50,4 +50,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\DeleteConfirmation\ConfirmPage.razor" />
+    </ItemGroup>
+
 </Project>
