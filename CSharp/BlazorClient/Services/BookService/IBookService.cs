@@ -19,4 +19,7 @@ public interface IBookService
     Task <Book> GetBookByIsbnAsync(string isbn);
 
     Task AddBookAsync(Book book);
+    
+    Task<List<Book>> GetAllBooksAsync();
+    Task DeleteBookAsync(string isbn);
 }

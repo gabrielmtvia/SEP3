@@ -77,5 +77,25 @@ public class BookService : IBookService
         Console.WriteLine(result.Message);
         return result.Data;
     }
+
+    public async Task<List<Book>> GetAllBooksAsync()
+    {
+        var result = await _httpClient.GetAsync("/Book");
+        if (result.IsSuccessStatusCode)
+        {
+            var readAsStringAsync = await result.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Book>>(readAsStringAsync, new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        }
+
+        return null;
+    }
     
+    public async Task DeleteBookAsync(string isbn)
+    {
+        await _httpClient.DeleteAsync($"/Book/{isbn}");
+    }
+
 }
