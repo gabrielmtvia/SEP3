@@ -11,4 +11,6 @@ public interface IRegisterNetworking
     public Task<List<UserDTO>> GetUsersByRole(string role);
 
     public Task DeleteUser(string username);
+
+    public Task<string> UpdateUser(String oldUsername, UserDTO user);
 }

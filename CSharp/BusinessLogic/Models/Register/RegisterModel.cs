@@ -38,4 +38,9 @@ public class RegisterModel: IRegisterModel
     {
         await RegisterNetworking.DeleteUser(username);
     }
+
+    public async Task<string> UpdateUser(string oldUsername, UserDTO user)
+    {
+       return await RegisterNetworking.UpdateUser(oldUsername, user);
+    }
 }

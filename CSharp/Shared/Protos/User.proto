@@ -36,9 +36,20 @@ message UserNameMessage{
   string username = 1;
 }
 
+message UsernameExists{
+  bool exist = 1 ;
+}
+message UpdateUserMessage{
+  string username = 1;
+  UserMessage userToBeUpdated = 2 ;
+}
+
 service UserService{
   rpc createUser(UserMessage) returns(EmptyMessage);
   rpc login(LoginMessage) returns(RoleMessage);
   rpc getUsersByRole(TypeOfUsersMessage) returns (ListOfUsers);
   rpc deleteUser(UserNameMessage) returns(EmptyMessage);
+
+  rpc isUserExists(UserNameMessage) returns (UsernameExists);
+  rpc updateUser(UpdateUserMessage) returns (EmptyMessage);
 }
