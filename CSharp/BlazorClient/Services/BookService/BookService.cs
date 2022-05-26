@@ -53,13 +53,30 @@ public class BookService : IBookService
 
     
 
-    public async Task SearchBooks(string searchText)
+    public async Task SearchBooksByAuthor(string searchText)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
+        var result = await _httpClient.GetFromJsonAsync<List<Book>>($"/Book/author/{searchText}");
 
-        if (result != null && result.Data != null)
+        if (result != null)
         {
-            Books = result.Data;
+            Books = result;
+        }
+
+        if (Books.Count == 0)
+        {
+            Message = "No books found";
+        }
+        
+        BooksChanged.Invoke();
+    }
+    
+    public async Task SearchBooksByTitle(string searchText)
+    {
+        var result = await _httpClient.GetFromJsonAsync<List<Book>>($"/Book/title/{searchText}");
+
+        if (result != null)
+        {
+            Books = result;
         }
 
         if (Books.Count == 0)
