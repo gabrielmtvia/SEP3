@@ -59,23 +59,16 @@ public class CustomerOrderHistoryBase : ComponentBase
         {
             if (orderStatusFilter!.Equals("All"))
             {
-                var allorders = await orderService.GetAllOrdersAsync();
-                ordersToShow = new List<OrdersDTO>();
-                foreach (var order in allorders)
-                {
-                    if (order.user.userName.Equals(Username))
-                    {
-                        ordersToShow.Add(order);
-                    }
-                }
+                var allOrders = await orderService.GetAllOrdersByUsernameAsync(Username);
+                ordersToShow = allOrders.ToList();
             }
             else
             {
-                var ordersByStatus = await orderService.GetOrdersByStatusAsync(orderStatusFilter);
+                var allOrders = await orderService.GetAllOrdersByUsernameAsync(Username);
                 ordersToShow = new List<OrdersDTO>();
-                foreach (var order in ordersByStatus)
+                foreach (var order in allOrders)
                 {
-                    if (order.user.userName.Equals(Username))
+                    if (order.status.Equals(orderStatusFilter))
                     {
                         ordersToShow.Add(order);
                     }

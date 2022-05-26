@@ -25,6 +25,12 @@ public class OrderService : IOrderService
         return orders;
     }
 
+    public async Task<ICollection<OrdersDTO>> GetAllOrdersByUsernameAsync(string username)
+    {
+        var orders = await httpClient.GetFromJsonAsync<ICollection<OrdersDTO>>($"/OrdersUser/User/{username}");
+        return orders;
+    }
+
     public async Task<UserDTO> GetCustomer(string orderUsername)
     {
         return await httpClient.GetFromJsonAsync<UserDTO>($"/Orders/Customer/{orderUsername}");
