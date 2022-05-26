@@ -118,4 +118,50 @@ public class RegisterNetworking: IRegisterNetworking
             Username = username
         });
     }
+
+    public async Task<string> UpdateUser(string oldUsername, UserDTO user)
+    {
+        string response;
+        if (oldUsername.Equals(user.userName))
+        {
+            await userClient.updateUserAsync(new UpdateUserMessage
+            {
+             Username = oldUsername,
+             UserToBeUpdated = new UserMessage
+             {
+                 Address = user.address,Email = user.email,Firstname = user.firstName,Lastname = user.lastName,Password = user.password,Phone = user.phone,Role = user.role,Username = user.userName
+             }
+            });
+            response = "User with username:" + oldUsername+ " is Updated";
+        }
+        else
+        {
+            var findout = userClient.isUserExistsAsync(new UserNameMessage
+            {
+                Username = user.userName
+            });
+            var f1 = findout.ResponseAsync.Result.Exist;
+            if (f1.Equals(false))
+            {
+                await userClient.updateUserAsync(new UpdateUserMessage
+                {
+                    Username = oldUsername,
+                    UserToBeUpdated = new UserMessage
+                    {
+                        Address = user.address,Email = user.email,Firstname = user.firstName,Lastname = user.lastName,Password = user.password,Phone = user.phone,Role = user.role,Username = user.userName
+                    }
+                });   
+                
+                 response = "User with username: " + oldUsername+ " is Updated to the new Username: "+ user.userName; 
+            }
+            else
+            {
+                response = "The userName: " + user.userName + " is used";
+            }
+
+        }
+
+        return response;
+        
+    }
 }
