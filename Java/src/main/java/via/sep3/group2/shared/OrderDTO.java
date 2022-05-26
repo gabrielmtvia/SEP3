@@ -36,7 +36,7 @@ public class OrderDTO implements Serializable {
             // nullable=false,
             foreignKey = @ForeignKey(
                     name="username",
-                    foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE "
+                    foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE  "
             )
     )
     private UserDTO user;

@@ -1,5 +1,3 @@
-
-   
 @page "/EmployeePanel"
 @using ModelClasses
 @using UIElements
@@ -52,7 +50,7 @@
                             @onchange="async args => await UpdateOrderStatusFilter(args)">
                         <option value="ALL">All</option>
                         <option value="DISPATCHED">Dispatched</option>
-                        <option value="CONFIRMED">Not dispatched</option>
+                        <option value="Confirmed">Not dispatched</option>
                     </select>
                 </div>
             </div>
@@ -90,7 +88,7 @@ else
                     <Toggle IsDispatched="@ConvertStatusToBoolean(item.status)" Callback="@(b => ToggleStatus(b, item))"/>
                 </td>
                 <td>
-                    @item.username
+                    @item.user.userName
                 </td>                
                 <td>
                     <img src="img/document.png" class="icon" @onclick="@(() => ShowOrderDetails(item))"/>
@@ -116,18 +114,19 @@ else
                 <em>Loading...</em>
             </p>
         }
-        else if (!orderlinesToView.Any())
+        @*else if (!orderlinesToView.Any())
         {
             <p>
                 <em>The order is mt.</em>
             </p>
-        }
-        else
+        }*@
+       else
         {
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Quantity</th> <th>ISBN</th> <th>Author</th> <th>Title</th>
+
+                    <th>Quantity</th> <th>ISBN</th> <th>Title</th> <th>Edition</th><th>Author</th><th>Price</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -136,8 +135,12 @@ else
                     <tr>
                         <td>@item.Quantity</td>
                         <td>@item.Isbn</td>
-                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Author</td>
-                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Title</td>
+                        <td>@item.book.Title</td>
+                        <td>@item.book.Edition</td>
+                        <td>@item.book.Author</td>
+                        <td>@item.book.Price</td>
+                        @*<td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Author</td>
+                        <td>@booksToView.FirstOrDefault(b => b.Isbn.Equals(item.Isbn))!.Title</td>*@
                     </tr>
                 }
                 </tbody>
@@ -226,7 +229,7 @@ else
         
         // switching the Toggle status to "True" changes the order status to "DISPATCHED". "False" changes to "CONFIRMED" 
         if (toggleBoolean) order.status = "DISPATCHED";
-        else order.status = "CONFIRMED";
+        else order.status = "Confirmed";
         
         try
         {
@@ -284,9 +287,16 @@ else
 
     private async Task ShowOrderDetails(OrdersDTO order)
     {
-        customerToView = await orderService.GetCustomer(order.username);
+        foreach (OrdersDTO o in ordersToShow)
+        {
+            if (o.user.userName == order.user.userName)
+            {
+                customerToView = o.user;
+            }
+        }
+       /* customerToView = await orderService.GetCustomer(order.username);*/  
         orderlinesToView = await orderService.GetOrderLines(order.id);
-        await GatherBooksToView();
+      //  await GatherBooksToView();
         showModalWithOrderDetails = true;
     }
 
@@ -296,9 +306,10 @@ else
         {
             var book = new Book {Author = " ", Edition = " ", Isbn = " ", Title = " "};
             var result = await _bookService.GetBookByIsbnAsync(orderline.Isbn);
-
-            book = result;
-            
+          //  if (result)
+          //  {
+             //   book = result.Data;
+          //  }
             booksToView.Add(book);
         }
     }
@@ -335,3 +346,5 @@ else
         }
     }
 }
+
+

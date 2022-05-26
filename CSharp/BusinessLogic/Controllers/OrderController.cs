@@ -88,6 +88,20 @@ public class OrderController : ControllerBase
             }
         }
     }
+    
+    [HttpGet("/OrdersUser/User/{orderUsername}")]
+    public async Task<ActionResult<ICollection<OrdersDTO>>> GetAllOrdersByUsername(string orderUsername)
+    {
+        try
+        {
+            ICollection<OrdersDTO> allOrdersByUsername = await model.GetAllOrdersByUsername(orderUsername);
+            return Ok(allOrdersByUsername);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
     /*
     [HttpGet("/Orders/OrdersById/{orderId}")]
     public async Task<ActionResult<JoinDTO>> getOrderById(long orderId)

@@ -6,12 +6,13 @@ public class OrderLineDTO
     public string Isbn { get; set; } 
     public int Quantity { get; set; }
 
-    public Book book { get; set; }
+    public Book? book { get; set; } 
 
     public OrderLineDTO(string isbn, int quantity)
     {
         Isbn = isbn;
         Quantity = quantity;
+       
     }
 
     public OrderLineDTO(long? serialOrder, string isbn, int quantity)
@@ -19,10 +20,12 @@ public class OrderLineDTO
         SerialOrder = serialOrder;
         Isbn = isbn;
         Quantity = quantity;
+        
     }
 
-    public OrderLineDTO()
+    public OrderLineDTO(Book book)
     {
+        this.book = book;
     }
 
     public OrderLineDTO(Book book, long? serialOrder, string isbn, int quantity)
@@ -31,5 +34,9 @@ public class OrderLineDTO
         SerialOrder = serialOrder;
         Isbn = isbn;
         Quantity = quantity;
+    }
+
+    public OrderLineDTO()
+    {
     }
 }

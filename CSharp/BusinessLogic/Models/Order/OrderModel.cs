@@ -37,4 +37,9 @@ public class OrderModel:IOrderModel
     {
         await _orderNetworking.UpdateOrderStatus(id, status);
     }
+
+    public async Task<List<OrdersDTO>> GetAllOrdersByUsername(string username)
+    {
+        return await _orderNetworking.GetAllOrdersByUsername(username);
+    }
 }

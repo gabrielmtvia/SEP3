@@ -20,7 +20,7 @@ public class OrderLineDTO implements Serializable {
     @JoinColumn( name="isbn",
             foreignKey = @ForeignKey(
                     name="isbn",
-                    foreignKeyDefinition = "FOREIGN KEY (isbn) REFERENCES book(isbn) ON UPDATE CASCADE ON DELETE CASCADE ")
+                    foreignKeyDefinition = "FOREIGN KEY (isbn) REFERENCES book(isbn) ON UPDATE CASCADE  ")
     )
 
     private BookDTO bookDTO;

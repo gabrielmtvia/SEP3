@@ -90,4 +90,21 @@ public class OrderNetworkingImpl extends OrderServiceGrpc.OrderServiceImplBase {
 
     }
 
+    @Override
+    public void getAllOrdersByUserName(Order.OrderUsername request, StreamObserver<Order.ListOfOrdersMessage> responseObserver){
+
+        List<OrderDTO> orderDTOS=orderDAO.getOrdersByUsername(request.getUsername());
+        Order.ListOfOrdersMessage.Builder builder=Order.ListOfOrdersMessage.newBuilder();
+        // Order.OrderUserMessage.Builder builderUser=Order.OrderUserMessage.newBuilder();
+        for (OrderDTO o:orderDTOS
+        ) {
+
+            builder.addOrders(o.buildOrderMessage());
+        }
+        Order.ListOfOrdersMessage reply=builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+
+    }
+
 }
