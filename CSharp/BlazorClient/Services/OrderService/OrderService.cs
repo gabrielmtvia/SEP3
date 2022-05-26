@@ -31,11 +31,6 @@ public class OrderService : IOrderService
         return orders;
     }
 
-    public async Task<UserDTO> GetCustomer(string orderUsername)
-    {
-        return await httpClient.GetFromJsonAsync<UserDTO>($"/Orders/Customer/{orderUsername}");
-    }
-
     public async Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId)
     {
         return await httpClient.GetFromJsonAsync<ICollection<OrderLineDTO>>($"/Orders/Orderlines/{orderId}");
