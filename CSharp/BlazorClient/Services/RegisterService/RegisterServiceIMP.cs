@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using ModelClasses;
@@ -52,10 +53,30 @@ public class RegisterServiceIMP : IRegisterService
        
     }
 
-    public  Task update(UserDTO userDto, string userName)
+    public async Task<string> update( string userName, UserDTO userDto)
     {
-         Console.WriteLine(userDto.userName, "," + userName);
-         return null;
+        //https://localhost:7031/Register?username=cost
+       //  Console.WriteLine(userDto.userName, "," + userName);
+       
+       
+       
+   
+       
+       string todoAsJson = JsonSerializer.Serialize(userDto);
+       
+       StringContent content = new(todoAsJson, Encoding.UTF8, "application/json");
+
+      
+      HttpResponseMessage response = await _httpClient.PutAsync($"https://localhost:7031/Register/Update/{userName}", content);
+        
+       string responseContent = await response.Content.ReadAsStringAsync();
+       
+       if (!response.IsSuccessStatusCode)
+       {
+           throw new Exception($"Error: {response.StatusCode}, {responseContent}");
+       }
+
+       return responseContent;
     }
 
     public async Task DeleteUser(string username)
