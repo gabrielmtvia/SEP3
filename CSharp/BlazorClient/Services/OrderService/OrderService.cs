@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using ModelClasses;
 
@@ -36,7 +37,17 @@ public class OrderService : IOrderService
 
     public async Task UpdateOrderStatusAsync(OrdersDTO order)
     {
-        await httpClient.PostAsJsonAsync($"/Orders/UpdateStatus/",order);
+        UserDTO dummyUser = new UserDTO("userName", "firstName", "lastName", "email", "address", "phone", "role", "password");
+        order.user = dummyUser; 
+        order.username = "";
+        string json = JsonSerializer.Serialize(order);
+        StringContent content = new(json, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await httpClient.PostAsync("/Orders/UpdateStatus/", content);
+        string reponseContent = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error: {response.StatusCode}, {reponseContent}");
+        }
     }
 
     public async Task<OrdersDTO> GetOrderById(long orderId)
@@ -44,11 +55,11 @@ public class OrderService : IOrderService
         OrdersDTO order = new();
         try
         {
-            order = await httpClient.GetFromJsonAsync<OrdersDTO>($"/Orders/OrdersById/{orderId}");
+            order = await httpClient.GetFromJsonAsync<OrdersDTO>($"/Orders/OrderById/{orderId}");
         }
         catch (Exception e)
         {
-            // Console.WriteLine(e);
+            Console.WriteLine(e);
         }
 
         return order!;

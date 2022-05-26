@@ -49,8 +49,8 @@
     
     protected async Task Logout()
     {
-        await iAuthService.LogoutAsync();
         NavigationManager.NavigateTo("/");
+        await iAuthService.LogoutAsync();
     }
 
 

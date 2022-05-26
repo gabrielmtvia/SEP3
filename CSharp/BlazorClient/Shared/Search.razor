@@ -1,14 +1,23 @@
 ﻿@inject NavigationManager _navMgr
- @* @inject IBookService _bookService *@
+@inject IBookService _bookService 
 
 <div class="input-group">
+  <label class="input-group-text" for="inputGroupSelect01">Search by</label>
+  <select class="form-select" id="inputGroupSelect01" @bind="SelectedSearch">
+    <option selected>Choose...</option>
+    <option value="Author" >Author</option>
+    <option value="Title">Title</option>
+  </select>
+</div>
+
+@*<div class="input-group">
 <input type="search"
        list="books"
        class="form-control"
        placeholder="Search..."
        />
-</div>
-@*<div class="input-group">
+</div>*@
+<div class="input-group">
     <input @bind-value="searchText"
            @bind-value:event="oninput"
            type="search"
@@ -19,12 +28,12 @@
            @ref="searchInput"/>
     
     
-    <datalist id="books">
+    @*<datalist id="books">
         @foreach (var suggestion in suggestions)
         {
             <option>@suggestion</option>
         }
-    </datalist>
+    </datalist>*@
     <div class="input-group-append">
         <button class="btn btn-primary" @onclick="SearchBooks">
             <span class="oi oi-magnifying-glass"></span>
@@ -34,8 +43,9 @@
 @code
 {
     private string searchText = string.Empty;
-    private List<string> suggestions = new List<string>();
+    // private List<string> suggestions = new List<string>();
     protected ElementReference searchInput;
+    public string SelectedSearch { get; set; } = string.Empty;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -47,18 +57,48 @@
 
     public void SearchBooks()
     {
-        _navMgr.NavigateTo($"search/{searchText}");
+        if (SelectedSearch.Equals("Author"))
+        {
+            SearchBooksByAuthor();
+        }
+        if (SelectedSearch.Equals("Title"))
+        {
+            SearchBooksByTitle();
+            
+        }
     }
+
+    public void SearchBooksByAuthor()
+    {
+        _navMgr.NavigateTo($"/searchByAuthor/{searchText}");
+    }
+    
+    public void SearchBooksByTitle()
+    {
+        _navMgr.NavigateTo($"searchByTitle/{searchText}");
+    }
+    
 
     public async Task HandleSearch(KeyboardEventArgs args)
     {
         if (args.Key == null || args.Key.Equals("Enter"))
         {
-            SearchBooks();
+            if (SelectedSearch.Equals("Author"))
+            {
+                SearchBooksByAuthor();
+            }
+            if (SelectedSearch.Equals("Title"))
+            {
+                SearchBooksByTitle();
+            
+            }
+        
         }
-        else if (searchText.Length > 2)
-        {
-            suggestions = await _bookService.GetBookSearchSuggestionsAsync(searchText);
-        }
+            
+        
+        // else if (searchText.Length > 2)
+        // {
+        //     suggestions = await _bookService.GetBookSearchSuggestionsAsync(searchText);
+        // }
     }
-}*@
+}

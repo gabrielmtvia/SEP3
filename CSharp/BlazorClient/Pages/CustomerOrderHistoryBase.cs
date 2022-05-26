@@ -10,66 +10,125 @@ namespace BlazorClient.Pages;
 
 public class CustomerOrderHistoryBase : ComponentBase
 {
-    public string Message = string.Empty;
+    [Inject] private IOrderService orderService { get; set; }
+    public string info = String.Empty;
+    public string searchText = string.Empty;
+    protected ElementReference searchInput;
+    public string errorLabel = "";
+    public string editErrorLabel = string.Empty;
+    public string? orderStatusFilter;
+    public ICollection<OrdersDTO> ordersToShow;
+    public bool doShowFilters;
+    public bool showModalWithOrderDetails;
+    public bool showModalGeneralInfo = false;
+    public UserDTO customerToView = new();
+    public List<OrderLineDTO> orderlinesToView = new List<OrderLineDTO>();
     public string Username = string.Empty;
-    public List<ShoppingCartItem> CurrentOrder = new List<ShoppingCartItem>();
-    public List<OrdersDTO> OrderList = new List<OrdersDTO>();
-    public long CurrentSerialOrder;
-    public string CurrentOrderStatus;
-
-    [Inject] private ICartService _cartService { get; set; }
-    [Inject] private IBookService _bookService { get; set; }
-    [Inject] private IOrderService _orderService { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
-    
+
+
     protected override async Task OnInitializedAsync()
     {
-        await Load();
+        Username = authenticationStateTask.Result.User.Identity.Name;
+        OpenCloseFilters();
+        orderStatusFilter = "All";
+        await ApplyFilters();
     }
     
-    public async Task Load()
+
+    public async Task OpenCloseFilters()
     {
-        Username = authenticationStateTask.Result.User.Identity.Name;
-
-        var response = await _orderService.GetAllOrdersAsync();
-
-        foreach (var order in response)
+        doShowFilters = !doShowFilters;
+        if (!doShowFilters)
         {
-            if (order.username.Equals(Username))
+            orderStatusFilter = "All";
+            await ApplyFilters();
+        }
+    }
+    
+    public async Task UpdateOrderStatusFilter(ChangeEventArgs args)
+    {
+        searchText = "";
+        orderStatusFilter = (string) args.Value;
+        await ApplyFilters();
+    }
+    
+    public async Task ApplyFilters()
+    {
+        try
+        {
+            if (orderStatusFilter!.Equals("All"))
             {
-                OrderList.Add(order);
+                var allorders = await orderService.GetAllOrdersAsync();
+                ordersToShow = new List<OrdersDTO>();
+                foreach (var order in allorders)
+                {
+                    if (order.user.userName.Equals(Username))
+                    {
+                        ordersToShow.Add(order);
+                    }
+                }
             }
+            else
+            {
+                var ordersByStatus = await orderService.GetOrdersByStatusAsync(orderStatusFilter);
+                ordersToShow = new List<OrdersDTO>();
+                foreach (var order in ordersByStatus)
+                {
+                    if (order.user.userName.Equals(Username))
+                    {
+                        ordersToShow.Add(order);
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
         }
     }
 
-    public async Task LoadOrder(long id)
+    public async Task HideOrderDetails()
     {
-        CurrentSerialOrder = id;
-        var order = OrderList.Find(o => o.id == CurrentSerialOrder);
-        
-        if (order != null)
+        customerToView = new UserDTO();
+        orderlinesToView = new List<OrderLineDTO>();
+        showModalWithOrderDetails = false;
+    }
+
+    public async Task ShowOrderDetails(OrdersDTO order)
+    {
+        customerToView = order.user;
+        var response = await orderService.GetOrderLines(order.id);
+        orderlinesToView = response.ToList();
+        showModalWithOrderDetails = true;
+    }
+
+    public async Task SearchForAnOrderByID()
+    {
+        ordersToShow = new List<OrdersDTO>();
+        long orderId = 0;
+        try
         {
-            CurrentOrderStatus = order.status;
+            orderId = Int64.Parse(searchText);
+        }
+        catch (Exception e)
+        {
+            errorLabel = "The order number is wrong.";
+            Console.WriteLine(e);
         }
 
-        var response = await _orderService.GetOrderLines(id);
-
-        CurrentOrder = new List<ShoppingCartItem>();
-        
-        foreach (var orderLine in response)
+        var order = await orderService.GetOrderById(orderId);
+        if (order == null || order.status == null)
         {
-            var book = await _bookService.GetBookByIsbnAsync(orderLine.Isbn);
-            CurrentOrder.Add(new ShoppingCartItem()
-            {
-                Title = book.Title,
-                Author = book.Author,
-                Edition = book.Edition,
-                ImageUrl = book.ImageUrl,
-                Isbn = book.Isbn,
-                Price = book.Price,
-                Quantity = orderLine.Quantity
-            });
+            info = "No order with the ID: " + searchText;
         }
-        
+        else if(order.user.userName.Equals(Username))
+        {
+            ordersToShow.Add(order);    
+        }
+        else
+        {
+            info = "No order with the ID: " + searchText;
+        }
     }
 }

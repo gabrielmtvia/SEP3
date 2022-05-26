@@ -53,13 +53,30 @@ public class BookService : IBookService
 
     
 
-    public async Task SearchBooks(string searchText)
+    public async Task SearchBooksByAuthor(string searchText)
     {
-        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/search/{searchText}");
+        var result = await _httpClient.GetFromJsonAsync<List<Book>>($"/Book/author/{searchText}");
 
-        if (result != null && result.Data != null)
+        if (result != null)
         {
-            Books = result.Data;
+            Books = result;
+        }
+
+        if (Books.Count == 0)
+        {
+            Message = "No books found";
+        }
+        
+        BooksChanged.Invoke();
+    }
+    
+    public async Task SearchBooksByTitle(string searchText)
+    {
+        var result = await _httpClient.GetFromJsonAsync<List<Book>>($"/Book/title/{searchText}");
+
+        if (result != null)
+        {
+            Books = result;
         }
 
         if (Books.Count == 0)
@@ -77,5 +94,25 @@ public class BookService : IBookService
         Console.WriteLine(result.Message);
         return result.Data;
     }
+
+    public async Task<List<Book>> GetAllBooksAsync()
+    {
+        var result = await _httpClient.GetAsync("/Book");
+        if (result.IsSuccessStatusCode)
+        {
+            var readAsStringAsync = await result.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Book>>(readAsStringAsync, new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        }
+
+        return null;
+    }
     
+    public async Task DeleteBookAsync(string isbn)
+    {
+        await _httpClient.DeleteAsync($"/Book/{isbn}");
+    }
+
 }

@@ -33,6 +33,9 @@
       <Compile Update="Pages\AddGenreBase.cs">
         <DependentUpon>AddGenre.razor</DependentUpon>
       </Compile>
+      <Compile Update="Pages\AllBooksBase.cs">
+        <DependentUpon>AllBooks.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
