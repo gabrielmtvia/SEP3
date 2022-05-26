@@ -21,16 +21,13 @@ public class CartService : ICartService
          findBook = cart.CartOrderLineDtos.FindIndex(p => p.Isbn == orderLineDto.Isbn);
        if (findBook == -1)
        {
-            cart.CartOrderLineDtos.Add(orderLineDto);
-
-            await _localStorage.SetItemAsync("cart", cart);
-        }
+           cart.CartOrderLineDtos.Add(orderLineDto);
+       }
        else
        {
            cart.CartOrderLineDtos[findBook].Quantity++;
-           await _localStorage.SetItemAsync("cart", cart);
        }
-
+       await _localStorage.SetItemAsync("cart", cart);
         
     }
 
@@ -102,10 +99,5 @@ public class CartService : ICartService
         await _localStorage.SetItemAsync("cart", cart);
     }
     
-     public async Task<bool> isBookAlreadythere(String isbn, string username)
-   {
-       var cart = await RetrieveCart(username);
-       var findBook = cart.CartOrderLineDtos.Exists(p => p.Isbn == isbn);
-       return findBook;
-   }
+    
 }
