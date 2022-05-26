@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using ModelClasses;
 
@@ -23,11 +22,6 @@ public class OrderService : IOrderService
     {
         var orders = await httpClient.GetFromJsonAsync<ICollection<OrdersDTO>>("/Orders");
         return orders;
-    }
-
-    public async Task<UserDTO> GetCustomer(string orderUsername)
-    {
-        return await httpClient.GetFromJsonAsync<UserDTO>($"/Orders/Customer/{orderUsername}");
     }
 
     public async Task<ICollection<OrderLineDTO>> GetOrderLines(long orderId)
