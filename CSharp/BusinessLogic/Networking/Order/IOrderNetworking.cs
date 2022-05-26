@@ -12,4 +12,6 @@ public interface IOrderNetworking
 
     public Task UpdateOrderStatus(long id, string status);
 
+    public Task<List<OrdersDTO>> GetAllOrdersByUsername(string username);
+
 }

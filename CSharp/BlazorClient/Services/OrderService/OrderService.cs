@@ -39,7 +39,7 @@ public class OrderService : IOrderService
     {
         UserDTO dummyUser = new UserDTO("userName", "firstName", "lastName", "email", "address", "phone", "role", "password");
         order.user = dummyUser; 
-        order.username = "dummyUserName";
+        order.username = "";
         string json = JsonSerializer.Serialize(order);
         StringContent content = new(json, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await httpClient.PostAsync("/Orders/UpdateStatus/", content);

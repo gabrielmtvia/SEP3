@@ -54,9 +54,12 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
 
         roleStreamObserver.onNext(reply);
         roleStreamObserver.onCompleted();
+       /*
+        UserDTO user=new UserDTO("Khaled","123456","Khaled","Djamel","fdfdf","12345678","Khaled@gmail.com","anything");
+        userDAO.updateUser("Djamel",user);
+        */
 
-
-        System.out.println("**********---------No Join----**********************");
+     /*   System.out.println("**********---------No Join----**********************");
         long i=4;
         List<OrderLineDTO> ordelines=orderLineDAO.getAllBooksByIdWithoutJoin(i);
         for (OrderLineDTO o:ordelines
@@ -64,7 +67,7 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
             System.out.println(o.getId()+", "+o.getIsbn()+", "+o.getQte()+", "+o.getBookDTO().toString());
 
         }
-        System.out.println("**********---------No Join----**********************");
+        System.out.println("**********---------No Join----**********************");*/
 
     }
 
@@ -89,6 +92,28 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void deleteUser(User.UserNameMessage request, StreamObserver<User.EmptyMessage> responseObserver){
         userDAO.deleteUser(request.getUsername());
+        User.EmptyMessage build =  User.EmptyMessage.newBuilder().build();
+        responseObserver.onNext(build);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void isUserExists(User.UserNameMessage request, StreamObserver<User.UsernameExists> responseObserver){
+        boolean findOut= userDAO.isUserExist(request.getUsername());
+        User.UsernameExists reply = User.UsernameExists.newBuilder().setExist(findOut).build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateUser(User.UpdateUserMessage request, StreamObserver<User.EmptyMessage> responseObserver){
+
+
+        UserDTO userDTO= new UserDTO(request.getUserToBeUpdated().getUsername(),request.getUserToBeUpdated().getPassword(),request.getUserToBeUpdated().getFirstname()
+                                    ,request.getUserToBeUpdated().getLastname(),request.getUserToBeUpdated().getAddress(),request.getUserToBeUpdated().getPhone()
+        ,request.getUserToBeUpdated().getEmail(),request.getUserToBeUpdated().getRole());
+
+        userDAO.updateUser(request.getUsername(),userDTO);
         User.EmptyMessage build =  User.EmptyMessage.newBuilder().build();
         responseObserver.onNext(build);
         responseObserver.onCompleted();

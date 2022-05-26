@@ -12,4 +12,6 @@ public interface IOrderModel
     public Task<List<OrderLineDTO>> GetOrderLines(long id);
     
     public Task UpdateOrderStatus(long id, string status);
+    
+    public Task<List<OrdersDTO>> GetAllOrdersByUsername(string username);
 }

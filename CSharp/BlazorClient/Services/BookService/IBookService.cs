@@ -13,7 +13,8 @@ public interface IBookService
     event Action BooksChanged;
     public List<Book> Books { get; set; }
     Task GetBooksAsync(string? categoryUrl = null);
-    Task SearchBooks(string searchText);
+    Task SearchBooksByAuthor(string searchText);
+    Task SearchBooksByTitle(string searchText);
     Task<List<string>> GetBookSearchSuggestionsAsync(string searchText);
     
     Task <Book> GetBookByIsbnAsync(string isbn);

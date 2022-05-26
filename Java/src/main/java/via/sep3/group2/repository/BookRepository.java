@@ -15,6 +15,7 @@ public interface BookRepository extends JpaRepository<BookDTO, String>{
    // @Query("select b from BookDTO b where b.genres = :genre")
    // List<BookDTO> findByGenres(@Param("genre") GenreDTO genre);
 
+
    List<BookDTO> findAllByGenresIsContaining(@Param("genre") GenreDTO genre);
    // @Query("select b from BookDTO b where b.title LIKE '%title'")
    @Query("select b from BookDTO b where lower(b.title) LIKE lower(CONCAT('%',:title,'%'))")

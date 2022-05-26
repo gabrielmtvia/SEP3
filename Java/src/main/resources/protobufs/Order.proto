@@ -70,5 +70,6 @@ service OrderService {
   rpc getOrdersByStatus(OrdersByStatusMessage)returns (ListOfOrdersMessage);
   rpc getOrderLine(OrderIDMessage) returns (ListOrderLineMessage);
   rpc updateOrderStatus(ChangeStatusOfOrder) returns (EmptyOrderMessage);
+  rpc getAllOrdersByUserName(OrderUsername)returns(ListOfOrdersMessage);
 
 }

@@ -90,6 +90,7 @@ public class CartBase : ComponentBase
             {
                 Quantity = quantity,
                 Isbn = item.Isbn
+              
             };
 
             await _cartService.UpdateCart(updateQuantity, username);

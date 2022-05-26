@@ -25,6 +25,12 @@ UserDTO findByUsernameAndPassword (@Param("username")String username, @Param("pa
     @Transactional
      void deleteByUsername(@Param("username")String username);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("update UserDTO u set u.username = :#{#newuser.username},u.firstname  = :#{#newuser.username},u.lastname  = :#{#newuser.lastname} , u.address = :#{#newuser.address}, u.email  = :#{#newuser.email},u.phone  = :#{#newuser.phone},u.password  = :#{#newuser.password}  where u.username = :username")
+    void updateNewUser(@Param("username")String username, @Param("newuser")UserDTO newuser);
 
+
+    boolean existsUserDTOByUsername(@Param("username")String username);
 
 }

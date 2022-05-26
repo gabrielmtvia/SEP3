@@ -125,4 +125,33 @@ public class OrderNetworking:IOrderNetworking
             Status = status
         });
     }
+
+    public async Task<List<OrdersDTO>> GetAllOrdersByUsername(string username)
+    {
+        var  orders = new List<OrdersDTO>();
+        var allOrdersAsync =  await  OrderServiceClient.getAllOrdersByUserNameAsync(new OrderUsername
+        {
+           Username = username
+        });
+        var orderMessage = allOrdersAsync.Orders;
+        foreach (var orderProto in orderMessage)
+        {  
+            var order1 = new OrdersDTO
+            {
+               
+                id = orderProto.Id,
+                date = Convert.ToDateTime(orderProto.Date),
+                status = orderProto.Status,
+                user = new UserDTO(orderProto.Username,orderProto.Firstname,orderProto.Lastname,orderProto.Address,orderProto.Phone,orderProto.Email)
+                
+            };
+            orders.Add(order1);
+            Console.WriteLine(order1.date);
+        }
+
+        
+        
+        return orders;
+        
+    }
 }

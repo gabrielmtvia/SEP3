@@ -59,6 +59,13 @@ public class UserDAO {
     public void deleteUser(String username){
         userRepository.deleteByUsername(username);
     }
+    public void updateUser(String username, UserDTO userDTO){
+        userRepository.updateNewUser(username,userDTO);
+    }
+
+    public boolean isUserExist(String username){
+      return   userRepository.existsUserDTOByUsername(username);
+    }
 
 
 }
