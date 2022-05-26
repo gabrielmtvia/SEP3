@@ -24,6 +24,7 @@
             <div class="card-footer text-center">
                 <a href="ViewListOfEmployee/@employee.userName"  class="btn btn-primary m-1">View</a>
                 <a href="EditEmployee/@employee.userName" class="btn btn-primary m-1">Edit</a>
+            
                 @* <button class="btn btn-danger m-1" @onclick="@(() => Delete( employee.userName))"> Delete </button> *@
                 <a @onclick="@(() => Delete(employee.userName))" class="btn btn-danger m-1" >Delete</a>
               

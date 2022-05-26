@@ -14,11 +14,12 @@ public class LoginBase : ComponentBase
     [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] public IAuthService iAuthService { get; set; }
     [Inject] public IUserService IuserService{ get; set; }
-  
     [Inject] public NavigationManager NavigationManager { get; set; }
 
     public User user = new();
     private string? errorLabel = String.Empty;
+
+    
     protected async Task LoginAsync()
     {
         errorLabel = "";
@@ -27,7 +28,8 @@ public class LoginBase : ComponentBase
           
             iAuthService.LoginAsync(user.userName, user.password);
             
-          NavigationManager.NavigateTo("/PolicyExample1");
+            NavigationManager.NavigateTo("/PolicyExample1");
+          
           
          Thread.Sleep(500);
          alertMsg();
@@ -37,8 +39,10 @@ public class LoginBase : ComponentBase
           errorLabel = $"Error: {e.Message}";
         }
     }
+
+  
     
-    protected void  MovePageToRegister()
+    protected void MovePageToRegister()
     {
         NavigationManager.NavigateTo("/Register");
     }
