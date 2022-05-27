@@ -49,7 +49,7 @@ public class CartBase : ComponentBase
         
 
     }
-
+    
     public async Task CheckOut()
     {
         await _cartService.CheckOutCart(username);

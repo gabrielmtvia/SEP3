@@ -27,18 +27,22 @@ public class BookService : IBookService
 
     public async Task AddBookAsync(Book book)
     {
-        Console.WriteLine("khale   " +book.Isbn+", "+book.ImageUrl);
-       var result= await _httpClient.PostAsJsonAsync("/Book", book);
-       Console.WriteLine(result.ToString());
-    
+        await _httpClient.PostAsJsonAsync("/Book", book);
     }
 
     public async Task GetBooksAsync(string? genreUrl = null)
     {
-        // var result = genreUrl == null ? 
-        //     await _httpClient.GetFromJsonAsync<List<Book>>>("/Book") :
-        //     await _httpClient.GetFromJsonAsync<ServiceResponse<List<Book>>>($"/Book/genre/{genreUrl}");
-        var result = await _httpClient.GetFromJsonAsync<List<Book>> ("/Book");
+        var genre = String.Empty;
+        
+        if (genreUrl != null)
+        {
+            genre = genreUrl.Replace('-', ' ');
+        }
+        
+        var result = genre.Equals(string.Empty) ? 
+             await _httpClient.GetFromJsonAsync<List<Book>>("/Book") :
+             await _httpClient.GetFromJsonAsync<List<Book>>($"/Book/genre/{genre}");
+        
         if(result!=null) 
             Books = result;
         
@@ -87,14 +91,7 @@ public class BookService : IBookService
         BooksChanged.Invoke();
     }
 
-    public async Task<List<string>> GetBookSearchSuggestionsAsync(string searchText)
-    {
-        var result =
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<string>>>($"/Book/searchSuggestions/{searchText}");
-        Console.WriteLine(result.Message);
-        return result.Data;
-    }
-
+    
     public async Task<List<Book>> GetAllBooksAsync()
     {
         var result = await _httpClient.GetAsync("/Book");
