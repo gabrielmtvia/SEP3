@@ -27,7 +27,6 @@ public class RegisterBase : ComponentBase
 
     public async Task CreateAccount()
     {
-        errorLabel = "";
 
         if (userDto.password != null && userDto.confirmPassword != null)
         {
@@ -41,12 +40,11 @@ public class RegisterBase : ComponentBase
                 Alert("make sure the password matches");
             }
         }
-        else
+        else if(userDto.password == null || userDto.confirmPassword == null)
         {
             Alert("Provide the password");
         }
 
-        ;
     }
 
     protected override async Task OnInitializedAsync()
@@ -67,7 +65,7 @@ public class RegisterBase : ComponentBase
         {
             if (userDto.password.Equals(userDto.confirmPassword))
             {
-                Thread.Sleep(500);
+              
                 Alert("You have created account Successfully");
                 if (user.Identity == null)
                 {
@@ -79,12 +77,11 @@ public class RegisterBase : ComponentBase
                 }
             }
         }
+         
+        
     }
 
-    public void conf()
-    {
-    }
-
+   
     public async Task Alert(string msg)
     {
         await JsRuntime.InvokeAsync<object>("Alert", msg);

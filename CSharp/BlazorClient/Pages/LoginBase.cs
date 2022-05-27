@@ -28,7 +28,7 @@ public class LoginBase : ComponentBase
           
             iAuthService.LoginAsync(user.userName, user.password);
             
-            NavigationManager.NavigateTo("/PolicyExample1");
+            NavigationManager.NavigateTo("/");
           
           
          Thread.Sleep(500);
