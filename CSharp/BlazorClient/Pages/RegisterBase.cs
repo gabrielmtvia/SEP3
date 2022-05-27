@@ -9,37 +9,46 @@ namespace BlazorClient.Pages;
 
 public class RegisterBase : ComponentBase
 {
-    [Inject]
-    public IRegisterService _registerService { get; set; }
+    [Inject] public IRegisterService _registerService { get; set; }
     [Inject] public IAuthService iAuthService { get; set; }
-    [Inject] public IUserService IuserService{ get; set; }
+    [Inject] public IUserService IuserService { get; set; }
 
     [Inject] public NavigationManager NavigationManager { get; set; }
     [Inject] private IJSRuntime JsRuntime { get; set; }
-    
-    
-    [CascadingParameter]
-    
-    public Task<AuthenticationState> AuthState { get; set; }
+
+
+    [CascadingParameter] public Task<AuthenticationState> AuthState { get; set; }
     public IEnumerable<Claim> claims;
-    public ClaimsPrincipal user; 
+    public ClaimsPrincipal user;
     public UserDTO userDto = new();
-   
-   
-     
-  
+
 
     private string? errorLabel = String.Empty;
 
     public async Task CreateAccount()
     {
-            errorLabel = "";
-      
-           await _registerService.createUser(userDto);
-           alertMsg();
-          
+        errorLabel = "";
+
+        if (userDto.password != null && userDto.confirmPassword != null)
+        {
+            if (userDto.password.Equals(userDto.confirmPassword))
+            {
+                await _registerService.createUser(userDto);
+                alertMsg();
+            }
+            else
+            {
+                Alert("make sure the password matches");
+            }
+        }
+        else
+        {
+            Alert("Provide the password");
+        }
+
+        ;
     }
-    
+
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState authState = await AuthState;
@@ -48,28 +57,35 @@ public class RegisterBase : ComponentBase
 
         claims = user.Claims;
     }
-    
+
+
     public void alertMsg()
     {
         // string s = IuserService.GetUserAsync2(user)
-        if (userDto.userName !=null && userDto.firstName !=null && userDto.lastName !=null && userDto.phone !=null && userDto.email !=null && userDto.address !=null && userDto.password !=null)
+        if (userDto.userName != null && userDto.firstName != null && userDto.lastName != null &&
+            userDto.phone != null && userDto.email != null && userDto.address != null && userDto.password != null)
         {
-            Thread.Sleep(500);
-            Alert("You have created account Successfully");
-            if (user.Identity == null)
+            if (userDto.password.Equals(userDto.confirmPassword))
             {
-                NavigationManager.NavigateTo("/Login");
+                Thread.Sleep(500);
+                Alert("You have created account Successfully");
+                if (user.Identity == null)
+                {
+                    NavigationManager.NavigateTo("/Login");
+                }
+                else
+                {
+                    NavigationManager.NavigateTo("/ListOfEmployee");
+                }
             }
-            else
-            {
-                NavigationManager.NavigateTo("/ListOfEmployee");
-            }
-        
         }
-      
     }
 
-    private async Task Alert(string msg)
+    public void conf()
+    {
+    }
+
+    public async Task Alert(string msg)
     {
         await JsRuntime.InvokeAsync<object>("Alert", msg);
     }
