@@ -57,14 +57,14 @@ public class RegisterServiceIMP : IRegisterService
     {
         //https://localhost:7031/Register?username=cost
        //  Console.WriteLine(userDto.userName, "," + userName);
+
+
+
        
        
+       string AsJson = JsonSerializer.Serialize(userDto);
        
-   
-       
-       string todoAsJson = JsonSerializer.Serialize(userDto);
-       
-       StringContent content = new(todoAsJson, Encoding.UTF8, "application/json");
+       StringContent content = new(AsJson, Encoding.UTF8, "application/json");
 
       
       HttpResponseMessage response = await _httpClient.PutAsync($"https://localhost:7031/Register/Update/{userName}", content);

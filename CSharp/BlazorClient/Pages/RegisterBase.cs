@@ -21,16 +21,17 @@ public class RegisterBase : ComponentBase
     public IEnumerable<Claim> claims;
     public ClaimsPrincipal user;
     public UserDTO userDto = new();
-
+    public string confirmPassword;
 
     private string? errorLabel = String.Empty;
 
     public async Task CreateAccount()
     {
-
-        if (userDto.password != null && userDto.confirmPassword != null)
+     //   await _registerService.createUser(userDto);
+        
+        if (userDto.password != null && confirmPassword!= null)
         {
-            if (userDto.password.Equals(userDto.confirmPassword))
+            if (userDto.password.Equals(confirmPassword))
             {
                 await _registerService.createUser(userDto);
                 alertMsg();
@@ -40,7 +41,7 @@ public class RegisterBase : ComponentBase
                 Alert("make sure the password matches");
             }
         }
-        else if(userDto.password == null || userDto.confirmPassword == null)
+        else if(userDto.password == null || confirmPassword== null)
         {
             Alert("Provide the password");
         }
@@ -60,10 +61,12 @@ public class RegisterBase : ComponentBase
     public void alertMsg()
     {
         // string s = IuserService.GetUserAsync2(user)
+        
+        
         if (userDto.userName != null && userDto.firstName != null && userDto.lastName != null &&
             userDto.phone != null && userDto.email != null && userDto.address != null && userDto.password != null)
         {
-            if (userDto.password.Equals(userDto.confirmPassword))
+            if (userDto.password.Equals(confirmPassword))
             {
               
                 Alert("You have created account Successfully");
