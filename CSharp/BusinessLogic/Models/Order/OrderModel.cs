@@ -46,4 +46,12 @@ public class OrderModel:IOrderModel
     {
         return await _orderNetworking.GetAllOrdersByUsername(username);
     }
+
+    public async Task<OrdersDTO> GetOrderById(long orderId)
+    {
+        var orders = await GetAllOrdersAsync();
+        var order = orders.FirstOrDefault(o => o.id == orderId);
+        if (order != null) return order;
+        return new OrdersDTO();
+    }
 }
