@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
-    @Query("select o from OrderDTO o JOIN FETCH o.user where o.user.username = :username")
+    @Query("select o from OrderDTO o JOIN FETCH o.user where o.user.username = :username order by o.id desc")
     List<OrderDTO> findOrdersDTOByUser(@Param("username")String username);
 
 
@@ -33,7 +33,7 @@ public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
     @Query("select o from OrderDTO o JOIN FETCH o.user where o.status = :status ")
     List<OrderDTO> findOrdersDTOByStatus(@Param("status") String status);
 
-    @Query("select o from OrderDTO o JOIN FETCH o.user")
+    @Query("select o from OrderDTO o JOIN FETCH o.user order by o.id asc ")
     List<OrderDTO> findOrderDTOBy();
 
 }

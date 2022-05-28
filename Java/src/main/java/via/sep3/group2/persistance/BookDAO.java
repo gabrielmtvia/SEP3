@@ -44,6 +44,14 @@ public class BookDAO {
     public List<BookDTO> getAllBooksByAuthor(String author){
         return bookRepository.findByAuthor(author);
     }
+    public void deleteBookByIsbn(String isbn){
+        try{
+            bookRepository.deleteByIsbn(isbn);
+        } catch (Exception e){
+
+        }
+
+    }
 
 
 }

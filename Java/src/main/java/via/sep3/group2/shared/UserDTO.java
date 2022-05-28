@@ -6,6 +6,7 @@ import via.sep3.grpc.user.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -30,7 +31,7 @@ public class UserDTO  implements Serializable {
     @OneToMany ( cascade = CascadeType.ALL,
             mappedBy = "user",orphanRemoval = true
     )
-    private List<OrderDTO> orders ;
+    private Set<OrderDTO> orders ;
 
     public UserDTO(String username, String password, String role) {
         this.username = username;
@@ -50,7 +51,7 @@ public class UserDTO  implements Serializable {
         this.role = role;
     }
 
-    public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role, List<OrderDTO> orders) {
+    public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role, Set<OrderDTO> orders) {
         this.username = username;
         this.password = password;
         //this.birthday = birthday;
@@ -88,11 +89,11 @@ public class UserDTO  implements Serializable {
         this.role = role;
     }
 
-    public List<OrderDTO> getOrders() {
+    public Set<OrderDTO> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderDTO> orders) {
+    public void setOrders(Set<OrderDTO> orders) {
         this.orders = orders;
     }
 

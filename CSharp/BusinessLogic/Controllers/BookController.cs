@@ -106,4 +106,19 @@ public class BookController : ControllerBase
         }
     }
 
+    [HttpDelete]
+    [Route("{isbn}")]
+    public async  Task <ActionResult> DeleteBookByIsbn(string isbn)
+    {
+        try
+        {
+            await model.DeleteBookByIsbn(isbn);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
 }

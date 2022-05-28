@@ -56,6 +56,9 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
     public void getBookByIsbn(Book.BookIsbnMessage request, StreamObserver<Book.BookMessage> responseObserver){
 
      BookDTO   book=bookDAO.getBookByIsbn(request.getIsbn());
+     if(book==null){
+         book=new BookDTO("-*/01234InBs56789-*/","0","0","0","0",0,"0");
+     }
 
             Book.BookMessage reply = Book.BookMessage.newBuilder().setIsbn(book.getIsbn()).setTitle(book.getTitle()).setAuthor(book.getAuthor())
                     .setEdition(book.getEdition()).setDescription(book.getDescription()).setPrice(book.getPrice()).setUrl(book.getUrl()).build();
@@ -117,6 +120,15 @@ public class BookNetworkingImpl extends BookServiceGrpc.BookServiceImplBase {
             builder.addBooks(book.buildBookMessage());
         }
         Book.ListOfBooks reply = builder.build();
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+
+    }
+
+    @Override
+    public void deleteBook(Book.BookIsbnMessage request, StreamObserver<Book.EmptyBookMessage> responseObserver){
+        bookDAO.deleteBookByIsbn(request.getIsbn());
+        Book.EmptyBookMessage reply = Book.EmptyBookMessage.newBuilder().build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
 

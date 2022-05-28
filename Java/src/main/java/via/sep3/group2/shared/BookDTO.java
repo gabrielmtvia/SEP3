@@ -25,7 +25,7 @@ public class BookDTO implements Serializable {
             mappedBy = "isbn",fetch = FetchType.LAZY)
     //  @MapsId("isbn")
 
-    List<OrderLineDTO> orderlines;
+    Set<OrderLineDTO> orderlines;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -78,7 +78,7 @@ public class BookDTO implements Serializable {
         this.price = price;
     }
 
-    public BookDTO(String isbn, String title, String author, String edition, String description, double price, String url, List<OrderLineDTO> orderlines, Set<GenreDTO> genres) {
+    public BookDTO(String isbn, String title, String author, String edition, String description, double price, String url, Set<OrderLineDTO> orderlines, Set<GenreDTO> genres) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -171,11 +171,11 @@ public class BookDTO implements Serializable {
         this.price = price;
     }
 
-    public List<OrderLineDTO> getOrderlines() {
+    public Set<OrderLineDTO> getOrderlines() {
         return orderlines;
     }
 
-    public void setOrderlines(List<OrderLineDTO> orderlines) {
+    public void setOrderlines(Set<OrderLineDTO> orderlines) {
         this.orderlines = orderlines;
     }
     /* @OneToMany(mappedBy = "bookDTO")

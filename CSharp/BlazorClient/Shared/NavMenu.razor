@@ -15,46 +15,54 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
+        <AuthorizeView Policy="MustBeCustomer">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
+  </AuthorizeView>
+        <AuthorizeView Policy="MustBeCustomer">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="() => expandSubMenu = !expandSubMenu">
+                    <span class="oi oi-book" aria-hidden="true"></span>Genres
+                </NavLink>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="() => expandSubMenu = !expandSubMenu">
-                <span class="oi oi-book" aria-hidden="true"></span>Genres
-            </NavLink>
-
-            @if (expandSubMenu)
-            {
-                @foreach (var genre in GenreService.Genres)
+                @if (expandSubMenu)
                 {
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="@genre.Name.Replace(' ', '-')">
-                            @genre.Name
-                        </NavLink>
-                    </div>
+                    @foreach (var genre in GenreService.Genres)
+                    {
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="@genre.Name.Replace(' ', '-')">
+                                @genre.Name
+                            </NavLink>
+                        </div>
+                    }
                 }
-            }
-        </div>
-        
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AllBooks">
-                <span class="oi oi-home" aria-hidden="true"></span> Books
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddBook">
-                <span class="oi oi-home" aria-hidden="true"></span> Add Book
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddGenre">
-                <span class="oi oi-home" aria-hidden="true"></span> Add Genre
-            </NavLink>
-        </div>
-              
+            </div>
+        </AuthorizeView>
+        <AuthorizeView Policy="MustBeAdmin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AllBooks">
+                    <span class="oi oi-home" aria-hidden="true"></span> Books
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        <AuthorizeView Policy="MustBeAdmin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddBook">
+                    <span class="oi oi-home" aria-hidden="true"></span> Add Book
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        <AuthorizeView Policy="MustBeAdmin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddGenre">
+                    <span class="oi oi-home" aria-hidden="true"></span> Add Genre
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
         <AuthorizeView Policy="MustBeAdmin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Register">
@@ -62,51 +70,45 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 20 18">
                             <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                            
+
                         </svg>
                         Register An Employee
                     </span>
                     @* <span class="bi bi-person-plus-fill" aria-hidden="true">Register An Employee</span> *@
                 </NavLink>
             </div>
-        </AuthorizeView> 
+        </AuthorizeView>
         <AuthorizeView Policy="MustBeAdmin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="ListOfEmployee">
                     <span class="oi oi-person" aria-hidden="true"></span> Employees List
                 </NavLink>
             </div>
-        </AuthorizeView> 
+        </AuthorizeView>
         <AuthorizeView Policy="MustBeCustomer">
-            
+
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EditCustomer">
                     <span class="oi oi-person" aria-hidden="true"></span> Edit My Information
                 </NavLink>
             </div>
-        </AuthorizeView> 
-                
+        </AuthorizeView>
+
+
         <AuthorizeView Policy="MustBeEmployee">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EmployeePanel">
-                    <span class="oi oi-browser" aria-hidden="true"></span> Employee Panel. GET RID OF UNAUTORIZED LINK BELOW AS SOON AS "MustBeEmployee" Policy starts working again. Thanks.
+                    <span class="oi oi-browser" aria-hidden="true"></span> Employee Panel
                 </NavLink>
             </div>
         </AuthorizeView>
-                
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="EmployeePanel">
-                <span class="oi oi-browser" aria-hidden="true"></span> Employee Panel
-            </NavLink>
-        </div>
-
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="PolicyExample1">
                 <span class="oi oi-cartList-rich" aria-hidden="true"></span> Policy 1
             </NavLink>
         </div>
     </nav>
-</div>
+ </div>
 
 
 

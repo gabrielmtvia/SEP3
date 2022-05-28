@@ -39,4 +39,6 @@ service BookService {
   rpc getAllBooksByGenre(GenreBookMessage) returns (ListOfBooks);
   rpc getAllBooksByTitle(GenreBookMessage) returns (ListOfBooks);
   rpc getAllBooksByAuthor(GenreBookMessage) returns (ListOfBooks);
+
+  rpc deleteBook(BookIsbnMessage) returns (EmptyBookMessage);
 }

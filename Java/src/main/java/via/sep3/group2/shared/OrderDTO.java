@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.System.currentTimeMillis;
 import static java.nio.file.attribute.FileTime.fromMillis;
@@ -28,7 +29,7 @@ public class OrderDTO implements Serializable {
     @OneToMany(
             mappedBy = "id",fetch = FetchType.LAZY)
     //@MapsId("id")
-    private List<OrderLineDTO> orderlines;
+    private Set<OrderLineDTO> orderlines;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(
@@ -115,7 +116,7 @@ public class OrderDTO implements Serializable {
     }
 
 
-    public OrderDTO(long id, Timestamp date, String status, List<OrderLineDTO> orderlines, UserDTO user) {
+    public OrderDTO(long id, Timestamp date, String status, Set<OrderLineDTO> orderlines, UserDTO user) {
         this.id = id;
         this.date = date;
         this.status = status;
@@ -125,11 +126,11 @@ public class OrderDTO implements Serializable {
 
 
 
-    public List<OrderLineDTO> getOrderlines() {
+    public Set<OrderLineDTO> getOrderlines() {
         return orderlines;
     }
 
-    public void setOrderlines(List<OrderLineDTO> orderlines) {
+    public void setOrderlines(Set<OrderLineDTO> orderlines) {
         this.orderlines = orderlines;
     }
 
