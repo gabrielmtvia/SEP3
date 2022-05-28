@@ -16,5 +16,5 @@ public interface IBookModel
      
     public Task<List<Book>> GetBookByAuthorAsync(string author);
 
-
+    public Task DeleteBookByIsbn(string isbn);
 }

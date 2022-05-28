@@ -49,4 +49,9 @@ public class BookModel : IBookModel
     {
         return await bookNetworking.GetBookByAuthorAsync(author);
     }
+
+    public async Task DeleteBookByIsbn(string isbn)
+    {
+        await bookNetworking.DeleteBookByIsbn(isbn);
+    }
 }

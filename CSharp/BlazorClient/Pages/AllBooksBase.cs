@@ -29,6 +29,7 @@ public class AllBooksBase : ComponentBase
     public async Task DeleteBookAsync(string isbn)
     {
         await BookService.DeleteBookAsync(isbn);
+        DisplayBooks = await BookService.GetAllBooksAsync();
     }
 
     public async Task EditBookAsync(string isbn)

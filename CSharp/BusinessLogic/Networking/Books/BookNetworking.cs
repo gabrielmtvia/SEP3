@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Google.Protobuf;
 using ModelClasses;
 
 
@@ -14,52 +15,66 @@ public class BookNetworking : IBookNetworking
         this.client = client;
     }
 
-    
-    
-    public async Task AddBookAsync(Book book)
-    {
-        bool hasGenre = true;
-        foreach (ModelClasses.Genre g in book.Genres)
-        {
-            if (g.Name == "NoGenre")
-                hasGenre = false;
-        }
 
-        
-        if (hasGenre==false)
-        { 
-            await client.createBookAsync(new BookMessage
-            {
-                Isbn = book.Isbn, Author = book.Author, Description = book.Description, Edition = book.Edition,
-                Price = book.Price, Title = book.Title, Url = book.ImageUrl
-            });
-        }
-        else
-        {
-            var GenresProto = new List<GenreBookMessage>();
-            foreach (ModelClasses.Genre genre in book.Genres)
-            {
-                var genreProto = new GenreBookMessage();
-                genreProto.Type = genre.Name;
-                GenresProto.Add(genreProto);
-            }
 
-             client.createBookWithGenres(new BookGenreMessage
-                {
-                    Book = new BookMessage
-                    {
-                        Author = book.Author, Description = book.Description, Edition = book.Edition, Isbn = book.Isbn,
-                        Price = book.Price, Title = book.Title, Url = book.ImageUrl
-                    },
-                    Genres =
-                    {
-                        GenresProto.ToArray()
-                    }
+      public async Task AddBookAsync(Book book)
+      {
 
-                });
-            
-        }
-    }
+          var bookProto = await client.getBookByIsbnAsync(new BookIsbnMessage
+          {
+              Isbn = book.Isbn
+          });
+          
+          if (bookProto.Isbn.Equals("-*/01234InBs56789-*/"))
+          {
+              Console.WriteLine("NO ISBN EXISTS");
+          
+
+
+          bool hasGenre = true;
+          foreach (ModelClasses.Genre g in book.Genres)
+          {
+              if (g.Name == "NoGenre")
+                  hasGenre = false;
+          }
+
+
+          if (hasGenre == false)
+          {
+              await client.createBookAsync(new BookMessage
+              {
+                  Isbn = book.Isbn, Author = book.Author, Description = book.Description, Edition = book.Edition,
+                  Price = book.Price, Title = book.Title, Url = book.ImageUrl
+              });
+          }
+          else
+          {
+              var GenresProto = new List<GenreBookMessage>();
+              foreach (ModelClasses.Genre genre in book.Genres)
+              {
+                  var genreProto = new GenreBookMessage();
+                  genreProto.Type = genre.Name;
+                  GenresProto.Add(genreProto);
+              }
+
+              client.createBookWithGenres(new BookGenreMessage
+              {
+                  Book = new BookMessage
+                  {
+                      Author = book.Author, Description = book.Description, Edition = book.Edition, Isbn = book.Isbn,
+                      Price = book.Price, Title = book.Title, Url = book.ImageUrl
+                  },
+                  Genres =
+                  {
+                      GenresProto.ToArray()
+                  }
+
+              });
+
+          }
+
+      }
+}
 
     public async Task<Book> GetBookByIsbnAsync(string isbn)
     {
@@ -190,5 +205,15 @@ public class BookNetworking : IBookNetworking
 
         
         return books;
+    }
+
+    public async Task DeleteBookByIsbn(string isbn)
+    {
+        await client.deleteBookAsync(new BookIsbnMessage
+        {
+            Isbn = isbn
+        });
+        
+       
     }
 }
