@@ -23,7 +23,7 @@ public class UserDTO
     [Required, MinLength(5), MaxLength(13) ]
     public string password { get; set; }
     
-    public string confirmPassword  { get; set; }
+ 
  
     
     
@@ -40,6 +40,8 @@ public class UserDTO
         this.password = password;
        
     }
+   
+
 
     public UserDTO(string userName, string firstName, string password)
     {
@@ -68,5 +70,16 @@ public class UserDTO
     public UserDTO(string userName)
     {
         this.userName = userName;
+    }
+    
+    public UserDTO(string userName, string firstName, string lastName,string address,string phone,string email, string password)
+    {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
     }
 }
