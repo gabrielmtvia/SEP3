@@ -6,16 +6,16 @@ import via.sep3.grpc.user.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name="users")
 public class UserDTO  implements Serializable {
     @Id
-    // @Column(name = "userid")
+
     private String username;
     private String password;
-    // private java.sql.Date birthday;
     private String firstname;
     private String lastname;
     private String address;
@@ -42,7 +42,6 @@ public class UserDTO  implements Serializable {
     public UserDTO(String username, String password, String firstname, String lastname, String address, String phone, String email, String role) {
         this.username = username;
         this.password = password;
-        // this.birthday = birthday;
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
@@ -158,5 +157,32 @@ public class UserDTO  implements Serializable {
     public User.UserMessage buildUserMessage(){
        return User.UserMessage.newBuilder().setUsername(username).setPassword(password).setFirstname(firstname).setLastname(lastname)
                 .setAddress(address).setPhone(phone).setEmail(email).setRole(role).build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserDTO)) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return username.equals(userDTO.username) && password.equals(userDTO.password) && firstname.equals(userDTO.firstname) && lastname.equals(userDTO.lastname) && address.equals(userDTO.address) && phone.equals(userDTO.phone) && email.equals(userDTO.email) && role.equals(userDTO.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, firstname, lastname, address, phone, email, role);
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

@@ -8,6 +8,9 @@ import org.springframework.util.Assert;
 import via.sep3.group2.repository.UserRepository;
 import via.sep3.group2.shared.UserDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
@@ -20,12 +23,17 @@ class UserDAOTest {
     @Test
     void createUser() {
 
-        UserDTO userDTO=new UserDTO("a","b","CUSTOMER");
-        UserDTO userDTO2=new UserDTO("a","b","Admin");
-        repository.save(userDTO);
-        repository.save(userDTO2);
+        UserDTO userDTO=new UserDTO("a","a","a","a","a","123456789","a@.yahoo.com","Customer");
+        UserDTO userDTO2=new UserDTO("b","b","b","b","b","02587269","b@.yahoo.com","Admin");
+        repository.saveAndFlush(userDTO);
+        repository.saveAndFlush(userDTO2);
+        List<UserDTO> users= new ArrayList<>();
+        users.clear();
+        users.add(userDTO);
+        users.add(userDTO2);
 
-        Assert.isTrue(repository.findByUsernameAndPassword("a","b").getRole().equals("Admin"));
+        Assert.isTrue(repository.findAll().size()==2);
+    //    Assert.isTrue(repository.findAll().contains(users));
 
     }
 

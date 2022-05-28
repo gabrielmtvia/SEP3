@@ -5,11 +5,12 @@ import via.sep3.grpc.book.Book;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table (name="book")
-public class BookDTO implements Serializable {
+public class BookDTO {
     @Id
     private String isbn;
     private String title;
@@ -197,5 +198,18 @@ public class BookDTO implements Serializable {
                 ", price=" + price +
                 ", url='" + url + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BookDTO)) return false;
+        BookDTO bookDTO = (BookDTO) o;
+        return Double.compare(bookDTO.price, price) == 0 && isbn.equals(bookDTO.isbn) && title.equals(bookDTO.title) && author.equals(bookDTO.author) && edition.equals(bookDTO.edition) && description.equals(bookDTO.description) && url.equals(bookDTO.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn, title, author, edition, description, price, url);
     }
 }
