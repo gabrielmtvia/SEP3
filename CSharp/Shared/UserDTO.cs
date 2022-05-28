@@ -11,10 +11,10 @@ public class UserDTO
     [StringLength(20, ErrorMessage = "lastName too long (8 characters limit).")]
     public string lastName { get; set; }
     [Required]
-    [StringLength(20, ErrorMessage = "Please provide email).")]
+    [StringLength(25, ErrorMessage = "Please provide email).")]
     public string email { get; set; }
     [Required]
-    [StringLength(13, ErrorMessage = "address too long (8 characters limit).")]
+    [StringLength(25, ErrorMessage = "address too long (8 characters limit).")]
     public string address { get; set; }
     [Required]
     public string phone { get; set; }
@@ -22,6 +22,8 @@ public class UserDTO
     public string role { get; set; }
     [Required, MinLength(5), MaxLength(13) ]
     public string password { get; set; }
+    
+    public string confirmPassword  { get; set; }
  
     
     
@@ -46,6 +48,7 @@ public class UserDTO
         this.password = password;
     }
 
+ 
     public UserDTO()
     {
         

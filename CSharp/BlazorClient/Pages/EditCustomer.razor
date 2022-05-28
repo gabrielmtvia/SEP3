@@ -6,7 +6,7 @@
 @inherits EditCustomer_razor
 <h3>Edit Information</h3>
 
-
+ 
  @if (UserDtoToView != null)
  {
      <EditForm Context="myContext2"  Model="UserDtoToView" OnValidSubmit="@Update">
@@ -19,7 +19,7 @@
      <table class="changeSize" align="center" id="customers">
          <tr>
              <th>UserName:</th>
-             <td><InputText type="text" id="form2Example1" class="form-control"  @bind-Value="UserDtoToView.userName"/> @userDto.userName </td>
+             <td><InputText type="text" id="form2Example1" class="form-control"  @bind-Value="UserDtoToView.userName"/></td>
 
          </tr>
          <tr>

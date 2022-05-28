@@ -51,7 +51,9 @@
     [Inject]
     public IRegisterService IRegisterService { get; set; }
     
-    
+    [Inject] public IAuthService iAuthService { get; set; }
+
+    [Inject] private IJSRuntime JsRuntime { get; set; }
     public UserDTO userDto = new();
     
     private string role = "Employee";
@@ -96,14 +98,55 @@
 
     }
 
-    public void Update()
+    // public async Task Update()
+    // {
+    //      
+    //  await IRegisterService.update(PageuserName, UserDtoToView);
+    //
+    //     iAuthService.LogoutAsync();
+    //
+    // }
+    //
+    
+    
+    
+    
+    private string response;
+
+    public async Task Update()
     {
-         Console.WriteLine(PageuserName);
-        Console.WriteLine(UserDtoToView.userName);
-      //  IRegisterService.update(userDto, userName);
-      
-        
-       
+        response = await IRegisterService.update(PageuserName, UserDtoToView);
+        Console.WriteLine(response);
+        alertMsg();
     }
+
+
+    public void alertMsg()
+    {
+        if (response.Equals("User with username:" + PageuserName + " is Updated"))
+        {
+            Alert("The Data is updated");
+        }
+        
+        else if (response.Equals("User with username: " + PageuserName + " is Updated to the new Username: " +
+                                 UserDtoToView.userName + " Remember to Log in again to use the system"))
+        {
+            Alert("User with username: msssssssss is Updated to the new Username: mess");
+           
+        }
+        else
+        {
+            Alert(response);
+        }
+    }
+
+    private async Task Alert(string msg)
+    {
+        await JsRuntime.InvokeAsync<object>("Alert", msg);
+    }
+    
+    
+    
+    
 
 }

@@ -152,7 +152,7 @@ public class RegisterNetworking: IRegisterNetworking
                     }
                 });   
                 
-                 response = "User with username: " + oldUsername+ " is Updated to the new Username: "+ user.userName; 
+                 response = "User with username: " + oldUsername+ " is Updated to the new Username: "+ user.userName + " Remember to Log in again to use the system"; 
             }
             else
             {

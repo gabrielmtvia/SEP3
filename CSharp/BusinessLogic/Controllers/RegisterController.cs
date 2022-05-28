@@ -68,7 +68,7 @@ public class RegisterController : ControllerBase
         await _registerModelmodel.DeleteUser(username);
     }
 
-    [HttpPut]
+    [HttpPut("Update/{username}")]
    // [Route("{username},{UserDTO}")]
     public async Task<string> UpdateUser(string username, UserDTO user)
     {

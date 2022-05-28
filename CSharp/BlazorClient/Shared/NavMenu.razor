@@ -6,7 +6,7 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">BlazorClient</a>
+                <a class="navbar-brand" href="">Daintree BookShop</a>
                 <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -15,55 +15,49 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <AuthorizeView Policy="MustBeCustomer">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-  </AuthorizeView>
-        <AuthorizeView Policy="MustBeCustomer">
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="() => expandSubMenu = !expandSubMenu">
-                    <span class="oi oi-book" aria-hidden="true"></span>Genres
-                </NavLink>
 
-                @if (expandSubMenu)
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="() => expandSubMenu = !expandSubMenu">
+                <span class="oi oi-book" aria-hidden="true"></span>Genres
+            </NavLink>
+
+            @if (expandSubMenu)
+            {
+                @foreach (var genre in GenreService.Genres)
                 {
-                    @foreach (var genre in GenreService.Genres)
-                    {
-                        <div class="nav-item px-3">
-                            <NavLink class="nav-link" href="@genre.Name.Replace(' ', '-')">
-                                @genre.Name
-                            </NavLink>
-                        </div>
-                    }
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="@genre.Name.Replace(' ', '-')">
+                            @genre.Name
+                        </NavLink>
+                    </div>
                 }
-            </div>
-        </AuthorizeView>
+            }
+        </div>
+        
         <AuthorizeView Policy="MustBeAdmin">
+            
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="AllBooks">
                     <span class="oi oi-home" aria-hidden="true"></span> Books
                 </NavLink>
             </div>
-        </AuthorizeView>
-        <AuthorizeView Policy="MustBeAdmin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="AddBook">
                     <span class="oi oi-home" aria-hidden="true"></span> Add Book
                 </NavLink>
             </div>
-        </AuthorizeView>
-        <AuthorizeView Policy="MustBeAdmin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="AddGenre">
                     <span class="oi oi-home" aria-hidden="true"></span> Add Genre
                 </NavLink>
             </div>
-        </AuthorizeView>
 
-        <AuthorizeView Policy="MustBeAdmin">
+
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Register">
                     <span>
@@ -77,24 +71,23 @@
                     @* <span class="bi bi-person-plus-fill" aria-hidden="true">Register An Employee</span> *@
                 </NavLink>
             </div>
-        </AuthorizeView>
+        </AuthorizeView> 
         <AuthorizeView Policy="MustBeAdmin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="ListOfEmployee">
                     <span class="oi oi-person" aria-hidden="true"></span> Employees List
                 </NavLink>
             </div>
-        </AuthorizeView>
+        </AuthorizeView> 
         <AuthorizeView Policy="MustBeCustomer">
-
+            
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EditCustomer">
                     <span class="oi oi-person" aria-hidden="true"></span> Edit My Information
                 </NavLink>
             </div>
-        </AuthorizeView>
-
-
+        </AuthorizeView> 
+                
         <AuthorizeView Policy="MustBeEmployee">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EmployeePanel">
@@ -102,13 +95,8 @@
                 </NavLink>
             </div>
         </AuthorizeView>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="PolicyExample1">
-                <span class="oi oi-cartList-rich" aria-hidden="true"></span> Policy 1
-            </NavLink>
-        </div>
     </nav>
- </div>
+</div>
 
 
 
