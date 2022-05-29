@@ -17,14 +17,6 @@ public class CartNetworking : ICartNetworking
 
     public async Task AddCartAsync(CartLineDTO cartLineDto)
     {
-        
-      //  cartLineDto.username = username;
-       // cartLineDto.CartOrderLineDtos = orderlines;
-        
-        //////////////////////////////////////////////////////
-        //var c = new CartOrderLine();
-      //  CartOrderLine c1 = new CartOrderLine();
-        //  c.Isbn=o
         var cs = new List<CartOrderLine>();
 
 
@@ -48,37 +40,7 @@ public class CartNetworking : ICartNetworking
             }
 
         });
-
-        
-        
-        
-    /*
-       CartOrderLine c = new CartOrderLine();
-       List<CartOrderLine> cs = new List<CartOrderLine>();
-     
-
-        foreach (OrderLineDTO col in cartLineDto.CartOrderLineDtos)
-        {
-            c.Isbn= col.Isbn;
-             c.Qte= col.Quantity;
-             cs.Add(c);
-
-        }
-
-        await CartServiceClient.confirmedCartAsync(new CartMessage
-        {
-
-            Username = cartLineDto.username,
-            
-            CartOrderLine =
-            { 
-               cs.ToArray()
-            }
-
-     });
-
-*/
-   }
+    }
 
 
 

@@ -20,7 +20,6 @@ public class CustomerOrderHistoryBase : ComponentBase
     public ICollection<OrdersDTO> ordersToShow;
     public bool doShowFilters;
     public bool showModalWithOrderDetails;
-    public bool showModalGeneralInfo = false;
     public UserDTO customerToView = new();
     public List<OrderLineDTO> orderlinesToView = new List<OrderLineDTO>();
     public string Username = string.Empty;

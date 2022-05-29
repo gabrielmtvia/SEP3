@@ -19,10 +19,7 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddSingleton(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7031")});
-// builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
-// {
-//     client.BaseAddress = new Uri("https://localhost:7031");
-// });
+
 builder.Services.AddScoped<IAuthService, AuthServiceIMP>();
 builder.Services.AddScoped<IUserService, UserServiceIMP>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthenticationStateProvider>();
@@ -30,13 +27,10 @@ builder.Services.AddScoped<IBookService, BlazorClient.Services.BookService.BookS
 builder.Services.AddScoped<IGenreService, BlazorClient.Services.GenreService.GenreService>();
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
 builder.Services.AddScoped<ICartService, BlazorClient.Services.CartService.CartService>();
-//builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
+
 builder.Services.AddScoped<IRegisterService, RegisterServiceIMP>();
 builder.Services.AddScoped<IImageService, ImageService>();
-// builder.Services.AddHttpClient<IBookService, BookService>(client =>
-// {
-//     client.BaseAddress = new Uri("https://localhost:7031");
-// });
+
 builder.Services.AddScoped<IOrderService, BlazorClient.Services.OrderService.OrderService>();
 
 builder.Services.AddAuthorization(options =>
@@ -53,14 +47,7 @@ builder.Services.AddAuthorization(options =>
         a => 
             a.RequireAuthenticatedUser().RequireClaim("Role", "Employee"));
     
-    // options.AddPolicy("SecurityLevel2",
-    //     a => 
-    //         a.RequireAuthenticatedUser().RequireAssertion(context =>
-    //         {
-    //             Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));
-    //             if (levelClaim == null) return false;
-    //             return int.Parse(levelClaim.Value) >= 2;
-    //         }));
+    
 });
 
 var app = builder.Build();

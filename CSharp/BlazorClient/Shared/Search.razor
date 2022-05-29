@@ -10,13 +10,7 @@
   </select>
 </div>
 
-@*<div class="input-group">
-<input type="search"
-       list="books"
-       class="form-control"
-       placeholder="Search..."
-       />
-</div>*@
+
 <div class="input-group">
     <input @bind-value="searchText"
            @bind-value:event="oninput"
@@ -27,13 +21,6 @@
            placeholder="Search..."
            @ref="searchInput"/>
     
-    
-    @*<datalist id="books">
-        @foreach (var suggestion in suggestions)
-        {
-            <option>@suggestion</option>
-        }
-    </datalist>*@
     <div class="input-group-append">
         <button class="btn btn-primary" @onclick="SearchBooks">
             <span class="oi oi-magnifying-glass"></span>
@@ -43,7 +30,6 @@
 @code
 {
     private string searchText = string.Empty;
-    // private List<string> suggestions = new List<string>();
     protected ElementReference searchInput;
     public string SelectedSearch { get; set; } = string.Empty;
 
@@ -94,11 +80,6 @@
             }
         
         }
-            
         
-        // else if (searchText.Length > 2)
-        // {
-        //     suggestions = await _bookService.GetBookSearchSuggestionsAsync(searchText);
-        // }
     }
 }

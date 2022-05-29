@@ -10,7 +10,6 @@ public class CartBase : ComponentBase
 {
     public List<ShoppingCartItem> ShoppingCartItems = new List<ShoppingCartItem>();
     public string message = "Loading cart...";
-    public long serialOrder;
     public string username = string.Empty;
     
     [Inject] public ICartService _cartService { get; set; }

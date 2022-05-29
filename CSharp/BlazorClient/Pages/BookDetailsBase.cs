@@ -10,7 +10,6 @@ namespace BlazorClient.Pages;
 public class BookDetailsBase : ComponentBase {
     public Book? Book;
     public string Message = string.Empty;
-    public long OrderId { get; set; } 
     public string Username = string.Empty;
     [Inject] private ICartService _cartService { get; set; }
     [Inject] private IBookService _bookService { get; set; }
