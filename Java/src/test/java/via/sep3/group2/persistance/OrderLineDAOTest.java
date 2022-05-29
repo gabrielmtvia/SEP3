@@ -1,9 +1,10 @@
-package via.sep3.group2.dao;
+package via.sep3.group2.persistance;
 
+import org.springframework.util.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import via.sep3.group2.models.*;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import via.sep3.group2.repository.BookRepository;
 import via.sep3.group2.repository.OrderLineRepository;
 import via.sep3.group2.repository.OrderRepository;
@@ -12,29 +13,30 @@ import via.sep3.group2.shared.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @DataJpaTest
-class OrderLineWithCompositeKeyDAOTest {
-
+class OrderLineDAOTest {
     @Autowired
-    BookRepository bookRepository;
+    private TestEntityManager entityManager;
     @Autowired
-    OrderLineRepository orderLineRepository;
+    private BookRepository bookRepository;
+    @Autowired
+    private OrderLineRepository orderLineRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private OrderRepository ordersRepository;
-     @Autowired
-    private OrderLineRepository orderLineWithCompositeKeyRepository;
+
 
     @Test
     void createOrderLine() {
         UserDTO userDTO=new UserDTO("a","a","CUSTOMER");
         userRepository.save(userDTO);
 
-        String str = "1990-03-31";
-        Date date = Date.valueOf(str);
+
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         OrderDTO ordersDTO=new OrderDTO(timestamp ,"NOTCONFIRMED",userDTO);
@@ -46,18 +48,21 @@ class OrderLineWithCompositeKeyDAOTest {
         BookDTO book2=new BookDTO("2","C Sharp",20);
         bookRepository.save(book2);
 
-
        OrderLineDTO orderLineWithCompositeKeyDTO1=new OrderLineDTO(ordersDTO.getId(),"1",6);
         OrderLineDTO orderLineWithCompositeKeyDTO2=new OrderLineDTO(ordersDTO.getId(),"2",4);
 
+        orderLineRepository.save(orderLineWithCompositeKeyDTO1);
+        orderLineRepository.save(orderLineWithCompositeKeyDTO2);
+
+        Set<OrderLineDTO> orderlines1= new HashSet<>();
+        orderlines1.add(orderLineWithCompositeKeyDTO1);
+        orderlines1.add(orderLineWithCompositeKeyDTO2);
+
+        Assert.isTrue(orderLineRepository.findAll().containsAll(orderlines1));
 
 
-        orderLineWithCompositeKeyRepository.save(orderLineWithCompositeKeyDTO1);
-        orderLineWithCompositeKeyRepository.save(orderLineWithCompositeKeyDTO2);
 
-
-
-       List<OrderLineDTO>  orderlines =(orderLineWithCompositeKeyRepository.findAll());
+       List<OrderLineDTO>  orderlines =(orderLineRepository.findAll());
        // System.out.println(orderlines.get(0).getBookDTO());
 
         for (OrderLineDTO o:orderlines
@@ -69,7 +74,7 @@ class OrderLineWithCompositeKeyDAOTest {
 
         }
 
-        List<JoinDTO> books=orderLineWithCompositeKeyRepository.getAllTheBooksOfAnOrder(ordersDTO.getId());
+        List<JoinDTO> books=orderLineRepository.getAllTheBooksOfAnOrder(ordersDTO.getId());
 
         for (JoinDTO b:books
              ) {

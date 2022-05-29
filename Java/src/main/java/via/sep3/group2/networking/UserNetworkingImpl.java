@@ -45,8 +45,8 @@ public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
 
 
         String role=userDAO.getRole(request.getUsername(), request.getPassword());
-        if(role==null)
-            role="NO_ROLE";
+     /*   if(role==null)
+            role="NO_ROLE";*/
 
         // else role=userDAO.getRole(request.getUsername(), request.getPassword()
 

@@ -3,6 +3,7 @@ import via.sep3.grpc.cart.Cart;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orderline")
@@ -114,5 +115,18 @@ public class OrderLineDTO implements Serializable {
 
     public Cart.CartOrderLine buildCartOrderLineMessage (){
         return Cart.CartOrderLine.newBuilder().setIsbn(isbn).setQte(qte).build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderLineDTO)) return false;
+        OrderLineDTO that = (OrderLineDTO) o;
+        return qte == that.qte && id.equals(that.id) && isbn.equals(that.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isbn, qte);
     }
 }

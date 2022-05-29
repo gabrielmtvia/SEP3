@@ -1,4 +1,4 @@
-package via.sep3.group2.dao;
+package via.sep3.group2.persistance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

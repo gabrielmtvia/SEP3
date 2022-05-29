@@ -32,7 +32,7 @@ public class UserDAO {
     }
     @Nullable
     public String getRole(String username,String password)  {
-             String role=null;
+             String role="NO_ROLE";
              //////
        try {
             role=userRepository.findByUsernameAndPassword(username,password).getRole();

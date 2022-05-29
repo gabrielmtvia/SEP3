@@ -3,6 +3,7 @@ package via.sep3.group2.shared;
 import via.sep3.grpc.genre.Genre;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -44,5 +45,18 @@ public class GenreDTO {
 
     public Genre.GenreMessage buildGenreMessage(){
         return Genre.GenreMessage.newBuilder().setType(type).build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenreDTO)) return false;
+        GenreDTO genreDTO = (GenreDTO) o;
+        return type.equals(genreDTO.type) && Objects.equals(books, genreDTO.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, books);
     }
 }
