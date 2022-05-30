@@ -15,7 +15,12 @@ public class AddBookBase : ComponentBase
     [Inject] private IBookService BookService { get; set; }
     [Inject] private IImageService ImageService { set; get; }
     [Inject] private IGenreService GenreService { set; get; }
-
+    [Inject] private NavigationManager NavigationManager { set; get; }
+    
+    [Parameter] public String Isbn { set; get; }
+    public bool isDisabled = false;
+    public String buttonName = "ADD BOOK";
+    
     public Book BookToAdd = new Book();
     public List<Genre> genres = new();
     public string[] selectedGenre { get; set; } = new string[]{};
@@ -23,8 +28,14 @@ public class AddBookBase : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         genres = await GenreService.GetAllGenresAsync();
-        
-        
+
+        if (Isbn != null)
+        {
+            BookToAdd = await BookService.GetBookByIsbnAsync(Isbn);
+            isDisabled = true;
+            buttonName = "EDIT BOOK";
+            //selectedGenre = BookToAdd.Genres.Select(g => g.Name).ToArray();
+        }
     }
 
     public async Task TryAddBookAsync()
@@ -57,26 +68,18 @@ public class AddBookBase : ComponentBase
         
       
         await BookService.AddBookAsync(BookToAdd);
+        NavigationManager.NavigateTo("/AllBooks");
     }
     
     public void SelectedGenreChanged(ChangeEventArgs e)
     {
         selectedGenre = (String[]) e.Value;
     }
-    
-   /* public void SelectedGenreChanged(ChangeEventArgs obj)
-    {
-        
-        List<Genre> genres = this.genres.FindAll(genre => ((string[]) obj.Value).All(g => g.Equals(genre.Name)));
-        BookToAdd.Genres = genres;
-    }*/
-
 
     public async Task SaveImageAsync(InputFileChangeEventArgs arg)
     {
         var uploadImageAsync = await ImageService.UploadImageAsync(arg.File);
         BookToAdd.ImageUrl = uploadImageAsync;
-        // BookToAdd.ImageUrl = "dsafafda";
     }
 
    

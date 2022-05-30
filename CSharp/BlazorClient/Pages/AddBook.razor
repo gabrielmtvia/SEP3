@@ -1,5 +1,5 @@
 ﻿@page "/AddBook"
-<h3>AddBookToAdd</h3>
+@page "/EditBook/{Isbn}"
 
 @inject NavigationManager navMgr
 @inject IBookService bookService
@@ -51,7 +51,7 @@
      </div>
      
      <div class="form-outline mb-4">
-         <InputText type="text" id="bookIsbn" class="form-control"@bind-Value="BookToAdd.Isbn"/>
+         <InputText type="text" id="bookIsbn" disabled="@isDisabled" class="form-control"@bind-Value="BookToAdd.Isbn"/>
          <label class="form-label" for="bookIsbn">Book Isbn</label>
      </div>
      
@@ -65,7 +65,7 @@
          <label class="form-label" for="bookDescription">Book Description</label>
      </div>
      
-     <button type="submit" class="btn btn-primary btn-block mb-4">ADD BOOK</button>
+     <button type="submit" class="btn btn-primary btn-block mb-4">@buttonName</button>
      
  </EditForm>
  </div>
