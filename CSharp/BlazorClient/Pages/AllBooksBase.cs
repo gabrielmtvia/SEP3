@@ -34,7 +34,7 @@ public class AllBooksBase : ComponentBase
 
     public async Task EditBookAsync(string isbn)
     {
-       navManager.NavigateTo($"/AddBook/{isbn}");
+       navManager.NavigateTo($"/EditBook/{isbn}");
     }
 
 
