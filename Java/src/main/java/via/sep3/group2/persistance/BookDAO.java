@@ -19,8 +19,9 @@ public class BookDAO {
     }
 
     public void CreateBook(BookDTO bookDTO) {
-
+        if ( !bookRepository.existsById(bookDTO.getIsbn()))
         bookRepository.save(bookDTO);
+
     }
 
     public List<BookDTO> getAllBooks() {

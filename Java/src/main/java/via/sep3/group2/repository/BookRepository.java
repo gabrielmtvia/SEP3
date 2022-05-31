@@ -2,6 +2,7 @@ package via.sep3.group2.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import via.sep3.group2.shared.BookDTO;
@@ -11,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface BookRepository extends JpaRepository<BookDTO, String>{
+public interface BookRepository extends JpaRepository<BookDTO, String> {
     BookDTO findByIsbn(@Param("isbn")String isbn);
    // @Query("select b from BookDTO b where b.genres = :genre")
    // List<BookDTO> findByGenres(@Param("genre") GenreDTO genre);
