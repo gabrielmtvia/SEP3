@@ -74,7 +74,7 @@ class OrderLineDAOTest {
 
         }
 
-        List<JoinDTO> books=orderLineRepository.getAllTheBooksOfAnOrder(ordersDTO.getId());
+       /* List<JoinDTO> books=orderLineRepository.getAllTheBooksOfAnOrder(ordersDTO.getId());
 
         for (JoinDTO b:books
              ) {
@@ -86,6 +86,6 @@ class OrderLineDAOTest {
                     b.getQte()+"\n"
                     );
 
-        }
+        }*/
     }
 }
