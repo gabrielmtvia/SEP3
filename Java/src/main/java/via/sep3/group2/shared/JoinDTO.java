@@ -1,4 +1,4 @@
-package via.sep3.group2.shared;
+/*package via.sep3.group2.shared;
 
 import via.sep3.grpc.order.Order;
 
@@ -111,3 +111,4 @@ public class JoinDTO {
                 .setDescription(description).setUrl(url).setPrice(price).setQte(qte).build();
     }
 }
+*/
