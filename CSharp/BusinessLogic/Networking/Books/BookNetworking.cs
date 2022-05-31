@@ -20,14 +20,14 @@ public class BookNetworking : IBookNetworking
       public async Task AddBookAsync(Book book)
       {
 
-          var bookProto = await client.getBookByIsbnAsync(new BookIsbnMessage
+       /*   var bookProto = await client.getBookByIsbnAsync(new BookIsbnMessage
           {
               Isbn = book.Isbn
-          });
+          });*/
           
-          if (bookProto.Isbn.Equals("-*/01234InBs56789-*/"))
-          {
-              Console.WriteLine("NO ISBN EXISTS");
+        //  if (bookProto.Isbn.Equals("-*/01234InBs56789-*/"))
+         // {
+            //  Console.WriteLine("NO ISBN EXISTS");
           
 
 
@@ -73,7 +73,7 @@ public class BookNetworking : IBookNetworking
 
           }
 
-      }
+     // }
 }
 
     public async Task<Book> GetBookByIsbnAsync(string isbn)
