@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLogicServer.Models.Genre;
-using BusinessLogicServer.Service.GenreService;
+//using BusinessLogicServer.Service.GenreService;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 

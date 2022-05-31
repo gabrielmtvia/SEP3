@@ -8,6 +8,7 @@ import via.sep3.group2.persistance.OrderLineDAO;
 import via.sep3.group2.persistance.UserDAO;
 import via.sep3.group2.shared.JoinDTO;
 import via.sep3.group2.shared.OrderDTO;
+import via.sep3.group2.shared.OrderLineDTO;
 import via.sep3.group2.shared.UserDTO;
 import via.sep3.grpc.order.Order;
 import via.sep3.grpc.order.OrderServiceGrpc;
@@ -67,11 +68,17 @@ public class OrderNetworkingImpl extends OrderServiceGrpc.OrderServiceImplBase {
     @Override
     public void getOrderLine(Order.OrderIDMessage request, StreamObserver<Order.ListOrderLineMessage> responseObserver){
 
-        List<JoinDTO> orderLineList= orderLineDAO.getAllTheBooksOfAnOrder(request.getId());
+      //  List<JoinDTO> orderLineList= orderLineDAO.getAllTheBooksOfAnOrder(request.getId());
+        List<OrderLineDTO> orderLineList= orderLineDAO.getAllBooksByIdWithoutJoin(request.getId());
         Order.ListOrderLineMessage.Builder builder= Order.ListOrderLineMessage.newBuilder();
 
-        for (JoinDTO j:orderLineList
+      /*  for (JoinDTO j:orderLineList
              ) {
+            builder.addOrderLineMessage(j.buildOrderLineMessage());
+        }*/
+
+        for (OrderLineDTO j:orderLineList
+        ) {
             builder.addOrderLineMessage(j.buildOrderLineMessage());
         }
         Order.ListOrderLineMessage reply = builder.build();

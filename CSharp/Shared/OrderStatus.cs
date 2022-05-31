@@ -1,4 +1,4 @@
-﻿namespace ModelClasses;
+﻿/*namespace ModelClasses;
 
 public enum OrderStatus
 {
@@ -6,3 +6,4 @@ public enum OrderStatus
     Confirmed,
     Delivered
 }
+*/

@@ -11,10 +11,10 @@ using BusinessLogicServer.Networking.Genre;
 using BusinessLogicServer.Networking.Order;
 //using BusinessLogicServer.Networking.Orders;
 using BusinessLogicServer.Networking.Register;
-using BusinessLogicServer.Service.CartService;
-using BusinessLogicServer.Service.GenreService;
+//using BusinessLogicServer.Service.CartService;
+//using BusinessLogicServer.Service.GenreService;
 using Grpc.Net.Client;
-using IBookService = BusinessLogicServer.Service.BookService.IBookService;
+//using IBookService = BusinessLogicServer.Service.BookService.IBookService;
 
 using OrderService = BlazorClient.Services.OrderService.OrderService;
 

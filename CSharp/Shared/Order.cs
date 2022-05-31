@@ -1,4 +1,4 @@
-﻿namespace ModelClasses;
+﻿/*namespace ModelClasses;
 
 public class Order
 {
@@ -18,3 +18,4 @@ public class Order
     {
     }
 }
+*/

@@ -1,4 +1,4 @@
-﻿namespace ModelClasses;
+﻿/*namespace ModelClasses;
 
 public class OrderDTO
 {
@@ -46,3 +46,4 @@ public class OrderDTO
         this.status1 = status1;
     }
 }
+*/

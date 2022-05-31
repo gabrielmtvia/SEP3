@@ -1,5 +1,6 @@
 package via.sep3.group2.shared;
 import via.sep3.grpc.cart.Cart;
+import via.sep3.grpc.order.Order;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -128,5 +129,10 @@ public class OrderLineDTO implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, isbn, qte);
+    }
+
+    public Order.OrderLineMessage buildOrderLineMessage(){
+        return Order.OrderLineMessage.newBuilder().setId(id).setIsbn(isbn).setTitle(bookDTO.getTitle()).setAuthor(bookDTO.getAuthor()).setEdition(bookDTO.getEdition())
+                .setDescription(bookDTO.getDescription()).setUrl(bookDTO.getUrl()).setPrice(bookDTO.getPrice()).setQte(qte).build();
     }
 }

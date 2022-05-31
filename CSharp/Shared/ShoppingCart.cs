@@ -1,4 +1,4 @@
-namespace ModelClasses;
+/*namespace ModelClasses;
 
 public class ShoppingCart
 {
@@ -15,3 +15,4 @@ public class ShoppingCart
     {
     }
 }
+*/

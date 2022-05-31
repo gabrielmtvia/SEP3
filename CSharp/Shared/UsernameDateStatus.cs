@@ -1,4 +1,4 @@
-﻿namespace ModelClasses;
+﻿/*namespace ModelClasses;
 
 public class UsernameDateStatus
 {
@@ -6,3 +6,4 @@ public class UsernameDateStatus
     public string Date { get; set; }
     public OrderStatus Status { get; set; }
 }
+*/

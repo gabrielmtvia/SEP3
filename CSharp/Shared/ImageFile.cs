@@ -1,4 +1,4 @@
-﻿namespace ModelClasses;
+﻿/*namespace ModelClasses;
 
 public class ImageFile
 {
@@ -6,3 +6,4 @@ public class ImageFile
     public string ContentType { set; get; }
     public string FileName { set; get; }
 }
+*/

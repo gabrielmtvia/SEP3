@@ -1,4 +1,4 @@
-namespace ModelClasses;
+/*namespace ModelClasses;
 
 public class JoinDTO
 {
@@ -28,4 +28,4 @@ public class JoinDTO
         this.url = url;
         this.qte = qte;
     }
-}
+}*/

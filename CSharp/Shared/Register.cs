@@ -1,4 +1,4 @@
-namespace ModelClasses;
+/*namespace ModelClasses;
 
 public class Register
 {
@@ -28,4 +28,5 @@ public class Register
         this.createPassword = createPassword;
         this.confirmPassword = confirmPassword;
     }
-}
+
+*/
