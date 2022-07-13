@@ -4,6 +4,7 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import via.sep3.group2.persistance.GenreDAO;
+import via.sep3.group2.persistance.IGenreDAO;
 import via.sep3.group2.shared.GenreDTO;
 import via.sep3.grpc.genre.Genre;
 import via.sep3.grpc.genre.GenreServiceGrpc;
@@ -13,10 +14,10 @@ import java.util.List;
 @GrpcService
 public class GenreNetworkingImpl extends GenreServiceGrpc.GenreServiceImplBase {
 
-    private GenreDAO genreDAO;
+    private IGenreDAO genreDAO;
 
     @Autowired
-    public GenreNetworkingImpl(GenreDAO genreDAO) {
+    public GenreNetworkingImpl(IGenreDAO genreDAO) {
         this.genreDAO = genreDAO;
     }
 

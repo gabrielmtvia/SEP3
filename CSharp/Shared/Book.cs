@@ -27,7 +27,7 @@ namespace ModelClasses;
         //  [Column(TypeName = "decimal(18,2)")]
         public double Price { get; set; }
        // [Required]
-        public List<Genre> Genres { get; set; }
+        public List<Genre>? Genres { get; set; }
 
         public Book()
         {

@@ -14,9 +14,9 @@ import via.sep3.group2.shared.UserDTO;
 import java.util.List;
 
 @Repository
-public class UserDAO {
+public class UserDAO implements IUserDAO {
 
-   // @Autowired
+    //@Autowired
     private UserRepository userRepository;
    // private UserDTO userDTO;
     @Autowired
@@ -24,12 +24,14 @@ public class UserDAO {
     {
         this.userRepository=userRepository;
     }
+    @Override
     public void createUser(UserDTO userDTO) {
         try {
             userRepository.save(userDTO);
         } catch (Exception e) {
         }
     }
+    @Override
     @Nullable
     public String getRole(String username,String password)  {
              String role="NO_ROLE";
@@ -43,26 +45,27 @@ public class UserDAO {
 
         return role;
     }
-
+    @Override
     public void updateUsernameOfUser(String newUsername,String username){
         userRepository.setUsernameForUser(newUsername,username);
     }
-
+    @Override
     public UserDTO findUserByUsername(String username){
         return userRepository.findByUsername(username);
     }
-
+    @Override
     public List<UserDTO> getUsersByRole(String role){
         return userRepository.findByRole(role);
     }
-
+    @Override
     public void deleteUser(String username){
         userRepository.deleteByUsername(username);
     }
+    @Override
     public void updateUser(String username, UserDTO userDTO){
         userRepository.updateNewUser(username,userDTO);
     }
-
+    @Override
     public boolean isUserExist(String username){
       return   userRepository.existsUserDTOByUsername(username);
     }

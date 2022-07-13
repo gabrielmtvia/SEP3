@@ -13,17 +13,18 @@ import via.sep3.group2.shared.OrderLineDTO;
 import java.util.List;
 
 @Repository
-public class OrderLineDAO {
+public class OrderLineDAO  implements IOrderLineDAO{
    private OrderLineRepository orderLineWithCompositeKeyRepository;
     @Autowired
 
     public OrderLineDAO(OrderLineRepository orderLineWithCompositeKeyRepository) {
         this.orderLineWithCompositeKeyRepository = orderLineWithCompositeKeyRepository;
     }
-
+    @Override
     public void createOrderLine(OrderLineDTO orderLineWithCompositeKeyDTO){
         orderLineWithCompositeKeyRepository.saveAndFlush(orderLineWithCompositeKeyDTO);
     }
+    @Override
     public List<OrderLineDTO> getAllOrderLines(){
         return  orderLineWithCompositeKeyRepository.findAll();
     }
@@ -31,6 +32,7 @@ public class OrderLineDAO {
     /*public List<JoinDTO> getAllTheBooksOfAnOrder(long id){
         return orderLineWithCompositeKeyRepository.getAllTheBooksOfAnOrder(id);
     }*/
+    @Override
     public List<OrderLineDTO> getAllBooksByIdWithoutJoin(long id){
         return orderLineWithCompositeKeyRepository.getAllById(id);
     }

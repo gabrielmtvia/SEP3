@@ -67,7 +67,14 @@ public class OrderDTO implements Serializable {
         this.status = status;
       //  this.user = user;
     }
-   /* public OrdersDTO(Date date, String status, String username) {
+
+    public OrderDTO(Timestamp date, String status, Set<OrderLineDTO> orderlines, UserDTO user) {
+        this.date = date;
+        this.status = status;
+        this.orderlines = orderlines;
+        this.user = user;
+    }
+/* public OrdersDTO(Date date, String status, String username) {
         this.date = date;
         this.status = status;
         this.user = username;

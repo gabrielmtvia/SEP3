@@ -5,6 +5,7 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import via.sep3.group2.persistance.IUserDAO;
 import via.sep3.group2.persistance.OrderLineDAO;
 import via.sep3.group2.persistance.UserDAO;
 import via.sep3.group2.shared.BookDTO;
@@ -21,13 +22,13 @@ import java.util.Set;
 @GrpcService
 public class UserNetworkingImpl extends UserServiceGrpc.UserServiceImplBase {
 
-    private UserDAO userDAO;
-    private OrderLineDAO orderLineDAO;
+    private IUserDAO userDAO;
+  //  private OrderLineDAO orderLineDAO;
 
     @Autowired
-    public UserNetworkingImpl(UserDAO userDAO,OrderLineDAO orderLineDAO) {
+    public UserNetworkingImpl(IUserDAO userDAO/*,OrderLineDAO orderLineDAO*/) {
         this.userDAO = userDAO;
-        this.orderLineDAO=orderLineDAO;
+      //  this.orderLineDAO=orderLineDAO;
     }
     @Override
     public void createUser(User.UserMessage request, StreamObserver<User.EmptyMessage> responseObserver){

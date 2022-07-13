@@ -3,9 +3,7 @@ package via.sep3.group2.networking;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import via.sep3.group2.persistance.OrderDAO;
-import via.sep3.group2.persistance.OrderLineDAO;
-import via.sep3.group2.persistance.UserDAO;
+import via.sep3.group2.persistance.*;
 //import via.sep3.group2.shared.JoinDTO;
 import via.sep3.group2.shared.OrderDTO;
 import via.sep3.group2.shared.OrderLineDTO;
@@ -17,11 +15,11 @@ import java.util.List;
 
 @GrpcService
 public class OrderNetworkingImpl extends OrderServiceGrpc.OrderServiceImplBase {
-    private OrderDAO orderDAO;
-    private OrderLineDAO orderLineDAO;
-    private UserDAO userDAO;
+    private IOrderDAO orderDAO;
+    private IOrderLineDAO orderLineDAO;
+    private IUserDAO userDAO;
     @Autowired
-    public OrderNetworkingImpl(OrderDAO orderDAO, OrderLineDAO orderLineDAO,UserDAO userDAO ) {
+    public OrderNetworkingImpl(IOrderDAO orderDAO, IOrderLineDAO orderLineDAO,IUserDAO userDAO ) {
         this.orderDAO = orderDAO;
         this.orderLineDAO = orderLineDAO;
         this.userDAO=userDAO;

@@ -16,11 +16,11 @@ import java.util.Set;
 
 @GrpcService
 public class CartNetworkingImpl extends CartServiceGrpc.CartServiceImplBase {
-private UserDAO userDAO;
-private OrderDAO ordersDAO;
-private OrderLineDAO orderLineDAO;
-private GenreDAO genreDAO;
-private BookDAO bookDAO;
+private IUserDAO userDAO;
+private IOrderDAO ordersDAO;
+private IOrderLineDAO orderLineDAO;
+private IGenreDAO genreDAO;
+private IBookDAO bookDAO;
 
 @Autowired
 
@@ -30,9 +30,9 @@ private BookDAO bookDAO;
         this.userDAO=userDAO;
     }*/
 
-    public CartNetworkingImpl(UserDAO userDAO, OrderDAO ordersDAO, OrderLineDAO orderLineDAO, GenreDAO genreDAO, BookDAO bookDAO) {
+    public CartNetworkingImpl(IUserDAO userDAO, IOrderDAO orderDAO, IOrderLineDAO orderLineDAO, IGenreDAO genreDAO, IBookDAO bookDAO) {
         this.userDAO = userDAO;
-        this.ordersDAO = ordersDAO;
+        this.ordersDAO = orderDAO;
         this.orderLineDAO = orderLineDAO;
         this.genreDAO = genreDAO;
         this.bookDAO = bookDAO;
@@ -77,6 +77,31 @@ private BookDAO bookDAO;
         }
 
        ordersDAO.updateStatusOfOrder(id,"Confirmed");
+
+
+
+        /*Set<OrderLineDTO> cartOrderLine = new HashSet<>();
+        int i=0;
+        for (Cart.CartOrderLine cartOrderLineProto:request.getCartOrderLineList()
+        ) {
+            System.out.println("++++++++++++++++++++++++++++++++++++");
+
+            cartOrderLine.add(new OrderLineDTO(cartOrderLineProto.getIsbn(),cartOrderLineProto.getQte()));
+           // System.out.println( cartOrderLine.get(i).getIsbn()+", "+cartOrderLine.get(i).getQte());
+           // i++;
+            System.out.println("++++++++++++++++++++++++++++++++++++");
+        }
+        //////////
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println("+++++++++++++TimesStamp+++++++++++");
+        System.out.println(timestamp);
+        System.out.println("+++++++++++++TimesStamp+++++++++++");
+        UserDTO userDTO= userDAO.findUserByUsername(username);
+
+        OrderDTO order= new OrderDTO(timestamp,"Confirmed",cartOrderLine,userDTO);
+        ordersDAO.createOrder(order);*/
+
+
 
 
 
